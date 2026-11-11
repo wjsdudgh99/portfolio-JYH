@@ -6,12 +6,12 @@
 
 ## 기본 정보
 
-- 이름: 홍길동
-- 영문 이름: Gildong Hong
-- 한 줄 정체성: 구조를 설명할 줄 아는 유니티 클라이언트 개발자
-- 이메일: you@example.com
-- GitHub: https://github.com/your-id
-- 기타 링크: 블로그 https://your-blog.example.com
+- 이름: 전영호
+- 영문 이름: YeongHo Jeon
+- 한 줄 정체성: 작은 먼지도 찾아 청소하는 QA 담당자
+- 이메일: wjsdudgh99@naver.com
+- GitHub: https://github.com/wjsdudgh99
+- 기타 링크: 유튜브 : https://www.youtube.com/channel/UCJztK_eTzGq4oqU3h8ECZMg 
 
 ## 자기소개
 
