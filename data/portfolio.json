@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-12",
+  "generatedAt": "2026-11-14",
   "profile": {
     "name": "전영호",
     "nameEn": "YeongHo Jeon",
@@ -13,6 +13,26 @@
     "layout": "project",
     "accent": "#2F6FEB"
   },
-  "skills": [],
-  "projects": []
+  "skills": [
+    {
+      "name": "Unity",
+      "evidence": [
+        { "text": "카메라 2대를 같은 시점으로 움직이는 분할 화면 동기화 카메라", "project": "1-3d-project-youre-right" },
+        { "text": "Raycast·PlayArea로 정답·오답·무반응 3단계 클릭 판정", "project": "1-3d-project-youre-right" }
+      ]
+    },
+    {
+      "name": "C#",
+      "evidence": [
+        { "text": "4096방향 광선으로 회전 대칭을 판정하는 에디터 검사 도구(StageValidator)", "project": "1-3d-project-youre-right" }
+      ]
+    },
+    {
+      "name": "디자인 패턴",
+      "evidence": [
+        { "text": "판정 이벤트 구독으로 반짝임·HUD·효과음을 판정 코드와 분리", "project": "1-3d-project-youre-right" }
+      ]
+    }
+  ],
+  "projects": ["1-3d-project-youre-right"]
 }
