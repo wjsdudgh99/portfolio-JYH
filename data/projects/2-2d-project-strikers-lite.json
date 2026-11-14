@@ -1,0 +1,320 @@
+{
+  "schemaVersion": 2,
+  "id": "2-2d-project-strikers-lite",
+  "doc": "Strikers Lite 기술 문서.md",
+  "title": "Strikers Lite",
+  "tagline": "60초를 버티면 보스가 내려오는 세로 화면 2D 비행 슈팅 게임",
+  "cover": "images/cover.png",
+  "team": { "type": "solo", "size": "1인", "role": "" },
+  "meta": [
+    { "label": "장르", "value": "세로 화면 2D 비행 슈팅 게임" },
+    { "label": "기간", "value": "2026.06.24 ~ 2026.07.07 (2주)" },
+    { "label": "인원", "value": "개인 프로젝트" },
+    { "label": "환경", "value": "Unity 6000.3.15f1, URP 2D 17.3, Input System 1.19, TextMeshPro, C#" }
+  ],
+  "tags": ["Unity 6", "URP 2D", "C#", "코루틴", "싱글톤", "OnTriggerStay2D"],
+  "links": {
+    "github": "https://github.com/KooHoo-Dev/3rd-2D-Project-wjsdudgh99",
+    "video": "",
+    "extra": []
+  },
+  "intent": {
+    "text": "슈팅 게임은 수십 개의 총알·적이 동시에 부딪히고 사라지는 장르입니다. 만들면서 부딪힌 문제는 세 가지였습니다.",
+    "verbatim": true
+  },
+  "highlights": [
+    {
+      "title": "스테이지 흐름 관리 (GameManager)",
+      "what": "카운트다운·60초 생존·보스전·결과 네 단계를 GameManager 한 곳에서 전환합니다.",
+      "how": "단계 전환을 씬 싱글톤 GameManager에 모으고, 생존 시간이 0초가 되면 플래그로 SpawnBossStage()를 한 번만 불러 스포너 끄기 → 남은 적 제거 → 보스 생성 순으로 처리합니다.",
+      "why": "적·보스·아이템이 실행 중에 Instantiate로 생겨 인스펙터 연결이 어렵고, 알릴 일이 네 가지뿐이라 이벤트 대신 씬 싱글톤을 택했습니다.",
+      "section": "3.3 핵심 동작: 생존 타이머와 보스전 전환",
+      "image": { "src": "images/boss_intro.gif", "w": 288, "h": 512, "caption": "60초 생존 뒤 보스 등장" }
+    },
+    {
+      "title": "플레이어 전투 — 피격·무적·아이템",
+      "what": "적·총알·레이저에 닿으면 체력이 1 줄고, 맞은 뒤 2초 동안 깜빡이며 무적이며, 아이템으로 무기와 체력을 올립니다.",
+      "how": "OnTriggerStay2D에서 아이템 처리 → 무적 검사 → 피격 순으로 판정하고, 무적 시간은 깜빡임 코루틴이 끝나는 2초로 정했습니다.",
+      "why": "계속 머무는 보스 레이저가 무적이 끝난 뒤에도 맞게 하려고, OnTriggerEnter2D 대신 OnTriggerStay2D + 2초 무적 플래그를 택했습니다.",
+      "section": "4.3 핵심 동작: 판정 순서와 무적 시간",
+      "image": { "src": "images/hit_blink.gif", "w": 288, "h": 512, "caption": "적과 부딪히거나 총알에 맞으면 체력 -1" }
+    },
+    {
+      "title": "보스 공격 패턴",
+      "what": "보스가 좌우로 순찰하며 부채꼴 연사·시계 방향·반시계 방향·레이저 4가지 패턴을 번갈아 씁니다.",
+      "how": "패턴 하나를 코루틴 하나로 만들고, 같은 패턴을 3번 반복한 뒤 Random.Range(0, 4)로 다음 패턴을 고릅니다.",
+      "why": "패턴의 본질이 '몇 도로, 몇 초 간격으로, 몇 발'이라는 순서라, Update 타이머 대신 순서가 코드로 그대로 읽히는 코루틴을 택했습니다.",
+      "section": "5.1 구조: 패턴이 고르고 반복되는 방식",
+      "image": { "src": "images/boss_patterns.gif", "w": 288, "h": 512, "caption": "보스 공격 패턴 — 부채꼴 연사, 회전 연사, 레이저" }
+    }
+  ],
+  "troubleshooting": [
+    {
+      "title": "무적 중에 아이템을 먹지 못함",
+      "problem": "적이나 총알에 맞아 깜빡이는 2초 동안 체력·무기 아이템에 닿아도 먹어지지 않았습니다.",
+      "cause": "OnTriggerStay2D의 맨 위에 무적 검사를 두어, 그 아래 있던 아이템 처리까지 함께 건너뛰고 있었습니다.",
+      "solution": "아이템 처리를 무적 검사 위로 옮겼습니다.",
+      "result": "무적 중에도 아이템 획득, 피격만 무시",
+      "lesson": "",
+      "section": "6.2 문제 해결 경험 (Troubleshooting)"
+    },
+    {
+      "title": "일반 적이 보이지 않고 점수만 1초에 100점씩 오름",
+      "problem": "일반 적이 화면에 나타나지 않는데, 점수는 혼자 계속 올라갔습니다.",
+      "cause": "격추 시 실행해야 할 AddScore(100)과 Destroy(gameObject)를 OnTriggerEnter2D가 아니라 Update 안에 써서, 적이 생성된 첫 프레임에 스스로 점수를 올리고 사라졌습니다.",
+      "solution": "두 줄을 OnTriggerEnter2D의 PlayerBullet 충돌 분기 안으로 옮겼습니다.",
+      "result": "",
+      "lesson": "\"매 프레임 할 일(이동)\"과 \"사건이 일어났을 때 할 일(피격)\"을 나눠 쓰는 습관이 생겼습니다.",
+      "section": "6.2 문제 해결 경험 (Troubleshooting)"
+    },
+    {
+      "title": "3방향 적이 오른쪽으로 기울지 않음",
+      "problem": "3방향 적이 왼쪽으로 갈 때는 기우는데, 오른쪽으로 갈 때는 기울지 않았습니다.",
+      "cause": "애니메이터 전이 조건은 Move가 -1 / 0 / 1과 같을 때인데, 코드는 오른쪽에 2, 왼쪽에 1을 넘기고 있었습니다.",
+      "solution": "플레이어와 같은 규칙(왼쪽 -1 · 정지 0 · 오른쪽 1)으로 값을 맞추고, 같은 값이면 다시 넣지 않는 검사를 더했습니다.",
+      "result": "",
+      "lesson": "애니메이터 파라미터 값은 코드와 에디터 두 곳에 나뉘어 있어, 한쪽만 보면 원인이 보이지 않는다는 것을 배웠습니다.",
+      "section": "6.2 문제 해결 경험 (Troubleshooting)"
+    }
+  ],
+  "screenshots": [
+    { "src": "images/boss_intro.gif", "w": 288, "h": 512, "caption": "60초 생존 뒤 보스 등장" },
+    { "src": "images/result.png", "w": 1232, "h": 1080, "caption": "결과 화면 — VICTORY와 GAME OVER" },
+    { "src": "images/hit_blink.gif", "w": 288, "h": 512, "caption": "적과 부딪히거나 총알에 맞으면 체력 -1" },
+    { "src": "images/weapon_level.gif", "w": 288, "h": 512, "caption": "무기 강화 아이템으로 총알이 1발에서 3발로" },
+    { "src": "images/boss_patterns.gif", "w": 288, "h": 512, "caption": "보스 공격 패턴 — 부채꼴 연사, 회전 연사, 레이저" }
+  ],
+  "retro": {
+    "achieved": [
+      "기획한 한 판의 흐름(카운트다운 → 60초 생존 → 보스전 → 결과 → 재시작)을 2주(커밋 38개) 안에 완성하고 Windows 빌드까지 만듦",
+      "보스전에 일반 적 0, 게임 종료 뒤 점수 변화 0, 재시작은 씬 다시 로드로 초기화 코드 없이 처리",
+      "1.5초 레이저 안에서도 피격은 1회, 무적 중에도 아이템 획득",
+      "보스 패턴 4종, 새 패턴은 함수 1개 + 분기 1줄로 추가"
+    ],
+    "regrets": [
+      "플레이어가 보스에 몸으로 부딪히면 보스가 사라지고 VICTORY가 뜨지 않을 수 있음",
+      "총알·적·이펙트를 매번 생성·파괴하는데 프레임·GC를 측정하지 않음",
+      "화면 경계 숫자가 6개 파일에 직접 적혀 있음",
+      "GameManager가 단계 전환·점수·UI·결과 창·씬 이동을 모두 맡고 5개 클래스가 직접 의존"
+    ],
+    "plans": [
+      "보스에 별도 태그(Boss)를 주고, 부딪히면 플레이어만 피해를 받게 분리",
+      "프로파일러로 보스전 GC 할당을 먼저 재고 오브젝트 풀링을 적용해 전후 비교",
+      "카메라 크기에서 경계를 계산하는 클래스 하나로 모음",
+      "UI 갱신을 HUD 클래스로 떼어 내고 점수·체력 변화는 이벤트로 알리는 구조로"
+    ],
+    "section": "6. 결과 및 배운 점"
+  },
+  "deck": {
+    "chapters": [
+      { "key": "overview", "title": "개요", "sectionPath": ["1. 개요"] },
+      { "key": "arch", "title": "시스템 구조", "sectionPath": ["2. 시스템 구조"] },
+      { "key": "flow", "title": "기능 1: 스테이지 흐름 관리 (GameManager)", "sectionPath": ["3. 기능 1: 스테이지 흐름 관리 (GameManager)"] },
+      { "key": "combat", "title": "기능 2: 플레이어 전투 — 피격·무적·아이템", "sectionPath": ["4. 기능 2: 플레이어 전투 — 피격·무적·아이템"] },
+      { "key": "boss", "title": "기능 3: 보스 공격 패턴", "sectionPath": ["5. 기능 3: 보스 공격 패턴"] },
+      { "key": "result", "title": "결과 및 배운 점", "sectionPath": ["6. 결과 및 배운 점"] }
+    ],
+    "slides": [
+      {
+        "key": "what", "chapter": "overview", "layout": "overview", "tab": "개요",
+        "title": { "text": "1.1 무엇을 만들었나 (What)", "verbatim": true },
+        "lead": { "text": "Strikers Lite는 세로 화면(607×1080)에서 비행기를 조종해 적을 격추하는 2D 슈팅 게임입니다.", "verbatim": true },
+        "sectionPath": ["1. 개요", "1.1 무엇을 만들었나 (What)"],
+        "points": [
+          { "label": "", "text": "한 판은 60초 생존 → 보스전 두 단계입니다.", "verbatim": true }
+        ],
+        "visuals": [ { "kind": "table", "n": 1, "fp": "항목|내용" } ]
+      },
+      {
+        "key": "why", "chapter": "overview", "layout": "overview", "tab": "개요",
+        "title": { "text": "1.2 왜 이 부분이 어려웠나 (Why)", "verbatim": true },
+        "lead": { "text": "슈팅 게임은 수십 개의 총알·적이 동시에 부딪히고 사라지는 장르입니다.", "verbatim": true },
+        "sectionPath": ["1. 개요", "1.2 왜 이 부분이 어려웠나 (Why)"],
+        "points": [
+          { "label": "흐름 문제", "text": "보스가 나왔는데 스포너가 계속 적을 내보내거나, 게임 오버 뒤에도 점수가 오르면 한 판의 규칙이 무너집니다.", "verbatim": true },
+          { "label": "피격 공정성 문제", "text": "아무 장치 없이 체력을 깎으면, 1.5초 동안 켜져 있는 보스 레이저에 스치기만 해도 60fps 기준 약 90번 판정되어 즉사합니다.", "verbatim": true },
+          { "label": "보스 패턴 문제", "text": "Update 한 곳에서 타이머 변수로 처리하면 패턴이 늘 때마다 타이머와 카운터가 함께 늘어납니다.", "verbatim": true }
+        ],
+        "visuals": []
+      },
+      {
+        "key": "loop", "chapter": "overview", "layout": "overview", "tab": "개요",
+        "title": { "text": "1.5 레퍼런스, 핵심 루프, 조작", "verbatim": true },
+        "lead": null,
+        "sectionPath": ["1. 개요", "1.5 레퍼런스, 핵심 루프, 조작"],
+        "points": [
+          { "label": "레퍼런스", "text": "「스트라이커즈 1945」 같은 세로 스크롤 비행 슈팅.", "verbatim": true },
+          { "label": "핵심 루프", "text": "이동하며 사격 → 적 격추(점수) → 아이템 획득(무기 강화·체력 회복) → 60초 버티기 → 보스 격추", "verbatim": true }
+        ],
+        "visuals": [ { "kind": "table", "n": 1, "fp": "조작|결과" } ]
+      },
+      {
+        "key": "arch", "chapter": "arch", "layout": "visual", "tab": "구조",
+        "title": { "text": "2.1 전체 구성", "verbatim": true },
+        "lead": { "text": "실선은 메서드 호출, 점선은 태그로 약속한 충돌입니다.", "verbatim": true },
+        "sectionPath": ["2. 시스템 구조", "2.1 전체 구성"],
+        "points": [
+          { "label": "", "text": "게임 규칙을 가진 객체(플레이어·적·보스)는 서로를 직접 참조하지 않습니다.", "verbatim": true },
+          { "label": "", "text": "새 적에 Enemy 태그만 붙이면 됩니다.", "verbatim": true }
+        ],
+        "visuals": [ { "kind": "mermaid", "n": 1, "fp": "flowchart LR" } ]
+      },
+      {
+        "key": "flow-state", "chapter": "flow", "layout": "visual", "tab": "구조",
+        "title": { "text": "3.1 구조: 한 판의 상태 변화", "verbatim": true },
+        "lead": { "text": "상태를 바꾸는 코드는 모두 GameManager 안에만 있고, 다른 클래스는 \"무슨 일이 일어났다\"만 알립니다.", "verbatim": true },
+        "sectionPath": ["3. 기능 1: 스테이지 흐름 관리 (GameManager)", "3.1 구조: 한 판의 상태 변화"],
+        "points": [],
+        "visuals": [ { "kind": "mermaid", "n": 1, "fp": "stateDiagram-v2" } ]
+      },
+      {
+        "key": "boss-transition", "chapter": "flow", "layout": "code", "tab": "구현",
+        "title": { "text": "3.3 핵심 동작: 생존 타이머와 보스전 전환", "verbatim": true },
+        "lead": { "text": "① 스포너를 먼저 끄고 → ② 화면에 남은 적을 지우고 → ③ 보스를 만듭니다.", "verbatim": true },
+        "sectionPath": ["3. 기능 1: 스테이지 흐름 관리 (GameManager)", "3.3 핵심 동작: 생존 타이머와 보스전 전환"],
+        "points": [
+          { "label": "이유", "text": "②를 ③보다 먼저 해야 Enemy 태그가 붙은 보스가 함께 지워지지 않습니다.", "verbatim": true },
+          { "label": "", "text": "0초가 되면 isBossSpawned 플래그로 SpawnBossStage()를 딱 한 번만 부릅니다.", "verbatim": true }
+        ],
+        "visuals": [ { "kind": "code", "n": 2, "lines": [12, 27], "fp": "private void SpawnBossStage()" } ]
+      },
+      {
+        "key": "game-end", "chapter": "flow", "layout": "code", "tab": "구현",
+        "title": { "text": "3.4 핵심 동작: 게임 종료는 한 번만, 2초 뒤에", "verbatim": true },
+        "lead": null,
+        "sectionPath": ["3. 기능 1: 스테이지 흐름 관리 (GameManager)", "3.4 핵심 동작: 게임 종료는 한 번만, 2초 뒤에"],
+        "points": [
+          { "label": "예외 방어", "text": "같은 프레임에 플레이어와 보스가 함께 죽어도 결과는 먼저 온 하나만 처리됩니다.", "verbatim": true },
+          { "label": "2초 지연", "text": "2초 기다린 뒤 결과 창을 열고 Time.timeScale = 0f로 멈추게 바꿨습니다", "verbatim": true }
+        ],
+        "visuals": [ { "kind": "code", "n": 1, "lines": [1, 18], "fp": "public void TriggerGameOver()" } ]
+      },
+      {
+        "key": "state-choice", "chapter": "flow", "layout": "full", "tab": "선택",
+        "title": { "text": "3.5 고민과 선택: 게임 상태를 어떻게 공유할 것인가", "verbatim": true },
+        "lead": { "text": "이 게임의 적·보스·아이템은 모두 실행 중에 Instantiate로 생기므로, B는 생성할 때마다 참조를 넘겨줘야 합니다.", "verbatim": true },
+        "sectionPath": ["3. 기능 1: 스테이지 흐름 관리 (GameManager)", "3.5 고민과 선택: 게임 상태를 어떻게 공유할 것인가"],
+        "points": [],
+        "visuals": [ { "kind": "table", "n": 1, "fp": "|A. 씬 싱글톤 GameManager.Instance|B. 인스펙터로 참조 연결|C. 이벤트(Action)로 알림" } ]
+      },
+      {
+        "key": "hit-flow", "chapter": "combat", "layout": "visual", "tab": "흐름",
+        "title": { "text": "4.1 구조: 플레이어가 무엇과 부딪히나", "verbatim": true },
+        "lead": { "text": "아이템 처리가 무적 검사보다 앞에 있는 것이 이 그림의 핵심입니다.", "verbatim": true },
+        "sectionPath": ["4. 기능 2: 플레이어 전투 — 피격·무적·아이템", "4.1 구조: 플레이어가 무엇과 부딪히나"],
+        "points": [],
+        "visuals": [ { "kind": "mermaid", "n": 1, "fp": "flowchart TD" } ]
+      },
+      {
+        "key": "hit-order", "chapter": "combat", "layout": "code", "tab": "구현",
+        "title": { "text": "4.3 핵심 동작: 판정 순서와 무적 시간", "verbatim": true },
+        "lead": null,
+        "sectionPath": ["4. 기능 2: 플레이어 전투 — 피격·무적·아이템", "4.3 핵심 동작: 판정 순서와 무적 시간"],
+        "points": [
+          { "label": "아이템 먼저", "text": "무적 중에도 아이템은 먹어야 하므로 무적 검사(isColliding)보다 위에 둡니다.", "verbatim": true },
+          { "label": "무적 검사", "text": "무적이거나 이미 죽었으면 아래 피격 판정을 건너뜁니다.", "verbatim": true }
+        ],
+        "visuals": [ { "kind": "code", "n": 1, "lines": [1, 18], "fp": "private void OnTriggerStay2D(Collider2D collider)" } ]
+      },
+      {
+        "key": "invincible", "chapter": "combat", "layout": "visual", "tab": "결과",
+        "title": { "text": "4.3 핵심 동작: 판정 순서와 무적 시간", "verbatim": true },
+        "lead": { "text": "0.1초씩 투명(알파 0.2)과 원래 색을 10번 오가므로 무적은 정확히 2초입니다.", "verbatim": true },
+        "sectionPath": ["4. 기능 2: 플레이어 전투 — 피격·무적·아이템", "4.3 핵심 동작: 판정 순서와 무적 시간"],
+        "points": [
+          { "label": "", "text": "연출과 판정이 어긋날 일이 없습니다.", "verbatim": true }
+        ],
+        "visuals": [ { "kind": "image", "src": "images/hit_blink.gif", "w": 288, "h": 512, "caption": { "text": "적과 부딪히거나 총알에 맞으면 체력 -1", "verbatim": true } } ]
+      },
+      {
+        "key": "item-drop", "chapter": "combat", "layout": "visual", "tab": "구현",
+        "title": { "text": "4.4 핵심 동작: 아이템 드랍 — 확률 + 확정 카운터", "verbatim": true },
+        "lead": { "text": "3방향 적은 6.5%(일반 적은 5%) 확률로 아이템을 떨어뜨립니다.", "verbatim": true },
+        "sectionPath": ["4. 기능 2: 플레이어 전투 — 피격·무적·아이템", "4.4 핵심 동작: 아이템 드랍 — 확률 + 확정 카운터"],
+        "points": [
+          { "label": "", "text": "격추 수가 10에 닿으면 확률과 상관없이 떨어뜨리고 카운터를 0으로 되돌립니다.", "verbatim": true }
+        ],
+        "visuals": [ { "kind": "image", "src": "images/weapon_level.gif", "w": 288, "h": 512, "caption": { "text": "무기 강화 아이템으로 총알이 1발에서 3발로", "verbatim": true } } ]
+      },
+      {
+        "key": "hit-choice", "chapter": "combat", "layout": "full", "tab": "선택",
+        "title": { "text": "4.5 고민과 선택: 피격을 Enter로 받을까, Stay로 받을까", "verbatim": true },
+        "lead": { "text": "A로 하면 무적이 끝난 뒤에도 레이저 안에 서 있는 플레이어가 맞지 않아, 보스의 가장 강한 패턴이 무력해집니다.", "verbatim": true },
+        "sectionPath": ["4. 기능 2: 플레이어 전투 — 피격·무적·아이템", "4.5 고민과 선택: 피격을 Enter로 받을까, Stay로 받을까"],
+        "points": [],
+        "visuals": [ { "kind": "table", "n": 1, "fp": "|A. OnTriggerEnter2D|B. OnTriggerStay2D + 무적 플래그" } ]
+      },
+      {
+        "key": "pattern-structure", "chapter": "boss", "layout": "visual", "tab": "구조",
+        "title": { "text": "5.1 구조: 패턴이 고르고 반복되는 방식", "verbatim": true },
+        "lead": { "text": "순찰과 공격은 서로 다른 코루틴이라 이동하면서 쏩니다.", "verbatim": true },
+        "sectionPath": ["5. 기능 3: 보스 공격 패턴", "5.1 구조: 패턴이 고르고 반복되는 방식"],
+        "points": [],
+        "visuals": [ { "kind": "mermaid", "n": 1, "fp": "flowchart LR" } ]
+      },
+      {
+        "key": "patterns", "chapter": "boss", "layout": "visual", "tab": "결과",
+        "title": { "text": "5.1 구조: 패턴이 고르고 반복되는 방식", "verbatim": true },
+        "lead": null,
+        "sectionPath": ["5. 기능 3: 보스 공격 패턴", "5.1 구조: 패턴이 고르고 반복되는 방식"],
+        "points": [
+          { "label": "0. 부채꼴 연사", "text": "아래쪽 150°~210°에 15° 간격 5발, 0.2초 간격 3회", "verbatim": true },
+          { "label": "1. 시계 방향", "text": "120°부터 12°씩 돌리며 0.1초마다 1발", "verbatim": true },
+          { "label": "2. 반시계 방향", "text": "240°부터 12°씩 거꾸로 돌리며 0.1초마다 1발", "verbatim": true },
+          { "label": "3. 레이저", "text": "발사 위치에 레이저를 붙여 1.5초 유지 후 제거", "verbatim": true }
+        ],
+        "visuals": [ { "kind": "image", "src": "images/boss_patterns.gif", "w": 288, "h": 512, "caption": { "text": "보스 공격 패턴 — 부채꼴 연사, 회전 연사, 레이저", "verbatim": true } } ]
+      },
+      {
+        "key": "pattern-select", "chapter": "boss", "layout": "code", "tab": "구현",
+        "title": { "text": "5.3 핵심 동작: 패턴 선택", "verbatim": true },
+        "lead": null,
+        "sectionPath": ["5. 기능 3: 보스 공격 패턴", "5.3 핵심 동작: 패턴 선택"],
+        "points": [
+          { "label": "", "text": "같은 패턴을 3번 반복한 뒤에 바꿉니다.", "verbatim": true },
+          { "label": "", "text": "패턴이 바뀔 때는 다음 발사를 0.5초 더 늦춰(FireRate 2초 + 0.5초) 패턴 사이에 숨 돌릴 틈을 줍니다.", "verbatim": true }
+        ],
+        "visuals": [ { "kind": "code", "n": 1, "lines": [19, 34], "fp": "void FireBossWeapon()" } ]
+      },
+      {
+        "key": "pattern-coroutine", "chapter": "boss", "layout": "code", "tab": "구현",
+        "title": { "text": "5.4 핵심 동작: 패턴 하나 = 코루틴 하나", "verbatim": true },
+        "lead": null,
+        "sectionPath": ["5. 기능 3: 보스 공격 패턴", "5.4 핵심 동작: 패턴 하나 = 코루틴 하나"],
+        "points": [
+          { "label": "", "text": "패턴은 '각도'만 정하면 됩니다.", "verbatim": true },
+          { "label": "", "text": "발사 순서가 코드 순서 그대로 읽힙니다.", "verbatim": true }
+        ],
+        "visuals": [ { "kind": "code", "n": 1, "lines": [5, 19], "fp": "private IEnumerator ClockwiseShotPattern()" } ]
+      },
+      {
+        "key": "pattern-choice", "chapter": "boss", "layout": "full", "tab": "선택",
+        "title": { "text": "5.5 고민과 선택: 패턴의 시간을 어떻게 표현할까", "verbatim": true },
+        "lead": { "text": "코루틴은 그 순서를 위에서 아래로 읽히는 코드로 그대로 옮길 수 있습니다.", "verbatim": true },
+        "sectionPath": ["5. 기능 3: 보스 공격 패턴", "5.5 고민과 선택: 패턴의 시간을 어떻게 표현할까"],
+        "points": [],
+        "visuals": [ { "kind": "table", "n": 1, "fp": "|A. Update + 타이머 변수|B. 코루틴 (IEnumerator + WaitForSeconds)|C. Animator / Timeline 이벤트" } ]
+      },
+      {
+        "key": "results", "chapter": "result", "layout": "full", "tab": "결과",
+        "title": { "text": "6.1 결과", "verbatim": true },
+        "lead": { "text": "기획한 한 판의 흐름(카운트다운 → 60초 생존 → 보스전 → 결과 → 재시작)을 2주(커밋 38개) 안에 완성하고 Windows 빌드까지 만들었습니다.", "verbatim": true },
+        "sectionPath": ["6. 결과 및 배운 점", "6.1 결과"],
+        "points": [],
+        "visuals": [ { "kind": "table", "n": 1, "fp": "문제|해결|결과" } ]
+      },
+      {
+        "key": "ts-item", "chapter": "result", "layout": "problem", "tab": "문제 해결",
+        "title": { "text": "① 무적 중에 아이템을 먹지 못함", "verbatim": true },
+        "lead": null,
+        "sectionPath": ["6. 결과 및 배운 점", "6.2 문제 해결 경험 (Troubleshooting)"],
+        "points": [
+          { "label": "문제", "text": "적이나 총알에 맞아 깜빡이는 2초 동안 체력·무기 아이템에 닿아도 먹어지지 않았습니다.", "verbatim": true },
+          { "label": "원인", "text": "그 아래 있던 아이템 처리까지 함께 건너뛰고 있었습니다.", "verbatim": true },
+          { "label": "해결", "text": "아이템 처리를 무적 검사 위로 옮겼습니다.", "verbatim": true }
+        ],
+        "visuals": [ { "kind": "table", "n": 1, "fp": "As-Is|To-Be" } ]
+      }
+    ]
+  }
+}
