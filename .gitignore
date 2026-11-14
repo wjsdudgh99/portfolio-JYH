@@ -5,6 +5,9 @@ report.md
 src/*/_intake/
 report-intake.md
 
+# 편집 영상 (로컬 전용 — 편집본·쇼츠는 파일 하나가 GitHub 100MB 제한을 넘기 쉬움. 포트폴리오에는 YouTube 링크로)
+src/*/_video/
+
 # OS·에디터
 .DS_Store
 Thumbs.db
