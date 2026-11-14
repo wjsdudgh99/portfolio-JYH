@@ -18,21 +18,24 @@
       "name": "Unity",
       "evidence": [
         { "text": "카메라 2대를 같은 시점으로 움직이는 분할 화면 동기화 카메라", "project": "1-3d-project-youre-right" },
-        { "text": "Raycast·PlayArea로 정답·오답·무반응 3단계 클릭 판정", "project": "1-3d-project-youre-right" }
+        { "text": "Raycast·PlayArea로 정답·오답·무반응 3단계 클릭 판정", "project": "1-3d-project-youre-right" },
+        { "text": "OnTriggerStay2D와 2초 무적으로 보스 레이저 피격을 1회로 제한", "project": "2-2d-project-strikers-lite" }
       ]
     },
     {
       "name": "C#",
       "evidence": [
-        { "text": "4096방향 광선으로 회전 대칭을 판정하는 에디터 검사 도구(StageValidator)", "project": "1-3d-project-youre-right" }
+        { "text": "4096방향 광선으로 회전 대칭을 판정하는 에디터 검사 도구(StageValidator)", "project": "1-3d-project-youre-right" },
+        { "text": "패턴 하나를 코루틴 하나로 만든 보스 공격 패턴 4종", "project": "2-2d-project-strikers-lite" }
       ]
     },
     {
       "name": "디자인 패턴",
       "evidence": [
-        { "text": "판정 이벤트 구독으로 반짝임·HUD·효과음을 판정 코드와 분리", "project": "1-3d-project-youre-right" }
+        { "text": "판정 이벤트 구독으로 반짝임·HUD·효과음을 판정 코드와 분리", "project": "1-3d-project-youre-right" },
+        { "text": "씬 싱글톤 GameManager로 단계 전환·점수·UI를 한곳에서 관리", "project": "2-2d-project-strikers-lite" }
       ]
     }
   ],
-  "projects": ["1-3d-project-youre-right"]
+  "projects": ["1-3d-project-youre-right", "2-2d-project-strikers-lite"]
 }
