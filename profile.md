@@ -8,7 +8,7 @@
 
 - 이름: 전영호
 - 영문 이름: YeongHo Jeon
-- 한 줄 정체성: 작은 먼지도 찾아 청소하는 QA 담당자
+- 한 줄 정체성: 작은 버그 하나도 원인까지 찾아내는 유니티 개발자
 - 이메일: wjsdudgh99@naver.com
 - GitHub: https://github.com/wjsdudgh99
 - 기타 링크: 유튜브 : https://www.youtube.com/channel/UCJztK_eTzGq4oqU3h8ECZMg 
