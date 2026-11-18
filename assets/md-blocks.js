@@ -112,5 +112,24 @@
     return null;
   }
 
-  PF.md = { parse, index, findSection, pick, fpOf, firstVisual, isRelative, decode };
+  // Mermaid 초기화(상세 문서·발표 덱 공용) — ELK 레이아웃(@mermaid-js/layout-elk 0.1.7, mermaid 11.4.1과 같은 날 배포)을 등록하고 기본 레이아웃으로 씀.
+  //   ELK는 flowchart·stateDiagram에 적용되고(sequenceDiagram 등은 원래 방식), 받지 못하면 기본(dagre) 레이아웃으로 그림.
+  //   다이어그램 하나만 dagre로 되돌리려면 원문 mermaid 첫 줄 앞에 %%{init: {"layout": "dagre"}}%% 를 넣음.
+  const ELK_URL = 'https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.7/dist/mermaid-layout-elk.esm.min.mjs';
+  let elkReady = null;
+  function loadElk() {
+    if (!elkReady) {
+      elkReady = (window.mermaid?.registerLayoutLoaders ? import(ELK_URL) : Promise.reject(new Error('registerLayoutLoaders 없음')))
+        .then((m) => { mermaid.registerLayoutLoaders(m.default); return true; })
+        .catch((err) => { console.warn('[mermaid] ELK 레이아웃을 불러오지 못해 기본 레이아웃으로 그립니다:', err); return false; });
+    }
+    return elkReady;
+  }
+  async function initMermaid(opts = {}) {
+    const elk = await loadElk();
+    mermaid.initialize({ startOnLoad: false, theme: 'default', securityLevel: 'loose', fontFamily: 'Pretendard, sans-serif', ...(elk ? { layout: 'elk' } : {}), ...opts });
+    return elk ? 'elk' : 'dagre';
+  }
+
+  PF.md = { parse, index, findSection, pick, fpOf, firstVisual, isRelative, decode, initMermaid };
 })();
