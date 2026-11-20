@@ -27,7 +27,7 @@
       "title": "스테이지 흐름 관리 (GameManager)",
       "what": "카운트다운·60초 생존·보스전·결과 네 단계를 GameManager 한 곳에서 전환합니다.",
       "how": "단계 전환을 씬 싱글톤 GameManager에 모으고, 생존 시간이 0초가 되면 플래그로 SpawnBossStage()를 한 번만 불러 스포너 끄기 → 남은 적 제거 → 보스 생성 순으로 처리합니다.",
-      "why": "적·보스·아이템이 실행 중에 Instantiate로 생겨 인스펙터 연결이 어렵고, 알릴 일이 네 가지뿐이라 이벤트 대신 씬 싱글톤을 택했습니다.",
+      "why": "학원에서 배운 GameManager 싱글톤을 AI에 요청해 썼습니다. 돌아보면 적·보스·아이템이 실행 중에 Instantiate로 생겨 인스펙터 연결이 어려운 이 게임에 맞는 방식이었습니다.",
       "section": "3.3 핵심 동작: 생존 타이머와 보스전 전환",
       "image": { "src": "images/boss_intro.gif", "w": 288, "h": 512, "caption": "60초 생존 뒤 보스 등장" }
     },
@@ -35,7 +35,7 @@
       "title": "플레이어 전투 — 피격·무적·아이템",
       "what": "적·총알·레이저에 닿으면 체력이 1 줄고, 맞은 뒤 2초 동안 깜빡이며 무적이며, 아이템으로 무기와 체력을 올립니다.",
       "how": "OnTriggerStay2D에서 아이템 처리 → 무적 검사 → 피격 순으로 판정하고, 무적 시간은 깜빡임 코루틴이 끝나는 2초로 정했습니다.",
-      "why": "계속 머무는 보스 레이저가 무적이 끝난 뒤에도 맞게 하려고, OnTriggerEnter2D 대신 OnTriggerStay2D + 2초 무적 플래그를 택했습니다.",
+      "why": "처음엔 OnTriggerEnter2D였지만 계속 머무는 보스 레이저를 만들며 OnTriggerStay2D로 바꿨고, 그때 맨 위로 올린 무적 검사가 아이템까지 막는 버그를 낳아 판정 순서를 고쳤습니다.",
       "section": "4.3 핵심 동작: 판정 순서와 무적 시간",
       "image": { "src": "images/hit_blink.gif", "w": 288, "h": 512, "caption": "적과 부딪히거나 총알에 맞으면 체력 -1" }
     },
@@ -43,7 +43,7 @@
       "title": "보스 공격 패턴",
       "what": "보스가 좌우로 순찰하며 부채꼴 연사·시계 방향·반시계 방향·레이저 4가지 패턴을 번갈아 씁니다.",
       "how": "패턴 하나를 코루틴 하나로 만들고, 같은 패턴을 3번 반복한 뒤 Random.Range(0, 4)로 다음 패턴을 고릅니다.",
-      "why": "패턴의 본질이 '몇 도로, 몇 초 간격으로, 몇 발'이라는 순서라, Update 타이머 대신 순서가 코드로 그대로 읽히는 코루틴을 택했습니다.",
+      "why": "학원에서 배운 코루틴으로 만들어 달라고 AI에 요청했습니다. 패턴 하나가 함수 하나로 나뉘어 있어, 패턴 3종을 한 번에 추가할 수 있었습니다.",
       "section": "5.1 구조: 패턴이 고르고 반복되는 방식",
       "image": { "src": "images/boss_patterns.gif", "w": 288, "h": 512, "caption": "보스 공격 패턴 — 부채꼴 연사, 회전 연사, 레이저" }
     }
@@ -205,9 +205,11 @@
       {
         "key": "state-choice", "chapter": "flow", "layout": "full", "tab": "선택",
         "title": { "text": "3.5 고민과 선택: 게임 상태를 어떻게 공유할 것인가", "verbatim": true },
-        "lead": { "text": "이 게임의 적·보스·아이템은 모두 실행 중에 Instantiate로 생기므로, B는 생성할 때마다 참조를 넘겨줘야 합니다.", "verbatim": true },
+        "lead": { "text": "학원에서 배운 GameManager 싱글톤(GameManager.Instance)을 쓰고 싶다고 AI에 요청해 만들었습니다.", "verbatim": true },
         "sectionPath": ["3. 기능 1: 스테이지 흐름 관리 (GameManager)", "3.5 고민과 선택: 게임 상태를 어떻게 공유할 것인가"],
-        "points": [],
+        "points": [
+          { "label": "", "text": "돌아보면 이 게임에는 A가 맞았다고 생각합니다.", "verbatim": true }
+        ],
         "visuals": [ { "kind": "table", "n": 1, "fp": "|A. 씬 싱글톤 GameManager.Instance|B. 인스펙터로 참조 연결|C. 이벤트(Action)로 알림" } ]
       },
       {
@@ -252,9 +254,12 @@
       {
         "key": "hit-choice", "chapter": "combat", "layout": "full", "tab": "선택",
         "title": { "text": "4.5 고민과 선택: 피격을 Enter로 받을까, Stay로 받을까", "verbatim": true },
-        "lead": { "text": "A로 하면 무적이 끝난 뒤에도 레이저 안에 서 있는 플레이어가 맞지 않아, 보스의 가장 강한 패턴이 무력해집니다.", "verbatim": true },
+        "lead": { "text": "보스 레이저를 만들면서 문제가 생겨, 레이저를 완성한 날(07.03, 커밋 3303073) OnTriggerStay2D로 바꿨습니다.", "verbatim": true },
         "sectionPath": ["4. 기능 2: 플레이어 전투 — 피격·무적·아이템", "4.5 고민과 선택: 피격을 Enter로 받을까, Stay로 받을까"],
-        "points": [],
+        "points": [
+          { "label": "이유", "text": "레이저는 1.5초 동안 계속 머무는 공격입니다.", "verbatim": true },
+          { "label": "문제", "text": "매 프레임 피격되는 것을 막으려고 무적 검사를 함수 맨 위로 올렸는데, 이 검사가 아래의 아이템 처리까지 막았습니다.", "verbatim": true }
+        ],
         "visuals": [ { "kind": "table", "n": 1, "fp": "|A. OnTriggerEnter2D|B. OnTriggerStay2D + 무적 플래그" } ]
       },
       {
@@ -303,9 +308,11 @@
       {
         "key": "pattern-choice", "chapter": "boss", "layout": "full", "tab": "선택",
         "title": { "text": "5.5 고민과 선택: 패턴의 시간을 어떻게 표현할까", "verbatim": true },
-        "lead": { "text": "코루틴은 그 순서를 위에서 아래로 읽히는 코드로 그대로 옮길 수 있습니다.", "verbatim": true },
+        "lead": { "text": "학원에서 배운 코루틴으로 만들고 싶다고 AI에 요청했습니다.", "verbatim": true },
         "sectionPath": ["5. 기능 3: 보스 공격 패턴", "5.5 고민과 선택: 패턴의 시간을 어떻게 표현할까"],
-        "points": [],
+        "points": [
+          { "label": "", "text": "패턴 하나가 함수 하나로 나뉘어 있어서, 패턴 3종을 한 번에 추가할 수 있었습니다(07.01, 커밋 c87b496).", "verbatim": true }
+        ],
         "visuals": [ { "kind": "table", "n": 1, "fp": "|A. Update + 타이머 변수|B. 코루틴 (IEnumerator + WaitForSeconds)|C. Animator / Timeline 이벤트" } ]
       },
       {
