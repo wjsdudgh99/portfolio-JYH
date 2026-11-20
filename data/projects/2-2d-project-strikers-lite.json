@@ -138,10 +138,23 @@
         "visuals": []
       },
       {
+        "key": "how-made", "chapter": "overview", "layout": "overview", "tab": "개요",
+        "title": { "text": "1.3 코드를 만든 방식 — 큰 틀은 제가, 세부 코드는 AI가", "verbatim": true },
+        "lead": { "text": "이 게임은 프로그래밍을 배우고 처음 만든 프로젝트입니다.", "verbatim": true },
+        "sectionPath": ["1. 개요", "1.3 코드를 만든 방식 — 큰 틀은 제가, 세부 코드는 AI가"],
+        "points": [
+          { "label": "오브젝트 나누기", "text": "기획서에서 플레이어·적 2종·보스·총알·아이템을 프리팹 단위로 나누고, 체력·속도 같은 속성을 정했습니다.", "verbatim": true },
+          { "label": "스크립트 나누기", "text": "플레이어·적·총알·스포너·GameManager처럼 역할마다 스크립트를 나눴습니다(구조는 2장).", "verbatim": true },
+          { "label": "화면 구성", "text": "메인 메뉴 → 게임 → 결과 화면(GAME OVER · VICTORY)으로 이어지는 흐름과, 화면에 놓을 오브젝트·UI를 정했습니다.", "verbatim": true },
+          { "label": "", "text": "그 위의 세부 코드는 대부분 AI가 생성했습니다.", "verbatim": true }
+        ],
+        "visuals": []
+      },
+      {
         "key": "loop", "chapter": "overview", "layout": "overview", "tab": "개요",
-        "title": { "text": "1.5 레퍼런스, 핵심 루프, 조작", "verbatim": true },
+        "title": { "text": "1.6 레퍼런스, 핵심 루프, 조작", "verbatim": true },
         "lead": null,
-        "sectionPath": ["1. 개요", "1.5 레퍼런스, 핵심 루프, 조작"],
+        "sectionPath": ["1. 개요", "1.6 레퍼런스, 핵심 루프, 조작"],
         "points": [
           { "label": "레퍼런스", "text": "「스트라이커즈 1945」 같은 세로 스크롤 비행 슈팅.", "verbatim": true },
           { "label": "핵심 루프", "text": "이동하며 사격 → 적 격추(점수) → 아이템 획득(무기 강화·체력 회복) → 60초 버티기 → 보스 격추", "verbatim": true }
