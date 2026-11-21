@@ -51,7 +51,7 @@
       "title": "입력을 \u0027변화 이벤트\u0027로 바꾸기",
       "what": "4명의 입력이 합쳐진 차량 입력에서 액셀·브레이크·기어가 바뀐 순간을 잡아, 누가 조작했든 4명 모두에게 엔진·브레이크·변속음을 냅니다.",
       "how": "초당 50회 들어오는 입력을 VehicleSoundEvents가 직전 값과 비교해 바뀐 순간에만 AccelChanged·BrakeChanged·GearChanged를 발행하고, SoundManager가 기어 N·정지 상태를 한 번 더 검사한 뒤 재생합니다.",
-      "why": "차량 입력은 발생원이 여러 곳이고 사운드 외의 반응도 붙을 수 있어, 직접 호출 대신 이벤트 구독으로 결합도를 낮췄습니다.",
+      "why": "차량 소리를 이벤트로 받는 방식은 AI의 제안을 따랐습니다. 돌아보면 차량 입력은 발생원이 여러 곳이고 사운드 외의 반응도 붙을 수 있어 이벤트가 맞는 자리입니다.",
       "section": "4.2 핵심 동작 ① — 입력을 \u0027변화 이벤트\u0027로 바꾸기",
       "image": null
     },
@@ -59,7 +59,7 @@
       "title": "호스트만 아는 충돌을 모두에게 들려주기",
       "what": "물리 판정이 호스트에만 있어 4명 중 3명이 듣지 못하던 충돌음을, 4명 모두 같은 강도로 듣게 합니다.",
       "how": "호스트의 VehicleDamage가 충돌 속도 10 이상이면 강, 아니면 약으로 판정해 로컬 이벤트를 내고 vehicle_crash { isHard } 패킷을 보내면, 비호스트 SoundManager가 받아 같은 강도의 충돌음을 재생합니다.",
-      "why": "비호스트 물리를 켜면 보간과 충돌 반발이 싸우고, round_state 추론은 짧은 충돌이 합쳐지고 기준이 달라져서, 약간의 네트워크 지연을 감수하고 호스트 이벤트 패킷을 택했습니다.",
+      "why": "다른 플레이어에게 충돌음이 안 들리는 것을 제가 발견했고, 호스트가 패킷으로 알리는 방법은 AI의 제안을 따랐습니다. 4명이 같은 사건에 같은 소리를 들어야 협동 중 소통이 깨지지 않습니다.",
       "section": "4.3 핵심 동작 ② — 호스트만 아는 충돌을 모두에게 들려주기",
       "image": {
         "src": "images/crash_durability.gif",
@@ -72,7 +72,7 @@
       "title": "누르는 동안만 나는 루프음",
       "what": "주유 노즐·액셀·브레이크처럼 누르는 동안만 나야 하는 소리를 떼는 순간 바로 끕니다.",
       "how": "미니게임 뷰는 누른 순간 StartFuelLoopSound(), 뗀 순간 StopFuelLoopSound()를 한 줄씩 부르고, SoundManager는 액셀·브레이크·미니게임 루프를 전용 AudioSource로 나눠 Stop()으로 끕니다.",
-      "why": "PlayOneShot은 개별 정지가 불가능해 액셀을 떼도 소리가 끝까지 남기 때문에, 루프 종류별 전용 AudioSource를 택했습니다.",
+      "why": "\"누르는 동안만\" 나야 한다는 요구는 제가 정했고, AI가 루프 종류별 전용 AudioSource로 나눴습니다. PlayOneShot은 개별 정지가 안 돼 액셀을 떼도 소리가 끝까지 남기 때문입니다.",
       "section": "4.1 사용법 (API)",
       "image": {
         "src": "images/minigame_fuel.gif",
@@ -106,7 +106,7 @@
       "problem": "주유 미니게임에서 한 번 실패하면 이후 주유 소리가 나지 않았습니다.",
       "cause": "실패 연출 중에도 노즐을 누르고 있음 플래그(isCurrentlyPressed)가 true로 남아, 다음에 누를 때 새로 누른 것으로 인식되지 않아 StartFuelLoopSound()가 호출되지 않았습니다.",
       "solution": "실패 루틴 시작 시 눌림 상태를 강제로 해제하고 루프음을 정지하며, 루프 재시작 시 time = 0으로 처음부터 재생합니다.",
-      "result": "",
+      "result": "실패한 뒤에도 다시 누르면 주유 소리가 납니다.",
       "lesson": "",
       "section": "③ 주유 미니게임에서 한 번 실패하면 이후 주유 소리가 나지 않음"
     }
@@ -598,7 +598,7 @@
           "verbatim": true
         },
         "lead": {
-          "text": "사건의 성격에 따라 섞었습니다.",
+          "text": "차량 소리를 이벤트로 받는 방식은 AI의 제안을 따랐습니다(1.3).",
           "verbatim": true
         },
         "sectionPath": [
@@ -639,7 +639,7 @@
           "verbatim": true
         },
         "lead": {
-          "text": "정확성을 위해 약간의 지연을 감수했습니다.",
+          "text": "다른 플레이어 화면에서 충돌음이 들리지 않는 것을 제가 발견했고(7.2 ②), 호스트가 패킷으로 알려 주는 방법은 AI의 제안을 따랐습니다(09-05 커밋 2fb1236b).",
           "verbatim": true
         },
         "sectionPath": [
@@ -674,7 +674,10 @@
           "text": "5.3 루프음을 어떻게 재생하고 끌 것인가",
           "verbatim": true
         },
-        "lead": null,
+        "lead": {
+          "text": "액셀·브레이크·주유 소리는 \"누르는 동안만\" 나야 한다는 것은 제가 정했고, 루프 종류마다 AudioSource를 따로 두는 방법은 AI가 정했습니다.",
+          "verbatim": true
+        },
         "sectionPath": [
           "5. 고민과 선택 (Trade-offs)",
           "5.3 루프음을 어떻게 재생하고 끌 것인가"
@@ -789,8 +792,8 @@
             "verbatim": true
           },
           {
-            "label": "배운 점",
-            "text": "상태를 \u0022변화\u0022로 바꾸는 Edge 검출은 입력원이 하나일 때만 성립한다.",
+            "label": "결과",
+            "text": "라운드가 끝나도 변속음이 한 번만 납니다.",
             "verbatim": true
           }
         ],
@@ -819,6 +822,11 @@
         ],
         "points": [
           {
+            "label": "문제",
+            "text": "호스트가 아닌 플레이어 화면에서만 충돌음이 들리지 않는 것을 확인해 알렸습니다.",
+            "verbatim": true
+          },
+          {
             "label": "원인",
             "text": "비호스트 차량은 Rigidbody2D.simulated = false → OnCollisionEnter2D가 호출되지 않음.",
             "verbatim": true
@@ -826,6 +834,11 @@
           {
             "label": "해결",
             "text": "호스트가 충돌 판정 직후 vehicle_crash { isHard } 패킷 송신, 비호스트가 수신해 재생 (→ 4.3, 5.2)",
+            "verbatim": true
+          },
+          {
+            "label": "결과",
+            "text": "4명 모두 같은 강도의 충돌음을 듣습니다.",
             "verbatim": true
           }
         ],
@@ -848,6 +861,11 @@
         ],
         "points": [
           {
+            "label": "문제",
+            "text": "첫 주유에 실패하면 두 번째 주유부터 소리가 나지 않는 것을 확인해 알렸습니다.",
+            "verbatim": true
+          },
+          {
             "label": "원인",
             "text": "실패 연출 중에도 \u0022노즐을 누르고 있음\u0022 플래그(isCurrentlyPressed)가 true로 남아, 다음에 누를 때 새로 누른 것으로 인식되지 않아 StartFuelLoopSound()가 호출되지 않음.",
             "verbatim": true
@@ -855,6 +873,11 @@
           {
             "label": "해결",
             "text": "실패 루틴 시작 시 눌림 상태를 강제로 해제하고 루프음을 정지.",
+            "verbatim": true
+          },
+          {
+            "label": "결과",
+            "text": "실패한 뒤에도 다시 누르면 주유 소리가 납니다.",
             "verbatim": true
           }
         ],
