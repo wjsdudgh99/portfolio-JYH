@@ -54,25 +54,16 @@
       "problem": "충돌 반지름 0.3으로 카메라가 열차 상자 밖에 있는데도, 2-2(위아래 분할)에서만 화면 가장자리에 열차 속이 보였습니다.",
       "cause": "카메라는 점이 아니라 Near Clip 면(사각형)을 가지며, 1920 × 540의 넓은 화면에서는 이 사각형 모서리가 카메라 중심에서 약 0.44 떨어져 상자 안에 들어갔습니다.",
       "solution": "2-2의 Collision Radius를 0.4로 올리고, 기준(가로가 넓은 화면은 0.4 이상)을 문서에 남겼습니다.",
-      "result": "",
+      "result": "2-2에서 카메라가 열차에 가까이 가도 속이 보이지 않습니다.",
       "lesson": "",
       "section": "6.2 문제 해결 경험 (Troubleshooting)"
     },
     {
-      "title": "에디터 도구를 다시 실행하자 씬의 Collider 24개가 사라짐",
-      "problem": "기차역 키트 도구(Build Station Kit)를 수정해 다시 실행했더니, 씬에서 스크린도어 24개의 부품에 직접 붙여 둔 MeshCollider가 모두 사라졌습니다.",
-      "cause": "PrefabUtility.SaveAsPrefabAsset으로 프리팹을 새로 덮어쓰면 자식 오브젝트의 내부 ID(fileID)가 일부 바뀌어, 씬의 수정 사항이 가리킬 대상을 잃었습니다.",
-      "solution": "기존 프리팹을 열어 이름 경로가 같은 오브젝트는 그대로 두고 값만 맞추는 PrefabSaveUtility.SaveKeepingIds를 만들었습니다.",
-      "result": "없는 것만 만들고 남는 것만 지우므로 ID가 유지됩니다. 이후 모든 조립 도구가 이 함수로 저장하도록 규칙을 정했습니다.",
-      "lesson": "",
-      "section": "6.2 문제 해결 경험 (Troubleshooting)"
-    },
-    {
-      "title": "정답 반짝임이 빌드에서만 약해질 위험",
-      "problem": "코드로 Emission을 켜 둔 정답 머티리얼이 저장 후 다시 꺼져 있었습니다.",
-      "cause": "globalIlluminationFlags를 EmissiveIsBlack으로 두면 URP가 저장할 때 _EMISSION 키워드를 꺼, 빌드에서 그 셰이더 변형이 빠질 수 있었습니다.",
-      "solution": "정답 머티리얼은 Emission을 켜고 색을 검정(RealtimeEmissive)으로 두는 규칙을 만들고, 검사 도구가 Emission이 꺼진 정답 머티리얼을 경고하게 했습니다.",
-      "result": "",
+      "title": "기록에 로딩 시간이 섞임",
+      "problem": "스테이지에 들어오자마자 스톱워치가 00:00.01에서 출발했습니다.",
+      "cause": "씬 로딩 직후 첫 프레임의 deltaTime에 로딩 시간이 들어 있었습니다.",
+      "solution": "프레임 번호 대신 타이머를 켠 뒤 첫 번째 Update 호출을 건너뛰는 플래그(skipNextTick)로 바꿨습니다.",
+      "result": "스톱워치가 00:00.00에서 시작합니다.",
       "lesson": "",
       "section": "6.2 문제 해결 경험 (Troubleshooting)"
     }
@@ -405,24 +396,24 @@
         "points": [
           { "label": "문제", "text": "충돌 반지름 0.3으로 카메라가 열차 상자 밖에 있는데도, 2-2(위아래 분할)에서만 화면 가장자리에 열차 속이 보였습니다.", "verbatim": true },
           { "label": "원인", "text": "카메라는 점이 아니라 Near Clip 면(사각형)을 가집니다.", "verbatim": true },
-          { "label": "원인", "text": "반지름 0.3인 공이 상자 밖이어도 모서리는 상자 안이었습니다.", "verbatim": true },
-          { "label": "해결", "text": "2-2의 Collision Radius를 0.4로 올리고, 기준(가로가 넓은 화면은 0.4 이상)을 문서에 남겼습니다.", "verbatim": true }
+          { "label": "해결", "text": "2-2의 Collision Radius를 0.4로 올리고, 기준(가로가 넓은 화면은 0.4 이상)을 문서에 남겼습니다.", "verbatim": true },
+          { "label": "결과", "text": "2-2에서 카메라가 열차에 가까이 가도 속이 보이지 않습니다.", "verbatim": true }
         ],
         "visuals": []
       },
       {
-        "key": "ts-prefab-id",
+        "key": "ts-stopwatch",
         "chapter": "result",
         "layout": "problem",
         "tab": "문제 해결",
-        "title": { "text": "② 에디터 도구를 다시 실행하자 씬의 Collider 24개가 사라짐", "verbatim": true },
+        "title": { "text": "② 기록에 로딩 시간이 섞임", "verbatim": true },
         "lead": null,
         "sectionPath": ["6. 결과 및 배운 점", "6.2 문제 해결 경험 (Troubleshooting)"],
         "points": [
-          { "label": "문제", "text": "씬에서 스크린도어 24개의 부품에 직접 붙여 둔 MeshCollider가 모두 사라졌습니다.", "verbatim": true },
-          { "label": "원인", "text": "PrefabUtility.SaveAsPrefabAsset으로 프리팹을 새로 덮어쓰면 자식 오브젝트의 내부 ID(fileID)가 일부 바뀝니다.", "verbatim": true },
-          { "label": "해결", "text": "기존 프리팹을 열어 이름 경로가 같은 오브젝트는 그대로 두고 값만 맞추는 PrefabSaveUtility.SaveKeepingIds를 만들었습니다.", "verbatim": true },
-          { "label": "결과", "text": "없는 것만 만들고 남는 것만 지우므로 ID가 유지됩니다.", "verbatim": true }
+          { "label": "문제", "text": "스테이지에 들어오자마자 스톱워치가 00:00.01에서 출발했습니다.", "verbatim": true },
+          { "label": "원인", "text": "씬 로딩 직후 첫 프레임의 deltaTime에 로딩 시간이 들어 있었습니다.", "verbatim": true },
+          { "label": "해결", "text": "프레임 번호 대신 타이머를 켠 뒤 첫 번째 Update 호출을 건너뛰는 플래그(skipNextTick)로 바꿨습니다.", "verbatim": true },
+          { "label": "결과", "text": "스톱워치가 00:00.00에서 시작합니다.", "verbatim": true }
         ],
         "visuals": []
       }
