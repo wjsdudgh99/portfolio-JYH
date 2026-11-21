@@ -2,7 +2,7 @@
   "schemaVersion": 2,
   "id": "3-2d-team-project-cy",
   "doc": "2d team project 기술 문서.md",
-  "title": "4인 협동 운전 게임 — 네트워크 사운드 시스템",
+  "title": "누가 이딴 차로 도망을 가! — 네트워크 사운드 시스템",
   "tagline": "4명이 차 한 대를 나눠 운전하는 온라인 협동 2D 게임",
   "cover": "images/cover.png",
   "team": {
