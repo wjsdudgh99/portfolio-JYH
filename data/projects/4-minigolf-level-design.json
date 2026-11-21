@@ -167,10 +167,10 @@
       "파일명–클래스명 불일치 (MiniGolfSuperBumper.cs 안의 FixedSpeedBumper)"
     ],
     "plans": [
-      "MiniGolfGameManager에 타수 카운트, 스테이지별 Par 표시",
+      "제안: MiniGolfGameManager에 타수 카운트, 스테이지별 Par 표시",
       "Stage-4 초반에 안전한 소개 구간 추가",
-      "Kinematic Rigidbody \u002B FixedUpdate에서 MovePosition / MoveRotation",
-      "클래스명을 MiniGolfSuperBumper로 통일 후 프리팹 동작 재확인"
+      "제안: Kinematic Rigidbody \u002B FixedUpdate에서 MovePosition / MoveRotation",
+      "제안: 클래스명을 MiniGolfSuperBumper로 통일 후 프리팹 동작 재확인"
     ],
     "section": "5. 결과 및 배운 점"
   },

@@ -411,9 +411,9 @@ sequenceDiagram
 - **타수·벌타를 뒤로 미룸** — 레벨 배치가 먼저라고 보고 타수·기준 타수(Par)·낙하 벌타를 우선순위에서 뒤로 미뤘고,
   끝내 넣지 못했습니다. 그래서 스테이지 난이도를 숫자로 비교할 수 없습니다.
 
-**코드에서 찾은 개선점**
+**코드에서 찾은 개선점** — AI와 함께 코드를 다시 읽으며 정리
 
-| 아쉬운 점 | 영향 | 향후 계획 |
+| 아쉬운 점 | 영향 | 고치는 방법(제안) |
 |---|---|---|
 | **움직이는 장애물이 `transform`을 직접 이동** (Rigidbody 없음) | 물리 엔진이 이동을 "순간이동"으로 처리 → 엘리베이터·왕복 벽과의 충돌이 부정확할 수 있음 | Kinematic Rigidbody + `FixedUpdate`에서 `MovePosition` / `MoveRotation` |
 | **파일명–클래스명 불일치** — `MiniGolfSuperBumper.cs` 안의 클래스가 `FixedSpeedBumper` | Unity는 MonoBehaviour 파일명과 클래스명이 같아야 컴포넌트를 안정적으로 로드 → 범퍼 프리팹 27개가 영향 범위 | 클래스명을 `MiniGolfSuperBumper`로 통일 후 프리팹 동작 재확인 |

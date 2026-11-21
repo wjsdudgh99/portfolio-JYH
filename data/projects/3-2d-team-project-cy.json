@@ -157,16 +157,16 @@
       "UIClickSound가 씬 로드마다 버튼을 자동 등록 → 씬에 버튼을 새로 배치해도 사운드 작업 0줄"
     ],
     "regrets": [
+      "4명이 함께 빌드로 테스트하지 않아, 비호스트 렉 버그를 기간 안에 못 고침",
       "비호스트 충돌음 수신 경로가 3개라 한 번의 충돌에 충돌음이 최대 3번 겹쳐 재생될 수 있음",
       "JSON을 json.Contains(\u0022\\\u0022isHard\\\u0022:true\u0022) 같은 문자열 검사로 판별하는 코드가 남아 있음",
-      "미니게임마다 SoundManager에 전용 메서드·클립 필드를 추가해 새 미니게임 = SoundManager 수정(OCP 위반)",
-      "사용되지 않는 초기 구현 Vehicle.cs와 디버그 로그 잔존"
+      "미니게임마다 SoundManager에 전용 메서드·클립 필드를 추가해 새 미니게임 = SoundManager 수정(OCP 위반)"
     ],
     "plans": [
-      "수신 경로를 SoundManager 한 곳으로 일원화하고, 충돌마다 ID를 붙여 중복 제거",
-      "SoundManager처럼 타입이 있는 메시지 클래스로 역직렬화",
-      "ScriptableObject 기반 SoundLibrary \u002B PlaySfx(SoundId)로 전환, AudioMixer 그룹으로 BGM/SFX 볼륨 분리",
-      "삭제"
+      "4명이 각자 PC에서 함께 빌드로 테스트하기",
+      "제안: 수신 경로를 SoundManager 한 곳으로 일원화하고, 충돌마다 ID를 붙여 중복 제거",
+      "제안: SoundManager처럼 타입이 있는 메시지 클래스로 역직렬화",
+      "제안: ScriptableObject 기반 SoundLibrary \u002B PlaySfx(SoundId)로 전환, AudioMixer 그룹으로 BGM/SFX 볼륨 분리"
     ],
     "section": "7. 결과 및 배운 점"
   },
