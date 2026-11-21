@@ -147,13 +147,29 @@
         "visuals": []
       },
       {
+        "key": "how-made",
+        "chapter": "overview",
+        "layout": "overview",
+        "tab": "개요",
+        "title": { "text": "1.3 코드를 만든 방식 — 기획은 제가, 코드는 AI가", "verbatim": true },
+        "lead": { "text": "이 프로젝트는 AI가 프로젝트 파일을 직접 만들고 고치는 방식으로 개발했습니다.", "verbatim": true },
+        "sectionPath": ["1. 개요", "1.3 코드를 만든 방식 — 기획은 제가, 코드는 AI가"],
+        "points": [
+          { "label": "", "text": "대신 큰 틀은 기획서였습니다.", "verbatim": true },
+          { "label": "디오라마 맵 꾸미기", "text": "에셋을 고르고 체스판·사막·설원·기차역 같은 맵을 배치했습니다.", "verbatim": true },
+          { "label": "정답·미끼 물체 배치", "text": "어느 물체를 정답 쌍으로, 어느 것을 미끼로 둘지 정하고 놓았습니다.", "verbatim": true },
+          { "label": "플레이 테스트", "text": "직접 플레이하며 이상한 동작을 찾았습니다.", "verbatim": true }
+        ],
+        "visuals": []
+      },
+      {
         "key": "loop",
         "chapter": "overview",
         "layout": "overview",
         "tab": "개요",
-        "title": { "text": "1.5 레퍼런스와 핵심 루프", "verbatim": true },
+        "title": { "text": "1.6 레퍼런스와 핵심 루프", "verbatim": true },
         "lead": null,
-        "sectionPath": ["1. 개요", "1.5 레퍼런스와 핵심 루프"],
+        "sectionPath": ["1. 개요", "1.6 레퍼런스와 핵심 루프"],
         "points": [
           { "label": "레퍼런스", "text": "분할 화면 '틀린 그림 찾기' 게임.", "verbatim": true },
           { "label": "핵심 루프", "text": "둘러보기(회전·이동·줌) → 의심 가는 물체 비교 → 클릭 → 정답이면 황금빛 반짝임 / 오답이면 3초 클릭 제한 → 모두 찾으면 클리어 창 → 다음 스테이지", "verbatim": true }
