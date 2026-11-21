@@ -5,11 +5,11 @@
 단계마다 본인 확인을 거쳐 고쳐 가는 중입니다(진행 기록: src/_draft/기술문서-수정-진행.md).
 코드를 만든 방식(1.3)·게임 제목·팀 규칙(6.2)·고민과 선택(5.1~5.3)에서 누가 무엇을 정했는지,
 트러블슈팅(7.2)을 어떻게 찾았는지는 본인 확인을 마쳤습니다.
+7.3 아쉬운 점(앞부분)·7.4 배운 점·소리 출처(부록)는 본인이 알려 주거나 고른 내용으로 썼습니다.
 팀원 이름은 이 문서에 쓰지 않습니다(본인만 이름으로).
 
 1. 1.4 시연 영상 링크 — 비어 있습니다. 영상을 올린 뒤 주소를 넣으세요.
-2. 7.2 ①의 (배운 점)과 7.3 아쉬운 점과 향후 계획 — 본인이 느낀 점으로 바꿔 쓰는 것을 권합니다.
-3. 이미지 아래 기울임꼴 설명(캡션) — Claude가 쓴 문장입니다. 본인 말로 바꿔 주세요.
+2. 이미지 아래 기울임꼴 설명(캡션) — Claude가 쓴 문장입니다. 본인 말로 바꿔 주세요.
 -->
 
 # 누가 이딴 차로 도망을 가! — 네트워크 사운드 시스템 기술 문서
@@ -82,6 +82,8 @@ AI 없이 혼자 짠 코드는 아직 학원 개인 과제(전자레인지 — �
 - **Network**: 자체 WebSocket 릴레이 서버 (`ClientWebSocket`) · Newtonsoft.Json · UniTask
 - **Level**: LDtk (ldtkunity 6.12.3)
 - **GitHub**: https://github.com/KooHoo-Dev/3rd-TeamProject-CY
+- **리소스**: BGM은 유튜브 「트와일라잇 소나타 밴드」 채널의 곡을, 효과음은 The Spriters Resource · Pixabay · Pikbest 등의 무료 효과음과
+  ElevenLabs로 만든 효과음을 썼습니다. 맵 타일과 UI 그림은 Kenney 에셋(CC0)입니다. 자세한 출처는 부록에 적었습니다.
 <!-- TODO: 시연 영상 링크 추가 -->
 
 ---
@@ -491,7 +493,6 @@ stateDiagram-v2
 - **(결과)** 라운드가 끝나도 변속음이 한 번만 납니다.
 - 🔍 **(확인)** 첫 커밋 메시지에 제가 적은 "(Host인 플레이어만 발생 했다)"가 남아 있습니다.
   같은 날 오전 두 번째 커밋은 "디버깅 중 생긴 새로운 버그들도 디버깅 완료"로, 고치는 과정에서 생긴 다른 문제까지 정리했습니다.
-- **(배운 점)** 상태를 "변화"로 바꾸는 Edge 검출은 **입력원이 하나일 때만** 성립한다. 공유 상태를 가진 이벤트는 발행 지점을 하나로 강제해야 한다.
 
 #### ② 비호스트에게 충돌음이 들리지 않음
 
@@ -517,6 +518,14 @@ stateDiagram-v2
 
 ### 7.3 아쉬운 점 (기술 부채) 및 향후 계획
 
+**4명이 함께 빌드 테스트를 하지 않았습니다**
+
+비호스트 플레이어의 게임이 점점 느려지며 렉이 걸리는 버그를 기간 안에 고치지 못했습니다.
+빌드 테스트는 제가 만든 빌드 4개를 한 PC에서 켜 놓고 혼자 했고, 나머지는 유니티 에디터에서만 테스트하며 방심했습니다.
+4명이 각자 PC에서 함께 빌드로 테스트했어야 했습니다. 결국 기간이 지난 뒤에 문제를 찾아 고쳤습니다.
+
+**코드에서 찾은 개선점**
+
 | 아쉬운 점 | 영향 | 향후 계획 |
 |---|---|---|
 | **비호스트 충돌음 수신 경로가 3개** — `VehicleDamage`·`SoundManager`가 각각 `vehicle_crash`를 처리하고, `RoundStateSync`도 내구도 감소로 `OnNetworkCrash`를 발행 | 한 번의 충돌에 충돌음이 **최대 3번 겹쳐** 재생될 수 있고, 경로마다 강/약 기준이 다름 | 수신 경로를 `SoundManager` 한 곳으로 일원화하고, 충돌마다 ID를 붙여 중복 제거 |
@@ -526,3 +535,31 @@ stateDiagram-v2
 
 > **TO-BE**: "사건은 한 곳에서 한 번 발행되고, 사운드는 데이터로 정의된다" —
 > 발행 지점 단일화와 데이터 기반 사운드 테이블로, 기획자가 코드 없이 사운드를 교체·추가할 수 있는 구조를 목표로 합니다.
+
+### 7.4 배운 점
+
+- **조건을 좁혀서 알리기** — "이상하다"가 아니라 "호스트에서만", "첫 실패 뒤부터"처럼 어느 상황에서 생기는지 좁혀 알리면
+  원인을 빨리 찾을 수 있었습니다. 기어 소리 버그는 커밋 메시지에 "(Host인 플레이어만 발생 했다)"고 직접 적어 두었습니다(7.2 ①).
+- **고친 뒤에 다시 확인하기** — 기어 소리를 고친 첫 커밋 뒤에 새 버그가 생겨, 같은 날 오전에 한 번 더 고쳤습니다(7.2 ①).
+  4명이 함께 빌드 테스트를 하지 않아 렉 버그를 늦게 찾은 것(7.3)도 같은 교훈입니다. 고쳤다고 끝이 아니라 실제 환경에서 다시 해 봐야 합니다.
+- **남의 코드는 한 줄만 건드리기** — 팀원 코드에는 소리 호출 한 줄만 넣고 판단은 `SoundManager`에 두어,
+  팀원이 리뷰할 때 "소리 한 줄 추가"로 바로 알 수 있게 했습니다(6.1).
+- **씬·브랜치를 나눠 협업하기** — 개인 테스트 씬과 기능별 브랜치로 작업해, 씬 파일이 엉키지 않게 팀원과 나눠 일했습니다(6.2).
+
+---
+
+## 부록 — 사용한 소리 출처
+
+- **BGM**: 트와일라잇 소나타 밴드 — https://www.youtube.com/channel/UCysrfqOgc2GyUAWthrDr_Vg
+- **효과음**
+  - The Spriters Resource (Sounds)
+    - Needy Streamer Overload — https://sounds.spriters-resource.com/pc_computer/needystreameroverload/asset/566289/
+    - VRChat — https://sounds.spriters-resource.com/pc_computer/vrchat/asset/456783/
+    - Star Wars Obi-Wan — https://sounds.spriters-resource.com/xbox/starwarsobiwan/asset/415456/
+    - Deadpool — https://sounds.spriters-resource.com/pc_computer/deadpool/asset/593609/
+    - Counter-Strike: Global Offensive — https://sounds.spriters-resource.com/pc_computer/counterstrikeglobaloffensive/asset/416944/
+    - Need for Speed Carbon — https://sounds.spriters-resource.com/pc_computer/needforspeedcarbon/asset/441629/
+  - Pixabay — https://pixabay.com/sound-effects/search/fuel/
+  - Pikbest — https://kr.pikbest.com//sound-effects/the-big-iron-gate-slammed-shut_9138494.html
+  - https://pgtd.tistory.com/142
+  - ElevenLabs(AI 생성) — https://elevenlabs.io/ko/sound-effects/hammering · https://elevenlabs.io/ko/sound-effects/thud

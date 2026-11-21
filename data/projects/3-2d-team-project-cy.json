@@ -89,7 +89,7 @@
       "cause": "VehicleSoundEvents.Raise()를 NetworkInputSource.Update(D)와 VehicleController.FixedUpdate(N) 두 곳에서 불러, 같은 정적 변수 lastGear에 D와 N이 번갈아 들어가 매번 기어가 바뀌었다고 판정됐습니다.",
       "solution": "발행원을 VehicleController.FixedUpdate 하나로 통일하고, 비호스트도 같은 경로로 발행하게 바꾼 뒤 SoundManager에 같은 기어 무시와 0.2초 디바운스를 더했습니다.",
       "result": "라운드 종료 시 호스트 기어 변속음: 매 프레임 반복 재생 → 1회",
-      "lesson": "상태를 \u0022변화\u0022로 바꾸는 Edge 검출은 입력원이 하나일 때만 성립한다. 공유 상태를 가진 이벤트는 발행 지점을 하나로 강제해야 한다.",
+      "lesson": "",
       "section": "① 라운드가 끝나면 호스트에서만 기어 변속음이 \u0022드드드득\u0022 연속 재생"
     },
     {
