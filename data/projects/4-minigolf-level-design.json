@@ -276,18 +276,43 @@
         "visuals": []
       },
       {
+        "key": "how-made",
+        "chapter": "overview",
+        "layout": "overview",
+        "tab": "개요",
+        "title": {
+          "text": "1.3 코드를 만든 방식 — 레벨은 제가, 코드는 AI와 함께",
+          "verbatim": true
+        },
+        "lead": {
+          "text": "공·샷·카메라는 수업에서 제공된 코드입니다.",
+          "verbatim": true
+        },
+        "sectionPath": [
+          "1. 개요",
+          "1.3 코드를 만든 방식 — 레벨은 제가, 코드는 AI와 함께"
+        ],
+        "points": [
+          { "label": "장애물 종류 기획", "text": "부스터·점프 패드·엘리베이터처럼 어떤 장애물을 만들지, 어떤 순서로 처음 등장시킬지 정했습니다(4.2).", "verbatim": true },
+          { "label": "스테이지 5개 레벨 디자인", "text": "ProBuilder와 프리팹으로 맵을 만들고 장애물 약 400개를 배치했습니다.", "verbatim": true },
+          { "label": "물리 재질·수치 맞추기", "text": "튕김 벽·흡수 벽·얼음 바닥의 물리 재질과 부스터 속도 같은 인스펙터 값을 직접 맞췄습니다.", "verbatim": true },
+          { "label": "", "text": "새로 만든 장애물 스크립트 6종과 게임 흐름 코드는 채팅 AI에 필요한 장애물을 설명해 코드를 받고, 직접 스크립트에 넣는 방식으로 만들었습니다.", "verbatim": true }
+        ],
+        "visuals": []
+      },
+      {
         "key": "loop",
         "chapter": "overview",
         "layout": "visual",
         "tab": "흐름",
         "title": {
-          "text": "1.3 핵심 루프와 조작법",
+          "text": "1.4 핵심 루프와 조작법",
           "verbatim": true
         },
         "lead": null,
         "sectionPath": [
           "1. 개요",
-          "1.3 핵심 루프와 조작법"
+          "1.4 핵심 루프와 조작법"
         ],
         "points": [],
         "visuals": [
@@ -304,13 +329,13 @@
         "layout": "visual",
         "tab": "개요",
         "title": {
-          "text": "1.3 핵심 루프와 조작법",
+          "text": "1.4 핵심 루프와 조작법",
           "verbatim": true
         },
         "lead": null,
         "sectionPath": [
           "1. 개요",
-          "1.3 핵심 루프와 조작법"
+          "1.4 핵심 루프와 조작법"
         ],
         "points": [],
         "visuals": [
