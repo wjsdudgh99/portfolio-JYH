@@ -38,8 +38,8 @@
   ],
   "links": {
     "github": "https://github.com/KooHoo-Dev/3rd-minigolf_level_design-wjsdudgh99",
-    "video": "",
-    "extra": []
+    "video": "https://youtu.be/fMMJUNj-5iE",
+    "extra": [{ "label": "쇼츠", "url": "https://youtube.com/shorts/KA6crrICaUU" }]
   },
   "intent": {
     "text": "그래서 장애물 대부분을 공의 속도를 정해진 값으로 덮어쓰는 방식으로 만들었고, \u0022결과가 고정된 장애물\u0022을 블록처럼 조합해 스테이지를 설계했습니다.",

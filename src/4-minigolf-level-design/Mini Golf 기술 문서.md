@@ -14,9 +14,8 @@
 기준 타수(Par)·실측 플레이 타임·실측 착지 거리는 재지 않아서 쓰지 않습니다.
 5.3 아쉬운 점(앞부분)·5.4 배운 점은 본인이 고르고 이유를 알려 준 내용으로 고쳤습니다.
 
-1. 1.5 시연 영상 링크 — 비어 있습니다. 영상을 올린 뒤 주소를 넣으세요.
-2. 이미지 아래 기울임꼴 설명(캡션) — Claude가 쓴 문장입니다. 본인 말로 바꿔 주세요.
-3. 퇴고 — 다 고친 뒤 개요(1.1 · 1.2)를 다시 읽고 다듬기.
+1. 이미지 아래 기울임꼴 설명(캡션) — Claude가 쓴 문장입니다. 본인 말로 바꿔 주세요.
+2. 퇴고 — 다 고친 뒤 개요(1.1 · 1.2)를 다시 읽고 다듬기.
 -->
 
 ![미니골프 Stage-5 핀볼 구간](images/cover.png)
@@ -101,7 +100,7 @@ flowchart LR
 - **기간**: 2026.10.01 ~ 2026.10.08 (8일, 커밋 12회) · 개인 과제
 - **사용 에셋**: GolfAssets(십자 범퍼 프리팹, 회전 스크립트), 배경음 *Need U 2 B Complete* (Caine1989, CC BY-NC-SA 3.0)
 
-**링크**: GitHub <https://github.com/KooHoo-Dev/3rd-minigolf_level_design-wjsdudgh99> · 시연 영상 `TODO`
+**링크**: GitHub <https://github.com/KooHoo-Dev/3rd-minigolf_level_design-wjsdudgh99> · 시연 영상 <https://youtu.be/fMMJUNj-5iE> · 쇼츠 <https://youtube.com/shorts/KA6crrICaUU>
 
 ---
 
