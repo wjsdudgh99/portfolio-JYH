@@ -39,8 +39,8 @@
   ],
   "links": {
     "github": "https://github.com/KooHoo-Dev/3rd-TeamProject-CY",
-    "video": "",
-    "extra": []
+    "video": "https://youtu.be/4mbmG6XV2pg",
+    "extra": [{ "label": "쇼츠", "url": "https://youtube.com/shorts/uI3z3xmQtOQ" }]
   },
   "intent": {
     "text": "사운드를 \u0022내 화면에서 일어난 일\u0022 이 아니라 \u0022차에서 일어난 일\u0022 기준으로 재생해, 호스트·비호스트 구분 없이 4명이 같은 사운드 경험을 하도록 만든다.",

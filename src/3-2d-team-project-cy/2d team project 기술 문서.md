@@ -8,8 +8,7 @@
 7.3 아쉬운 점(앞부분)·7.4 배운 점·소리 출처(부록)는 본인이 알려 주거나 고른 내용으로 썼습니다.
 팀원 이름은 이 문서에 쓰지 않습니다(본인만 이름으로).
 
-1. 1.4 시연 영상 링크 — 비어 있습니다. 영상을 올린 뒤 주소를 넣으세요.
-2. 이미지 아래 기울임꼴 설명(캡션) — Claude가 쓴 문장입니다. 본인 말로 바꿔 주세요.
+1. 이미지 아래 기울임꼴 설명(캡션) — Claude가 쓴 문장입니다. 본인 말로 바꿔 주세요.
 -->
 
 # 누가 이딴 차로 도망을 가! — 네트워크 사운드 시스템 기술 문서
@@ -82,9 +81,9 @@ AI 없이 혼자 짠 코드는 아직 학원 개인 과제(전자레인지 — �
 - **Network**: 자체 WebSocket 릴레이 서버 (`ClientWebSocket`) · Newtonsoft.Json · UniTask
 - **Level**: LDtk (ldtkunity 6.12.3)
 - **GitHub**: https://github.com/KooHoo-Dev/3rd-TeamProject-CY
+- **시연 영상**: https://youtu.be/4mbmG6XV2pg · 쇼츠 https://youtube.com/shorts/uI3z3xmQtOQ
 - **리소스**: BGM은 유튜브 「트와일라잇 소나타 밴드」 채널의 곡을, 효과음은 The Spriters Resource · Pixabay · Pikbest 등의 무료 효과음과
   ElevenLabs로 만든 효과음을 썼습니다. 맵 타일과 UI 그림은 Kenney 에셋(CC0)입니다. 자세한 출처는 부록에 적었습니다.
-<!-- TODO: 시연 영상 링크 추가 -->
 
 ---
 
