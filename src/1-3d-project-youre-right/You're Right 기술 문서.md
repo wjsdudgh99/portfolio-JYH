@@ -7,8 +7,7 @@
 트러블슈팅(6.2)에서 누가 찾았는지는 본인 확인을 마쳤습니다.
 6.3 아쉬운 점(앞부분)과 6.4 배운 점은 본인이 고른 내용과 발표 자료의 테스트 피드백으로 고쳤습니다.
 
-1. 1.5 시연 영상 링크 — 비어 있습니다. 영상을 올린 뒤 주소를 넣으세요.
-2. 이미지 아래 기울임꼴 설명(캡션) — Claude가 쓴 문장입니다. 본인 말로 바꿔 주세요.
+1. 이미지 아래 기울임꼴 설명(캡션) — Claude가 쓴 문장입니다. 본인 말로 바꿔 주세요.
 -->
 
 # You're Right 기술 문서
@@ -85,7 +84,7 @@ AI 없이 혼자 짠 코드는 아직 학원 개인 과제(전자레인지 — �
 - **Engine**: Unity 6000.3.15f1, URP 17, 새 Input System
 - **Language**: C# (네임스페이스 `YoureRight`) — 코드와 에디터 도구는 대부분 AI로 생성
 - **기간**: 2026.10.21 ~ 2026.11.05 (기획서 작성부터 Windows 빌드까지, 약 2주 반, 개인 프로젝트)
-- **링크**: GitHub https://github.com/KooHoo-Dev/3rd_3D_1-3D-Project-wjsdudgh99
+- **링크**: GitHub https://github.com/KooHoo-Dev/3rd_3D_1-3D-Project-wjsdudgh99 · 시연 영상 https://youtu.be/ekMrtZYxHfs · 쇼츠 https://youtube.com/shorts/WIkPCM9Zzm0
 - **리소스**: 3D 에셋은 Unity 에셋 스토어 무료 에셋, 효과음은 Pixabay에서 받았습니다.
   음악은 Sakura Girl의 Lemonade · Jazzy Night · City Walk(https://soundcloud.com/sakuragirl_official, CC BY 3.0, chosic.com),
   글꼴은 Pretendard(SIL Open Font License 1.1)입니다.

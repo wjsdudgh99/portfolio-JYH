@@ -6,8 +6,7 @@
 게임 제목·레퍼런스·보스 체력(500)은 기획서로, 고민과 선택(3.5·4.5·5.5)은 당시 실제로 정한 방식으로 확인했습니다.
 6.3 회고와 6.4 배운 점은 업데이트 기획서의 회고와 본인이 고른 내용으로 고쳤습니다.
 
-1. 1.5 시연 영상 링크 — 비어 있습니다. 영상을 올린 뒤 주소를 넣으세요.
-2. 6.3 아쉬운 점 ①②③ — 문서를 쓰며 코드에서 찾은 문제이고, 게임에서는 아직 확인하지 않았습니다.
+1. 6.3 아쉬운 점 ①②③ — 문서를 쓰며 코드에서 찾은 문제이고, 게임에서는 아직 확인하지 않았습니다.
    게임을 실행해 정말 그런지 확인하세요.
 -->
 
@@ -88,7 +87,7 @@
 - **Language**: C# — 스크립트 17개, 1,338줄 (큰 틀은 직접, 세부 코드는 대부분 AI로 생성)
 - **화면**: 세로 607×1080
 - **기간**: 2026.06.24 ~ 2026.07.07 (2주, 커밋 38개, 개인 프로젝트)
-- **링크**: GitHub https://github.com/KooHoo-Dev/3rd-2D-Project-wjsdudgh99 · 시연 영상 ✍ (업로드 후 주소 추가)
+- **링크**: GitHub https://github.com/KooHoo-Dev/3rd-2D-Project-wjsdudgh99 · 시연 영상 https://youtu.be/tmnxGLaPnx8 · 쇼츠 https://youtube.com/shorts/VyfRGFwk3u8
 - **그림**: 비행기·보스·배경은 원작 「스트라이커즈 1945」 시리즈의 스프라이트를 내려받아 사용했습니다
   (출처: The Spriters Resource — https://www.spriters-resource.com/arcade/strikers1945/ · https://www.spriters-resource.com/arcade/strikers1945ii/)
 

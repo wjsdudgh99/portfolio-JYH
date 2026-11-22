@@ -15,8 +15,8 @@
   "tags": ["Unity 6", "URP", "C#", "분할 화면", "Raycast", "에디터 도구"],
   "links": {
     "github": "https://github.com/KooHoo-Dev/3rd_3D_1-3D-Project-wjsdudgh99",
-    "video": "",
-    "extra": []
+    "video": "https://youtu.be/ekMrtZYxHfs",
+    "extra": [{ "label": "쇼츠", "url": "https://youtube.com/shorts/WIkPCM9Zzm0" }]
   },
   "intent": {
     "text": "2D 틀린 그림 찾기는 두 그림이 늘 같은 각도로 놓여 있습니다. 3D로 옮기면 이 전제가 깨집니다.",

@@ -15,8 +15,8 @@
   "tags": ["Unity 6", "URP 2D", "C#", "코루틴", "싱글톤", "OnTriggerStay2D"],
   "links": {
     "github": "https://github.com/KooHoo-Dev/3rd-2D-Project-wjsdudgh99",
-    "video": "",
-    "extra": []
+    "video": "https://youtu.be/tmnxGLaPnx8",
+    "extra": [{ "label": "쇼츠", "url": "https://youtube.com/shorts/VyfRGFwk3u8" }]
   },
   "intent": {
     "text": "슈팅 게임은 수십 개의 총알·적이 동시에 부딪히고 사라지는 장르입니다. 만들면서 부딪힌 문제는 세 가지였습니다.",
