@@ -265,6 +265,31 @@
       const zb = e.target.closest('.mmd-zoom');
       if (zb) { const svg = zb.closest('.mmd').querySelector('.mermaid svg'); if (svg) zoom({ svg, caption: zb.closest('.mmd').dataset.label }); }
     });
+    // ⑪-2 (2026-11-23 수강생 요청) 다이어그램 판에 마우스를 올리면 그 자리에서 확대 — 글 폭에 맞춰 줄어든 글씨를 읽게.
+    //      원래 크기·화면 폭·화면 높이 중 가장 작은 배율까지만, 화면 밖으로 나가지 않게 옮김. 마우스가 있는 기기만(휴대폰은 [크게 보기])
+    if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      const GAP = 24;
+      doc.querySelectorAll('.mmd .mermaid').forEach((box) => {
+        const svg = box.querySelector('svg');
+        if (!svg) return;
+        let timer = 0;
+        box.addEventListener('mouseenter', () => {
+          clearTimeout(timer);
+          timer = setTimeout(() => {
+            const r = box.getBoundingClientRect(), sw = svg.getBoundingClientRect().width;
+            const natural = parseFloat(svg.dataset.naturalWidth) || sw;
+            const vw = document.documentElement.clientWidth;
+            const s = Math.min(natural / sw, (vw - GAP * 2) / r.width, (innerHeight - GAP * 2) / r.height);
+            if (!(s > 1.1)) return;                                          // 이미 거의 원래 크기면 확대하지 않음
+            const left = Math.min(Math.max(GAP, r.left + r.width / 2 - (r.width * s) / 2), vw - GAP - r.width * s);
+            const top = Math.min(r.top, innerHeight - GAP - r.height * s);  // 아래로 넘칠 때만 위로 올림
+            box.style.transform = `translate(${left - r.left}px, ${top - r.top}px) scale(${s})`;
+            box.classList.add('mmd-hover');
+          }, 200);                                                           // 스크롤하며 지나갈 때는 켜지지 않게
+        });
+        box.addEventListener('mouseleave', () => { clearTimeout(timer); box.classList.remove('mmd-hover'); box.style.transform = ''; });
+      });
+    }
     // 코드 오른쪽 흐림 표시: 가로로 더 있을 때만
     const fade = (pre) => pre.classList.toggle('fade-r', pre.scrollWidth > pre.clientWidth + 1 && pre.scrollLeft + pre.clientWidth < pre.scrollWidth - 1);
     const pres = [...doc.querySelectorAll('pre')].filter((x) => !x.closest('.mmd-src'));

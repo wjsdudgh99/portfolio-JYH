@@ -171,6 +171,10 @@ code { font-family: var(--mono); font-size: .88em; background: var(--accent-soft
 .md .mmd { margin: 22px 0; }
 .mmd .mermaid { display: flex; justify-content: center; padding: 16px; border: 1px solid var(--diagram-bg); border-radius: calc(var(--r) * .7); overflow-x: auto; background: var(--diagram-bg); }
 .mmd .mermaid svg { display: block; max-width: 100%; height: auto; }
+/* (2026-11-23 수강생 요청) 마우스를 올리면 그 자리에서 확대 — 배율·위치는 doc.js ⑪-2가 정함 */
+.mmd .mermaid { position: relative; transform-origin: 0 0; transition: transform .18s ease, box-shadow .18s ease; }
+.mmd .mermaid.mmd-hover { z-index: 40; box-shadow: 0 24px 60px -12px var(--shadow); }
+@media (prefers-reduced-motion: reduce) { .mmd .mermaid { transition: none; } }
 .mmd-bar { contain: inline-size; display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 6px 12px; margin-top: 6px; font-size: 13px; }
 .mmd-src summary { color: var(--muted); cursor: pointer; font-weight: 600; }
 .mmd-src pre { margin: 8px 0 0; max-height: 320px; overflow: auto; background: var(--code-bg); border: 1px solid var(--line); border-radius: 8px; }
@@ -215,8 +219,8 @@ dialog.lightbox::backdrop { background: rgba(10, 11, 14, .82); }
 .doc-intro, .md > :not(pre, .table-wrap, .mmd, .pf-figure) { margin-inline: auto; }
 .md > :is(pre, .table-wrap) { margin-left: max(0px, (100% - var(--measure)) / 2); max-width: calc(100% - max(0px, (100% - var(--measure)) / 2)); }
 .md > :is(.mmd, .pf-figure) { margin-inline: auto; }
-/* (2026-11-23 수강생 요청) 사진은 글줄 폭(40rem)을 넘지 않게 — 크게 보려면 눌러서 확대. 도식(.mmd)은 그대로 최대 1200 */
-.md > .pf-figure { max-width: min(100%, var(--measure)); }
+/* (2026-11-23 수강생 요청) 사진·도식은 글줄 폭(40rem)을 넘지 않게 — 크게 보려면 눌러서 확대 */
+.md > :is(.mmd, .pf-figure) { max-width: min(100%, var(--measure)); }
 
 /* ── 반응형 (화면에만; 인쇄 폭에서 켜지지 않게 screen으로 한정) ── */
 @media screen and (max-width: 1799.98px) {
@@ -289,7 +293,7 @@ dialog.lightbox::backdrop { background: rgba(10, 11, 14, .82); }
   .md th, .md td { padding: 4pt 6pt; white-space: normal; overflow-wrap: break-word; }
   .md :is(th, td) a, .md .table-wrap.print-wide :is(th, td) { overflow-wrap: anywhere; }
   thead { display: table-header-group; }
-  .mmd .mermaid { border: 0; padding: 0; overflow: visible; }
+  .mmd .mermaid { border: 0; padding: 0; overflow: visible; transform: none !important; box-shadow: none !important; }
   .mermaid svg, .md img { max-width: 100% !important; height: auto; max-height: 230mm; }
   .md a { color: inherit; text-decoration: none; }
   .link-list { margin-top: 18pt; border-top: 1px solid #ccc; padding-top: 8pt; font-size: 9pt; }
