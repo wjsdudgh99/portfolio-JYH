@@ -125,11 +125,31 @@
     }
     return elkReady;
   }
+  let baseOpts = {};
+  const mmdConfig = (elk, extra) => ({ startOnLoad: false, theme: 'default', securityLevel: 'loose', fontFamily: 'Pretendard, sans-serif', ...(elk ? { layout: 'elk' } : {}), ...baseOpts, ...extra });
   async function initMermaid(opts = {}) {
     const elk = await loadElk();
-    mermaid.initialize({ startOnLoad: false, theme: 'default', securityLevel: 'loose', fontFamily: 'Pretendard, sans-serif', ...(elk ? { layout: 'elk' } : {}), ...opts });
+    baseOpts = opts;
+    mermaid.initialize(mmdConfig(elk));
     return elk ? 'elk' : 'dagre';
   }
 
-  PF.md = { parse, index, findSection, pick, fpOf, firstVisual, isRelative, decode, initMermaid };
+  // 다이어그램 하나에만 ELK 설정 주기 — 원문 mermaid 첫 줄 앞에 %%{init: {"elk": {"cycleBreakingStrategy": "MODEL_ORDER"}}}%%
+  //   (MODEL_ORDER = 되돌아가는 화살표가 있어도 적은 순서대로 위→아래로 놓음). mermaid 11.4.1은 지시 줄의 elk 설정을 ELK에 넘기지 않으므로,
+  //   그 다이어그램을 그리는 동안만 전체 설정에 넣었다가 되돌림. 지문(fpOf)은 %% 줄을 건너뛰므로 슬라이드 참조는 그대로.
+  function elkOf(text) {
+    const m = /%%\{\s*init\s*:\s*([\s\S]*?)\}%%/.exec(String(text || ''));
+    if (!m) return null;
+    try { const o = JSON.parse(m[1]); return o && o.elk && typeof o.elk === 'object' ? o.elk : null; } catch { return null; }
+  }
+  async function withElk(text, fn) {
+    const opts = elkOf(text);
+    if (!opts) return fn();
+    const elk = await loadElk();
+    if (!elk) return fn();
+    mermaid.initialize(mmdConfig(true, { elk: opts }));
+    try { return await fn(); } finally { mermaid.initialize(mmdConfig(true)); }
+  }
+
+  PF.md = { parse, index, findSection, pick, fpOf, firstVisual, isRelative, decode, initMermaid, elkOf, withElk };
 })();

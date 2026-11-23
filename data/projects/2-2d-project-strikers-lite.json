@@ -178,7 +178,7 @@
         "lead": { "text": "상태를 바꾸는 코드는 모두 GameManager 안에만 있고, 다른 클래스는 \"무슨 일이 일어났다\"만 알립니다.", "verbatim": true },
         "sectionPath": ["3. 기능 1: 스테이지 흐름 관리 (GameManager)", "3.1 구조: 한 판의 상태 변화"],
         "points": [],
-        "visuals": [ { "kind": "mermaid", "n": 1, "fp": "stateDiagram-v2" } ]
+        "visuals": [ { "kind": "mermaid", "n": 1, "fp": "flowchart TD" } ]
       },
       {
         "key": "boss-transition", "chapter": "flow", "layout": "code", "tab": "구현",

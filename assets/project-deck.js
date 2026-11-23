@@ -117,7 +117,7 @@
     for (const el of els) {
       if (svgCache.has(el)) continue;
       const text = el.querySelector('code')?.textContent || '';
-      try { const { svg } = await mermaid.render(`dk-mmd-${n++}`, text, mmdHost); svgCache.set(el, { svg }); }
+      try { const id = `dk-mmd-${n++}`; const { svg } = await PF.md.withElk(text, () => mermaid.render(id, text, mmdHost)); svgCache.set(el, { svg }); }   // 자기 ELK 설정(md-blocks.js withElk)
       catch (err) { svgCache.set(el, { error: String(err?.message || err).split('\n')[0].slice(0, 120) }); info.errors.push('mermaid: ' + (err?.message || err)); }
     }
     mmdHost.replaceChildren();

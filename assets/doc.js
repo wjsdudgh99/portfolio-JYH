@@ -212,7 +212,13 @@
     document.fonts?.addEventListener('loadingdone', markPrintWide);
     if (window.mermaid && figs.length) {                                // 설정(startOnLoad 끔)은 파일 맨 위에서 이미 함
       await PF.md.initMermaid();                                         // ELK 레이아웃 등록(md-blocks.js)
-      try { await mermaid.run({ nodes: doc.querySelectorAll('.mermaid') }); }
+      try {
+        const nodes = [...doc.querySelectorAll('.mermaid')];
+        const own = nodes.filter((n) => PF.md.elkOf(n.textContent));     // 자기 ELK 설정이 있는 다이어그램은 따로(md-blocks.js withElk)
+        const rest = nodes.filter((n) => !own.includes(n));
+        if (rest.length) await mermaid.run({ nodes: rest });
+        for (const n of own) await PF.md.withElk(n.textContent, () => mermaid.run({ nodes: [n] }));
+      }
       catch (err) { console.warn('[doc] Mermaid 렌더 오류:', err); errors.push(`mermaid: ${String(err?.message || err).split('\n')[0].slice(0, 160)}`); }
     } else if (figs.length) errors.push('mermaid: 다이어그램 라이브러리(Mermaid)를 불러오지 못했습니다');
     figs.forEach((fig) => {

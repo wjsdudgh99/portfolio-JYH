@@ -165,17 +165,22 @@ flowchart LR
 ### 3.1 구조: 한 판의 상태 변화
 
 ```mermaid
-stateDiagram-v2
-    [*] --> Countdown: InGame 씬 로드
-    Countdown --> Survive: 3·2·1·START (스포너 켬)
-    Survive --> BossStage: SurviveTime 0초 (스포너 끔, 남은 적 제거, 보스 생성)
-    Survive --> GameOver: 플레이어 체력 0
-    BossStage --> Victory: 보스 체력 0
-    BossStage --> GameOver: 플레이어 체력 0
-    GameOver --> Countdown: Retry (씬 다시 로드)
-    Victory --> Countdown: Retry
-    GameOver --> [*]: Main Menu
-    Victory --> [*]: Main Menu
+%%{init: {"elk": {"cycleBreakingStrategy": "MODEL_ORDER"}}}%%
+flowchart TD
+    Start([Start]) -->|InGame 씬 로드| Countdown[Countdown]
+    Countdown -->|3·2·1·START<br/>스포너 켬| Survive[Survive]
+    
+    Survive -->|SurviveTime 0초<br/>스포너 끔, 남은 적 제거, 보스 생성| BossStage[BossStage]
+    Survive -->|플레이어 체력 0| GameOver[GameOver]
+    
+    BossStage -->|보스 체력 0| Victory[Victory]
+    BossStage -->|플레이어 체력 0| GameOver
+    
+    GameOver -->|Retry: 씬 다시 로드| Countdown
+    Victory -->|Retry| Countdown
+    
+    GameOver -->|Main Menu| End([End / Main Menu])
+    Victory -->|Main Menu| End
 ```
 
 `GameManager`는 위 상태를 `IsGameStarted` · `isBossSpawned`(`IsBossStage`) · `isGameOver` 세 플래그로 표현합니다.
