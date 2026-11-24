@@ -52,7 +52,7 @@
       "what": "4명의 입력이 합쳐진 차량 입력에서 액셀·브레이크·기어가 바뀐 순간을 잡아, 누가 조작했든 4명 모두에게 엔진·브레이크·변속음을 냅니다.",
       "how": "초당 50회 들어오는 입력을 VehicleSoundEvents가 직전 값과 비교해 바뀐 순간에만 AccelChanged·BrakeChanged·GearChanged를 발행하고, SoundManager가 기어 N·정지 상태를 한 번 더 검사한 뒤 재생합니다.",
       "why": "차량 소리를 이벤트로 받는 방식은 AI의 제안을 따랐습니다. 돌아보면 차량 입력은 발생원이 여러 곳이고 사운드 외의 반응도 붙을 수 있어 이벤트가 맞는 자리입니다.",
-      "section": "4.2 핵심 동작 ① — 입력을 \u0027변화 이벤트\u0027로 바꾸기",
+      "section": "4.2 입력이 바뀐 순간에만 소리 내기",
       "image": null
     },
     {
@@ -60,7 +60,7 @@
       "what": "물리 판정이 호스트에만 있어 4명 중 3명이 듣지 못하던 충돌음을, 4명 모두 같은 강도로 듣게 합니다.",
       "how": "호스트의 VehicleDamage가 충돌 속도 10 이상이면 강, 아니면 약으로 판정해 로컬 이벤트를 내고 vehicle_crash { isHard } 패킷을 보내면, 비호스트 SoundManager가 받아 같은 강도의 충돌음을 재생합니다.",
       "why": "다른 플레이어에게 충돌음이 안 들리는 것을 제가 발견했고, 호스트가 패킷으로 알리는 방법은 AI의 제안을 따랐습니다. 4명이 같은 사건에 같은 소리를 들어야 협동 중 소통이 깨지지 않습니다.",
-      "section": "4.3 핵심 동작 ② — 호스트만 아는 충돌을 모두에게 들려주기",
+      "section": "4.3 충돌음을 4명 모두에게",
       "image": {
         "src": "images/crash_durability.gif",
         "w": 960,
@@ -73,7 +73,7 @@
       "what": "주유 노즐·액셀·브레이크처럼 누르는 동안만 나야 하는 소리를 떼는 순간 바로 끕니다.",
       "how": "미니게임 뷰는 누른 순간 StartFuelLoopSound(), 뗀 순간 StopFuelLoopSound()를 한 줄씩 부르고, SoundManager는 액셀·브레이크·미니게임 루프를 전용 AudioSource로 나눠 Stop()으로 끕니다.",
       "why": "\"누르는 동안만\" 나야 한다는 요구는 제가 정했고, AI가 루프 종류별 전용 AudioSource로 나눴습니다. PlayOneShot은 개별 정지가 안 돼 액셀을 떼도 소리가 끝까지 남기 때문입니다.",
-      "section": "4.1 사용법 (API)",
+      "section": "4.1 사용법",
       "image": {
         "src": "images/minigame_fuel.gif",
         "w": 960,
@@ -90,7 +90,7 @@
       "solution": "발행원을 VehicleController.FixedUpdate 하나로 통일하고, 비호스트도 같은 경로로 발행하게 바꾼 뒤 SoundManager에 같은 기어 무시와 0.2초 디바운스를 더했습니다.",
       "result": "라운드 종료 시 호스트 기어 변속음: 매 프레임 반복 재생 → 1회",
       "lesson": "",
-      "section": "① 라운드가 끝나면 호스트에서만 기어 변속음이 \u0022드드드득\u0022 연속 재생"
+      "section": "① 라운드가 끝나면 기어 소리가 반복됨"
     },
     {
       "title": "비호스트에게 충돌음이 들리지 않음",
@@ -108,7 +108,7 @@
       "solution": "실패 루틴 시작 시 눌림 상태를 강제로 해제하고 루프음을 정지하며, 루프 재시작 시 time = 0으로 처음부터 재생합니다.",
       "result": "실패한 뒤에도 다시 누르면 주유 소리가 납니다.",
       "lesson": "",
-      "section": "③ 주유 미니게임에서 한 번 실패하면 이후 주유 소리가 나지 않음"
+      "section": "③ 주유에 실패하면 주유 소리가 안 남"
     }
   ],
   "screenshots": [
@@ -168,7 +168,7 @@
       "제안: SoundManager처럼 타입이 있는 메시지 클래스로 역직렬화",
       "제안: ScriptableObject 기반 SoundLibrary \u002B PlaySfx(SoundId)로 전환, AudioMixer 그룹으로 BGM/SFX 볼륨 분리"
     ],
-    "section": "7. 결과 및 배운 점"
+    "section": "7. 결과와 배운 점"
   },
   "deck": {
     "chapters": [
@@ -181,9 +181,9 @@
       },
       {
         "key": "part",
-        "title": "담당 파트 개요 — 네트워크 사운드 시스템",
+        "title": "내 담당: 네트워크 사운드",
         "sectionPath": [
-          "2. 담당 파트 개요 — 네트워크 사운드 시스템"
+          "2. 내 담당: 네트워크 사운드"
         ]
       },
       {
@@ -195,16 +195,16 @@
       },
       {
         "key": "core",
-        "title": "핵심 기능 및 사용법",
+        "title": "핵심 기능",
         "sectionPath": [
-          "4. 핵심 기능 및 사용법"
+          "4. 핵심 기능"
         ]
       },
       {
         "key": "tradeoff",
-        "title": "고민과 선택 (Trade-offs)",
+        "title": "고민과 선택",
         "sectionPath": [
-          "5. 고민과 선택 (Trade-offs)"
+          "5. 고민과 선택"
         ]
       },
       {
@@ -216,9 +216,9 @@
       },
       {
         "key": "result",
-        "title": "결과 및 배운 점",
+        "title": "결과와 배운 점",
         "sectionPath": [
-          "7. 결과 및 배운 점"
+          "7. 결과와 배운 점"
         ]
       }
     ],
@@ -321,9 +321,9 @@
         "chapter": "overview",
         "layout": "overview",
         "tab": "개요",
-        "title": { "text": "1.4 코드를 만든 방식 — 소리와 맵은 제가, 코드는 AI와 함께", "verbatim": true },
+        "title": { "text": "1.4 AI와 나눈 역할", "verbatim": true },
         "lead": { "text": "제가 맡은 사운드 코드는 채팅 AI에 필요한 기능을 설명해 코드를 받고, 직접 스크립트에 넣는 방식으로 만들었습니다.", "verbatim": true },
-        "sectionPath": ["1. 개요", "1.4 코드를 만든 방식 — 소리와 맵은 제가, 코드는 AI와 함께"],
+        "sectionPath": ["1. 개요", "1.4 AI와 나눈 역할"],
         "points": [
           { "label": "레벨 디자인", "text": "LDtk로 본 맵과 튜토리얼 맵을 만들고 나무·차량·장애물을 배치했습니다.", "verbatim": true },
           { "label": "소리 고르기", "text": "BGM 9종 · SFX 22종을 고르고, 어느 순간에 어떤 소리가 나야 하는지 정했습니다.", "verbatim": true },
@@ -338,7 +338,7 @@
         "layout": "overview",
         "tab": "개요",
         "title": {
-          "text": "2.1 무엇을 (What)",
+          "text": "2.1 만든 것",
           "verbatim": true
         },
         "lead": {
@@ -346,8 +346,8 @@
           "verbatim": true
         },
         "sectionPath": [
-          "2. 담당 파트 개요 — 네트워크 사운드 시스템",
-          "2.1 무엇을 (What)"
+          "2. 내 담당: 네트워크 사운드",
+          "2.1 만든 것"
         ],
         "points": [
           {
@@ -379,7 +379,7 @@
         "layout": "overview",
         "tab": "개요",
         "title": {
-          "text": "2.2 왜 (Why) — 문제 정의",
+          "text": "2.2 풀어야 했던 문제",
           "verbatim": true
         },
         "lead": {
@@ -387,8 +387,8 @@
           "verbatim": true
         },
         "sectionPath": [
-          "2. 담당 파트 개요 — 네트워크 사운드 시스템",
-          "2.2 왜 (Why) — 문제 정의"
+          "2. 내 담당: 네트워크 사운드",
+          "2.2 풀어야 했던 문제"
         ],
         "points": [
           {
@@ -420,7 +420,7 @@
         "layout": "full",
         "tab": "구조",
         "title": {
-          "text": "3.1 아키텍처 — 사운드가 발생하는 세 갈래",
+          "text": "3.1 소리가 나는 세 갈래",
           "verbatim": true
         },
         "lead": {
@@ -429,7 +429,7 @@
         },
         "sectionPath": [
           "3. 시스템 구조",
-          "3.1 아키텍처 — 사운드가 발생하는 세 갈래"
+          "3.1 소리가 나는 세 갈래"
         ],
         "points": [],
         "visuals": [
@@ -446,7 +446,7 @@
         "layout": "code",
         "tab": "구현",
         "title": {
-          "text": "4.1 사용법 (API)",
+          "text": "4.1 사용법",
           "verbatim": true
         },
         "lead": {
@@ -454,8 +454,8 @@
           "verbatim": true
         },
         "sectionPath": [
-          "4. 핵심 기능 및 사용법",
-          "4.1 사용법 (API)"
+          "4. 핵심 기능",
+          "4.1 사용법"
         ],
         "points": [
           {
@@ -488,7 +488,7 @@
         "layout": "code",
         "tab": "구현",
         "title": {
-          "text": "4.2 핵심 동작 ① — 입력을 \u0027변화 이벤트\u0027로 바꾸기",
+          "text": "4.2 입력이 바뀐 순간에만 소리 내기",
           "verbatim": true
         },
         "lead": {
@@ -496,8 +496,8 @@
           "verbatim": true
         },
         "sectionPath": [
-          "4. 핵심 기능 및 사용법",
-          "4.2 핵심 동작 ① — 입력을 \u0027변화 이벤트\u0027로 바꾸기"
+          "4. 핵심 기능",
+          "4.2 입력이 바뀐 순간에만 소리 내기"
         ],
         "points": [
           {
@@ -525,13 +525,13 @@
         "layout": "visual",
         "tab": "흐름",
         "title": {
-          "text": "4.3 핵심 동작 ② — 호스트만 아는 충돌을 모두에게 들려주기",
+          "text": "4.3 충돌음을 4명 모두에게",
           "verbatim": true
         },
         "lead": null,
         "sectionPath": [
-          "4. 핵심 기능 및 사용법",
-          "4.3 핵심 동작 ② — 호스트만 아는 충돌을 모두에게 들려주기"
+          "4. 핵심 기능",
+          "4.3 충돌음을 4명 모두에게"
         ],
         "points": [],
         "visuals": [
@@ -548,13 +548,13 @@
         "layout": "code",
         "tab": "구현",
         "title": {
-          "text": "4.3 핵심 동작 ② — 호스트만 아는 충돌을 모두에게 들려주기",
+          "text": "4.3 충돌음을 4명 모두에게",
           "verbatim": true
         },
         "lead": null,
         "sectionPath": [
-          "4. 핵심 기능 및 사용법",
-          "4.3 핵심 동작 ② — 호스트만 아는 충돌을 모두에게 들려주기"
+          "4. 핵심 기능",
+          "4.3 충돌음을 4명 모두에게"
         ],
         "points": [],
         "visuals": [
@@ -576,7 +576,7 @@
         },
         "lead": null,
         "sectionPath": [
-          "4. 핵심 기능 및 사용법",
+          "4. 핵심 기능",
           "4.4 BGM 흐름"
         ],
         "points": [],
@@ -594,7 +594,7 @@
         "layout": "overview",
         "tab": "선택",
         "title": {
-          "text": "5.1 사운드를 어떻게 \u0027트리거\u0027할 것인가",
+          "text": "5.1 소리를 내는 방식: 이벤트 vs 직접 호출",
           "verbatim": true
         },
         "lead": {
@@ -602,8 +602,8 @@
           "verbatim": true
         },
         "sectionPath": [
-          "5. 고민과 선택 (Trade-offs)",
-          "5.1 사운드를 어떻게 \u0027트리거\u0027할 것인가"
+          "5. 고민과 선택",
+          "5.1 소리를 내는 방식: 이벤트 vs 직접 호출"
         ],
         "points": [
           {
@@ -635,7 +635,7 @@
         "layout": "overview",
         "tab": "선택",
         "title": {
-          "text": "5.2 비호스트에게 충돌을 어떻게 알릴 것인가",
+          "text": "5.2 비호스트에게 충돌 알리기",
           "verbatim": true
         },
         "lead": {
@@ -643,8 +643,8 @@
           "verbatim": true
         },
         "sectionPath": [
-          "5. 고민과 선택 (Trade-offs)",
-          "5.2 비호스트에게 충돌을 어떻게 알릴 것인가"
+          "5. 고민과 선택",
+          "5.2 비호스트에게 충돌 알리기"
         ],
         "points": [
           {
@@ -671,7 +671,7 @@
         "layout": "overview",
         "tab": "선택",
         "title": {
-          "text": "5.3 루프음을 어떻게 재생하고 끌 것인가",
+          "text": "5.3 루프음 켜고 끄기",
           "verbatim": true
         },
         "lead": {
@@ -679,8 +679,8 @@
           "verbatim": true
         },
         "sectionPath": [
-          "5. 고민과 선택 (Trade-offs)",
-          "5.3 루프음을 어떻게 재생하고 끌 것인가"
+          "5. 고민과 선택",
+          "5.3 루프음 켜고 끄기"
         ],
         "points": [
           {
@@ -707,7 +707,7 @@
         "layout": "overview",
         "tab": "선택",
         "title": {
-          "text": "6.1 협업 이슈 — 남의 코드에 소리를 \u0027꽂는\u0027 방법",
+          "text": "6.1 팀원 코드에 소리 넣기",
           "verbatim": true
         },
         "lead": {
@@ -716,7 +716,7 @@
         },
         "sectionPath": [
           "6. 협업",
-          "6.1 협업 이슈 — 남의 코드에 소리를 \u0027꽂는\u0027 방법"
+          "6.1 팀원 코드에 소리 넣기"
         ],
         "points": [
           {
@@ -748,7 +748,7 @@
         },
         "lead": null,
         "sectionPath": [
-          "7. 결과 및 배운 점",
+          "7. 결과와 배운 점",
           "7.1 결과"
         ],
         "points": [],
@@ -766,14 +766,14 @@
         "layout": "problem",
         "tab": "문제 해결",
         "title": {
-          "text": "① 라운드가 끝나면 호스트에서만 기어 변속음이 \u0022드드드득\u0022 연속 재생",
+          "text": "① 라운드가 끝나면 기어 소리가 반복됨",
           "verbatim": true
         },
         "lead": null,
         "sectionPath": [
-          "7. 결과 및 배운 점",
-          "7.2 문제 해결 경험 (Troubleshooting)",
-          "① 라운드가 끝나면 호스트에서만 기어 변속음이 \u0022드드드득\u0022 연속 재생"
+          "7. 결과와 배운 점",
+          "7.2 문제 해결",
+          "① 라운드가 끝나면 기어 소리가 반복됨"
         ],
         "points": [
           {
@@ -816,8 +816,8 @@
         },
         "lead": null,
         "sectionPath": [
-          "7. 결과 및 배운 점",
-          "7.2 문제 해결 경험 (Troubleshooting)",
+          "7. 결과와 배운 점",
+          "7.2 문제 해결",
           "② 비호스트에게 충돌음이 들리지 않음"
         ],
         "points": [
@@ -850,14 +850,14 @@
         "layout": "problem",
         "tab": "문제 해결",
         "title": {
-          "text": "③ 주유 미니게임에서 한 번 실패하면 이후 주유 소리가 나지 않음",
+          "text": "③ 주유에 실패하면 주유 소리가 안 남",
           "verbatim": true
         },
         "lead": null,
         "sectionPath": [
-          "7. 결과 및 배운 점",
-          "7.2 문제 해결 경험 (Troubleshooting)",
-          "③ 주유 미니게임에서 한 번 실패하면 이후 주유 소리가 나지 않음"
+          "7. 결과와 배운 점",
+          "7.2 문제 해결",
+          "③ 주유에 실패하면 주유 소리가 안 남"
         ],
         "points": [
           {

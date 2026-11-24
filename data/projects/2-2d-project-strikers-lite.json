@@ -36,7 +36,7 @@
       "what": "카운트다운·60초 생존·보스전·결과 네 단계를 GameManager 한 곳에서 전환합니다.",
       "how": "단계 전환을 씬 싱글톤 GameManager에 모으고, 생존 시간이 0초가 되면 플래그로 보스전 전환을 한 번만 실행해 스포너 끄기 → 남은 적 제거 → 보스 생성 순으로 처리합니다.",
       "why": "학원에서 배운 GameManager 싱글톤을 AI에 요청해 썼습니다. 돌아보면 적·보스·아이템이 실행 중에 Instantiate로 생겨 인스펙터 연결이 어려운 이 게임에 맞는 방식이었습니다.",
-      "section": "3.3 기능 ① 스테이지 흐름 관리 (GameManager)",
+      "section": "3.3 스테이지 흐름 관리",
       "image": { "src": "images/boss_intro.gif", "w": 288, "h": 512, "caption": "60초 생존 뒤 보스 등장" }
     },
     {
@@ -44,7 +44,7 @@
       "what": "적·총알·레이저에 닿으면 체력이 1 줄고, 맞은 뒤 2초 동안 깜빡이며 무적이며, 아이템으로 무기와 체력을 올립니다.",
       "how": "OnTriggerStay2D에서 아이템 처리 → 무적 검사 → 피격 순으로 판정하고, 무적 시간은 깜빡임 코루틴이 끝나는 2초로 정했습니다.",
       "why": "처음엔 OnTriggerEnter2D였지만 계속 머무는 보스 레이저를 만들며 OnTriggerStay2D로 바꿨고, 그때 맨 위로 올린 무적 검사가 아이템까지 막는 버그를 낳아 판정 순서를 고쳤습니다.",
-      "section": "3.4 기능 ② 플레이어 전투 — 피격·무적·아이템",
+      "section": "3.4 플레이어 피격과 아이템",
       "image": { "src": "images/hit_blink.gif", "w": 288, "h": 512, "caption": "적과 부딪히거나 총알에 맞으면 체력 -1" }
     },
     {
@@ -52,7 +52,7 @@
       "what": "보스가 좌우로 순찰하며 부채꼴 연사·시계 방향·반시계 방향·레이저 4가지 패턴 중 하나를 골라 씁니다.",
       "how": "패턴 하나를 코루틴 하나로 만들고, 같은 패턴을 3번 반복한 뒤 Random.Range(0, 4)로 다시 고릅니다.",
       "why": "학원에서 배운 코루틴으로 만들어 달라고 AI에 요청했습니다. 패턴 하나가 함수 하나로 나뉘어 있어, 패턴 3종을 한 번에 추가할 수 있었습니다.",
-      "section": "3.5 기능 ③ 보스 공격 패턴",
+      "section": "3.5 보스 공격 패턴",
       "image": { "src": "images/boss_patterns.gif", "w": 288, "h": 512, "caption": "보스 공격 패턴 — 부채꼴 연사, 회전 연사, 레이저" }
     }
   ],
@@ -73,7 +73,7 @@
       "solution": "두 줄을 OnTriggerEnter2D의 PlayerBullet 충돌 분기 안으로 옮겼습니다.",
       "result": "일반 적이 화면에 나타나고, 점수는 총알로 격추할 때만 오르게 됐습니다.",
       "lesson": "",
-      "section": "4.2 일반 적이 보이지 않고 점수만 1초에 100점씩 오름"
+      "section": "4.2 적은 안 보이고 점수만 오름"
     },
     {
       "title": "3방향 적이 오른쪽으로 기울지 않음",
@@ -117,9 +117,9 @@
   "deck": {
     "chapters": [
       { "key": "overview", "title": "개요", "sectionPath": ["1. 개요"] },
-      { "key": "plan", "title": "기획 — 기획서로 정한 게임", "sectionPath": ["2. 기획 — 기획서로 정한 게임"] },
-      { "key": "ai", "title": "AI 활용 — 큰 틀은 제가, 세부 코드는 AI가", "sectionPath": ["3. AI 활용 — 큰 틀은 제가, 세부 코드는 AI가"] },
-      { "key": "fix", "title": "문제 해결 — 플레이하며 찾고, 커밋으로 원인 확인", "sectionPath": ["4. 문제 해결 — 플레이하며 찾고, 커밋으로 원인 확인"] },
+      { "key": "plan", "title": "기획", "sectionPath": ["2. 기획"] },
+      { "key": "ai", "title": "AI 활용", "sectionPath": ["3. AI 활용"] },
+      { "key": "fix", "title": "문제 해결", "sectionPath": ["4. 문제 해결"] },
       { "key": "appendix", "title": "부록. 코드 구조", "sectionPath": ["부록. 코드 구조"] }
     ],
     "slides": [
@@ -140,7 +140,7 @@
         "key": "loop", "chapter": "plan", "layout": "overview", "tab": "개요",
         "title": { "text": "2.1 플레이 소개와 핵심 루프", "verbatim": true },
         "lead": null,
-        "sectionPath": ["2. 기획 — 기획서로 정한 게임", "2.1 플레이 소개와 핵심 루프"],
+        "sectionPath": ["2. 기획", "2.1 플레이 소개와 핵심 루프"],
         "points": [
           { "label": "핵심 루프", "text": "이동하며 사격 → 적 격추(점수) → 아이템 획득(무기 강화·체력 회복) → 60초 버티기 → 보스 격추", "verbatim": true },
           { "label": "", "text": "적을 격추하면 일정 확률로 무기 강화·체력 회복 아이템이 떨어져, 오래 버틸수록 화력이 세집니다.", "verbatim": true }
@@ -151,7 +151,7 @@
         "key": "why", "chapter": "plan", "layout": "overview", "tab": "개요",
         "title": { "text": "2.2 만들며 부딪힌 세 가지 문제", "verbatim": true },
         "lead": { "text": "슈팅 게임은 수십 개의 총알·적이 동시에 부딪히고 사라지는 장르입니다.", "verbatim": true },
-        "sectionPath": ["2. 기획 — 기획서로 정한 게임", "2.2 만들며 부딪힌 세 가지 문제"],
+        "sectionPath": ["2. 기획", "2.2 만들며 부딪힌 세 가지 문제"],
         "points": [
           { "label": "흐름 문제", "text": "보스가 나왔는데 스포너가 계속 적을 내보내거나, 게임 오버 뒤에도 점수가 오르면 한 판의 규칙이 무너집니다.", "verbatim": true },
           { "label": "피격 공정성 문제", "text": "아무 장치 없이 체력을 깎으면, 1.5초 동안 켜져 있는 보스 레이저에 스치기만 해도 60fps 기준 약 90번 판정되어 즉사합니다.", "verbatim": true },
@@ -163,15 +163,15 @@
         "key": "plan-change", "chapter": "plan", "layout": "full", "tab": "선택",
         "title": { "text": "2.3 기획서와 달라진 점", "verbatim": true },
         "lead": { "text": "처음 쓴 컨셉 기획서와 실제로 만든 게임을 나란히 놓았습니다.", "verbatim": true },
-        "sectionPath": ["2. 기획 — 기획서로 정한 게임", "2.3 기획서와 달라진 점"],
+        "sectionPath": ["2. 기획", "2.3 기획서와 달라진 점"],
         "points": [],
         "visuals": [ { "kind": "table", "n": 1, "fp": "항목|기획서|실제|이유" } ]
       },
       {
         "key": "how-made", "chapter": "ai", "layout": "full", "tab": "",
-        "title": { "text": "3.1 나눈 방식", "verbatim": true },
+        "title": { "text": "3.1 AI와 나눈 역할", "verbatim": true },
         "lead": { "text": "기능을 AI에게 설명해 코드를 받았고, 원하는 대로 움직이지 않으면 다시 요청해 고쳤습니다.", "verbatim": true },
-        "sectionPath": ["3. AI 활용 — 큰 틀은 제가, 세부 코드는 AI가", "3.1 나눈 방식"],
+        "sectionPath": ["3. AI 활용", "3.1 AI와 나눈 역할"],
         "points": [],
         "visuals": [ { "kind": "table", "n": 1, "fp": "제가 한 것|AI가 한 것" } ]
       },
@@ -179,7 +179,7 @@
         "key": "arch", "chapter": "ai", "layout": "visual", "tab": "구조",
         "title": { "text": "3.2 전체 구성", "verbatim": true },
         "lead": { "text": "실선은 메서드 호출, 점선은 태그로 약속한 충돌입니다.", "verbatim": true },
-        "sectionPath": ["3. AI 활용 — 큰 틀은 제가, 세부 코드는 AI가", "3.2 전체 구성"],
+        "sectionPath": ["3. AI 활용", "3.2 전체 구성"],
         "points": [
           { "label": "", "text": "게임 규칙을 가진 객체(플레이어·적·보스)는 서로를 직접 참조하지 않습니다.", "verbatim": true },
           { "label": "", "text": "덕분에 적 종류를 추가할 때도 플레이어 코드는 고치지 않고, 새 적에 Enemy 태그만 붙이면 됩니다.", "verbatim": true }
@@ -188,28 +188,28 @@
       },
       {
         "key": "flow-demo", "chapter": "ai", "layout": "screens", "tab": "결과",
-        "title": { "text": "3.3 기능 ① 스테이지 흐름 관리 (GameManager)", "verbatim": true },
+        "title": { "text": "3.3 스테이지 흐름 관리", "verbatim": true },
         "lead": { "text": "한 판의 단계(카운트다운 → 생존 → 보스전 → 결과)를 GameManager 한 곳에서 바꿉니다.", "verbatim": true },
-        "sectionPath": ["3. AI 활용 — 큰 틀은 제가, 세부 코드는 AI가", "3.3 기능 ① 스테이지 흐름 관리 (GameManager)"],
+        "sectionPath": ["3. AI 활용", "3.3 스테이지 흐름 관리"],
         "points": [],
         "visuals": [
-          { "kind": "image", "src": "images/countdown.gif", "w": 288, "h": 512, "caption": { "text": "카운트다운 뒤 게임 시작", "verbatim": true }, "sectionPath": ["3. AI 활용 — 큰 틀은 제가, 세부 코드는 AI가", "3.3 기능 ① 스테이지 흐름 관리 (GameManager)", "생존 타이머와 보스전 전환"] },
+          { "kind": "image", "src": "images/countdown.gif", "w": 288, "h": 512, "caption": { "text": "카운트다운 뒤 게임 시작", "verbatim": true }, "sectionPath": ["3. AI 활용", "3.3 스테이지 흐름 관리", "생존 타이머와 보스전 전환"] },
           { "kind": "image", "src": "images/boss_intro.gif", "w": 288, "h": 512, "caption": { "text": "60초 생존 뒤 보스 등장", "verbatim": true } }
         ]
       },
       {
         "key": "flow-state", "chapter": "ai", "layout": "visual", "tab": "구조",
-        "title": { "text": "구조: 한 판의 상태 변화", "verbatim": true },
+        "title": { "text": "한 판의 상태 변화", "verbatim": true },
         "lead": { "text": "상태를 바꾸는 코드는 모두 GameManager 안에만 있고, 다른 클래스는 \"무슨 일이 일어났다\"만 알립니다.", "verbatim": true },
-        "sectionPath": ["3. AI 활용 — 큰 틀은 제가, 세부 코드는 AI가", "3.3 기능 ① 스테이지 흐름 관리 (GameManager)", "구조: 한 판의 상태 변화"],
+        "sectionPath": ["3. AI 활용", "3.3 스테이지 흐름 관리", "한 판의 상태 변화"],
         "points": [],
         "visuals": [ { "kind": "mermaid", "n": 1, "fp": "flowchart TD" } ]
       },
       {
         "key": "game-end", "chapter": "ai", "layout": "visual", "tab": "결과",
-        "title": { "text": "게임 종료는 한 번만, 2초 뒤에", "verbatim": true },
+        "title": { "text": "게임 종료 처리", "verbatim": true },
         "lead": null,
-        "sectionPath": ["3. AI 활용 — 큰 틀은 제가, 세부 코드는 AI가", "3.3 기능 ① 스테이지 흐름 관리 (GameManager)", "게임 종료는 한 번만, 2초 뒤에"],
+        "sectionPath": ["3. AI 활용", "3.3 스테이지 흐름 관리", "게임 종료 처리"],
         "points": [
           { "label": "예외 방어", "text": "게임이 이미 끝났으면 종료 처리를 다시 하지 않아, 같은 프레임에 플레이어와 보스가 함께 죽어도 결과는 먼저 온 하나만 처리됩니다.", "verbatim": true },
           { "label": "2초 지연", "text": "처음에는 죽는 즉시 결과 화면을 띄웠는데, 그러면 플레이어·보스의 폭발 연출이 보이지 않았습니다.", "verbatim": true }
@@ -218,9 +218,9 @@
       },
       {
         "key": "invincible", "chapter": "ai", "layout": "screens", "tab": "결과",
-        "title": { "text": "3.4 기능 ② 플레이어 전투 — 피격·무적·아이템", "verbatim": true },
+        "title": { "text": "3.4 플레이어 피격과 아이템", "verbatim": true },
         "lead": { "text": "닿아 있는 동안 매 프레임 불리는 피격 판정에서, 한 번 맞으면 2초 동안 무적이 되고 아이템은 무적 중에도 먹힙니다.", "verbatim": true },
-        "sectionPath": ["3. AI 활용 — 큰 틀은 제가, 세부 코드는 AI가", "3.4 기능 ② 플레이어 전투 — 피격·무적·아이템"],
+        "sectionPath": ["3. AI 활용", "3.4 플레이어 피격과 아이템"],
         "points": [],
         "visuals": [
           { "kind": "image", "src": "images/hit_blink.gif", "w": 288, "h": 512, "caption": { "text": "적과 부딪히거나 총알에 맞으면 체력 -1", "verbatim": true } },
@@ -229,28 +229,28 @@
       },
       {
         "key": "hit-flow", "chapter": "ai", "layout": "visual", "tab": "흐름",
-        "title": { "text": "구조: 플레이어가 무엇과 부딪히나", "verbatim": true },
+        "title": { "text": "충돌 판정 흐름", "verbatim": true },
         "lead": { "text": "아이템 처리가 무적 검사보다 앞에 있는 것이 이 그림의 핵심입니다.", "verbatim": true },
-        "sectionPath": ["3. AI 활용 — 큰 틀은 제가, 세부 코드는 AI가", "3.4 기능 ② 플레이어 전투 — 피격·무적·아이템", "구조: 플레이어가 무엇과 부딪히나"],
+        "sectionPath": ["3. AI 활용", "3.4 플레이어 피격과 아이템", "충돌 판정 흐름"],
         "points": [],
         "visuals": [ { "kind": "mermaid", "n": 1, "fp": "flowchart TD" } ]
       },
       {
         "key": "patterns", "chapter": "ai", "layout": "visual", "tab": "결과",
-        "title": { "text": "3.5 기능 ③ 보스 공격 패턴", "verbatim": true },
+        "title": { "text": "3.5 보스 공격 패턴", "verbatim": true },
         "lead": { "text": "보스는 좌우로 순찰하면서 4가지 패턴 중 하나를 골라 쏩니다.", "verbatim": true },
-        "sectionPath": ["3. AI 활용 — 큰 틀은 제가, 세부 코드는 AI가", "3.5 기능 ③ 보스 공격 패턴"],
+        "sectionPath": ["3. AI 활용", "3.5 보스 공격 패턴"],
         "points": [],
         "visuals": [
           { "kind": "image", "src": "images/boss_patterns.gif", "w": 288, "h": 512, "caption": { "text": "보스 공격 패턴 — 부채꼴 연사, 회전 연사, 레이저", "verbatim": true } },
-          { "kind": "table", "n": 1, "fp": "패턴|동작|총알 수|쏘는 시간 (첫 발 ~ 마지막 발)", "sectionPath": ["3. AI 활용 — 큰 틀은 제가, 세부 코드는 AI가", "3.5 기능 ③ 보스 공격 패턴", "패턴 4종"] }
+          { "kind": "table", "n": 1, "fp": "패턴|동작|총알 수|쏘는 시간 (첫 발 ~ 마지막 발)", "sectionPath": ["3. AI 활용", "3.5 보스 공격 패턴", "패턴 4종"] }
         ]
       },
       {
         "key": "pattern-structure", "chapter": "ai", "layout": "visual", "tab": "구조",
-        "title": { "text": "구조: 패턴이 고르고 반복되는 방식", "verbatim": true },
+        "title": { "text": "패턴을 고르는 방식", "verbatim": true },
         "lead": { "text": "순찰과 공격은 서로 다른 코루틴이라 이동하면서 쏩니다.", "verbatim": true },
-        "sectionPath": ["3. AI 활용 — 큰 틀은 제가, 세부 코드는 AI가", "3.5 기능 ③ 보스 공격 패턴", "구조: 패턴이 고르고 반복되는 방식"],
+        "sectionPath": ["3. AI 활용", "3.5 보스 공격 패턴", "패턴을 고르는 방식"],
         "points": [
           { "label": "", "text": "패턴이 바뀔 때는 다음 발사를 0.5초 더 늦춰(FireRate 2초 + 0.5초) 패턴 사이에 숨 돌릴 틈을 줍니다.", "verbatim": true }
         ],
@@ -258,9 +258,9 @@
       },
       {
         "key": "boss-setup", "chapter": "ai", "layout": "visual", "tab": "구현",
-        "title": { "text": "사용법: 보스 프리팹 설정", "verbatim": true },
+        "title": { "text": "보스 프리팹 설정", "verbatim": true },
         "lead": null,
-        "sectionPath": ["3. AI 활용 — 큰 틀은 제가, 세부 코드는 AI가", "3.5 기능 ③ 보스 공격 패턴", "사용법: 보스 프리팹 설정"],
+        "sectionPath": ["3. AI 활용", "3.5 보스 공격 패턴", "보스 프리팹 설정"],
         "points": [],
         "visuals": [
           { "kind": "image", "src": "images/boss_inspector.png", "w": 425, "h": 295, "caption": { "text": "Boss 프리팹 인스펙터", "verbatim": true } },
@@ -269,9 +269,9 @@
       },
       {
         "key": "pattern-choice", "chapter": "ai", "layout": "full", "tab": "선택",
-        "title": { "text": "고민과 선택: 패턴의 시간을 어떻게 표현할까", "verbatim": true },
+        "title": { "text": "패턴 타이밍을 만드는 방법", "verbatim": true },
         "lead": { "text": "학원에서 배운 코루틴으로 만들고 싶다고 AI에 요청했습니다.", "verbatim": true },
-        "sectionPath": ["3. AI 활용 — 큰 틀은 제가, 세부 코드는 AI가", "3.5 기능 ③ 보스 공격 패턴", "고민과 선택: 패턴의 시간을 어떻게 표현할까"],
+        "sectionPath": ["3. AI 활용", "3.5 보스 공격 패턴", "패턴 타이밍을 만드는 방법"],
         "points": [
           { "label": "그래서 지금 고른다면", "text": "Update + 타이머(A)를 고르겠습니다.", "verbatim": true }
         ],
@@ -281,7 +281,7 @@
         "key": "ts-item", "chapter": "fix", "layout": "problem", "tab": "문제 해결",
         "title": { "text": "4.1 무적 중에 아이템을 먹지 못함", "verbatim": true },
         "lead": null,
-        "sectionPath": ["4. 문제 해결 — 플레이하며 찾고, 커밋으로 원인 확인", "4.1 무적 중에 아이템을 먹지 못함"],
+        "sectionPath": ["4. 문제 해결", "4.1 무적 중에 아이템을 먹지 못함"],
         "points": [
           { "label": "발견", "text": "적이나 총알에 맞아 깜빡이는 2초 동안 체력·무기 아이템에 닿아도 먹어지지 않았습니다.", "verbatim": true },
           { "label": "원인", "text": "OnTriggerStay2D의 맨 위에 무적 검사(if (IsDead || isColliding) return;)를 두어, 그 아래 있던 아이템 처리까지 함께 건너뛰고 있었습니다.", "verbatim": true },
@@ -291,9 +291,9 @@
       },
       {
         "key": "ts-score", "chapter": "fix", "layout": "problem", "tab": "문제 해결",
-        "title": { "text": "4.2 일반 적이 보이지 않고 점수만 1초에 100점씩 오름", "verbatim": true },
+        "title": { "text": "4.2 적은 안 보이고 점수만 오름", "verbatim": true },
         "lead": null,
-        "sectionPath": ["4. 문제 해결 — 플레이하며 찾고, 커밋으로 원인 확인", "4.2 일반 적이 보이지 않고 점수만 1초에 100점씩 오름"],
+        "sectionPath": ["4. 문제 해결", "4.2 적은 안 보이고 점수만 오름"],
         "points": [
           { "label": "발견", "text": "일반 적이 화면에 나타나지 않는데, 점수는 혼자 계속 올라갔습니다.", "verbatim": true },
           { "label": "원인", "text": "격추 시 실행해야 할 AddScore(100)과 Destroy(gameObject)를 OnTriggerEnter2D가 아니라 Update 안에 써서, 적이 생성된 첫 프레임에 스스로 점수를 올리고 사라지고 있었습니다.", "verbatim": true },
@@ -306,7 +306,7 @@
         "key": "ts-tilt", "chapter": "fix", "layout": "problem", "tab": "문제 해결",
         "title": { "text": "4.4 3방향 적이 오른쪽으로 기울지 않음", "verbatim": true },
         "lead": null,
-        "sectionPath": ["4. 문제 해결 — 플레이하며 찾고, 커밋으로 원인 확인", "4.4 3방향 적이 오른쪽으로 기울지 않음"],
+        "sectionPath": ["4. 문제 해결", "4.4 3방향 적이 오른쪽으로 기울지 않음"],
         "points": [
           { "label": "발견", "text": "3방향 적이 왼쪽으로 갈 때는 기우는데, 오른쪽으로 갈 때는 기울지 않았습니다.", "verbatim": true },
           { "label": "원인", "text": "애니메이터 전이 조건은 Move가 -1 / 0 / 1과 같을 때인데, 코드는 오른쪽에 2, 왼쪽에 1을 넘기고 있었습니다.", "verbatim": true },
@@ -317,9 +317,9 @@
       },
       {
         "key": "code-found", "chapter": "fix", "layout": "problem", "tab": "문제 해결",
-        "title": { "text": "4.5 코드에서 찾고 게임에서 재현한 문제", "verbatim": true },
+        "title": { "text": "4.5 코드를 다시 읽다 찾은 문제", "verbatim": true },
         "lead": { "text": "문서를 쓰며 AI와 함께 코드를 다시 읽다가 찾은 문제입니다.", "verbatim": true },
-        "sectionPath": ["4. 문제 해결 — 플레이하며 찾고, 커밋으로 원인 확인", "4.5 코드에서 찾고 게임에서 재현한 문제"],
+        "sectionPath": ["4. 문제 해결", "4.5 코드를 다시 읽다 찾은 문제"],
         "points": [],
         "visuals": [ { "kind": "table", "n": 1, "fp": "#|문제|원인|고치는 방법(제안)" } ]
       },

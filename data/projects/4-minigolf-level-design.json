@@ -51,7 +51,7 @@
       "what": "부스터·점프 패드·범퍼가 공의 들어온 속도 중 무엇을 남기고 무엇을 버리는지를 장애물마다 정해, 매번 같은 결과를 냅니다.",
       "how": "OnTriggerEnter에서 linearVelocity를 덮어써 방향 부스터는 방향·속력을 모두, 360 부스터는 속력만 고정하고, 360 점프만 위쪽 속도를 더합니다.",
       "why": "덮어쓰기 방식을 누가 먼저 정했는지는 기억이 정확하지 않습니다. 돌아보면 AddForce로 더하면 입사 속도에 따라 착지점이 매번 달라져 레벨에서 설계할 수 없으므로, 결과가 고정되는 덮어쓰기가 맞는 방식입니다.",
-      "section": "3.1 핵심 동작: 장애물이 공의 속도를 바꾸는 방식",
+      "section": "3.1 공의 속도를 바꾸는 방식",
       "image": {
         "src": "images/boost_pads.gif",
         "w": 800,
@@ -64,7 +64,7 @@
       "what": "같은 \u0027튕기는 벽\u0027을 물리 재질과 스크립트 두 가지로 만들어, 플레이어에게 서로 다른 질문을 던집니다.",
       "how": "튕김 벽은 탄성 1·Maximum 물리 재질로 들어온 속도만큼, 고정 속도 범퍼는 OnCollisionEnter에서 반사 방향은 엔진에 맡기고 속력만 7 m/s로 맞춥니다.",
       "why": "둘 다 쓰고 섞기로 제가 정했습니다. 범퍼가 수십 개 모인 핀볼 구간에서는 물리 재질만 쓰면 속도가 누적돼 통제 불능이 되므로, 고정 속도 범퍼로 상한을 두고 둘을 섞었습니다.",
-      "section": "3.4 고민과 선택: 튕기는 장애물 — 물리 재질 vs 스크립트",
+      "section": "3.4 튕기는 벽: 물리 재질 vs 스크립트",
       "image": {
         "src": "images/bumper_obstacle.gif",
         "w": 800,
@@ -77,7 +77,7 @@
       "what": "스테이지 5개를 한 씬에 나란히 두고, 공을 다음 시작 지점으로 순간이동해 스테이지를 넘깁니다.",
       "how": "MiniGolfGameManager.stageStartPositions[5]가 시작 지점을 가리키고, 홀이 StageCleared()를 부르면 T 키로 ball.PlaceAt()을 실행합니다.",
       "why": "반복 테스트가 편하도록 한 씬에 모으기로 제가 정했습니다. 8일 안에 배치 → 플레이 → 수정을 최대한 많이 반복해야 했고 1인 작업이라 병합 충돌 위험이 낮아, 씬 분리 대신 한 씬을 택했습니다.",
-      "section": "4.1 구조: 한 씬, 다섯 스테이지",
+      "section": "4.1 한 씬에 다섯 스테이지",
       "image": {
         "src": "images/stages_overview.png",
         "w": 1920,
@@ -94,7 +94,7 @@
       "solution": "샷 조건을 ball.IsStopped \u0026\u0026 !IsStageCleared로 확장하고, 진행 키를 Space와 겹치지 않는 T로 분리했습니다.",
       "result": "클리어 화면에서는 샷이 잠기고, T를 눌러야 다음 스테이지로 넘어갑니다.",
       "lesson": "",
-      "section": "5.2 문제 해결 경험 (Troubleshooting)"
+      "section": "5.2 문제 해결"
     },
     {
       "title": "360 부스터에 멈춰 있는 공이 닿으면 날아가지 않음",
@@ -103,7 +103,7 @@
       "solution": "방향이 0이면 패드 정면(transform.forward)으로 대체하는 안전장치를 추가하고, 고정 속도 범퍼에도 접촉면 법선을 대체값으로 썼습니다.",
       "result": "멈춘 공이 올라와도 패드 정면으로 날아갑니다.",
       "lesson": "",
-      "section": "5.2 문제 해결 경험 (Troubleshooting)"
+      "section": "5.2 문제 해결"
     },
     {
       "title": "파워 0%인데도 \u00220%\u0022 글자가 떠 있음",
@@ -112,7 +112,7 @@
       "solution": "power01 \u003E 0.01일 때만 표시하도록 조건을 추가했습니다.",
       "result": "Space를 누르는 동안만 피드백이 보이게 됨",
       "lesson": "",
-      "section": "5.2 문제 해결 경험 (Troubleshooting)"
+      "section": "5.2 문제 해결"
     }
   ],
   "screenshots": [
@@ -172,7 +172,7 @@
       "제안: Kinematic Rigidbody \u002B FixedUpdate에서 MovePosition / MoveRotation",
       "제안: 클래스명을 MiniGolfSuperBumper로 통일 후 프리팹 동작 재확인"
     ],
-    "section": "5. 결과 및 배운 점"
+    "section": "5. 결과와 배운 점"
   },
   "deck": {
     "chapters": [
@@ -192,23 +192,23 @@
       },
       {
         "key": "core",
-        "title": "기능 1: 장애물 — 공의 속도를 바꾸는 방식",
+        "title": "장애물",
         "sectionPath": [
-          "3. 기능 1: 장애물 — 공의 속도를 바꾸는 방식"
+          "3. 장애물"
         ]
       },
       {
         "key": "level",
-        "title": "기능 2: 레벨 구성과 스테이지 진행",
+        "title": "레벨 구성과 스테이지 진행",
         "sectionPath": [
-          "4. 기능 2: 레벨 구성과 스테이지 진행"
+          "4. 레벨 구성과 스테이지 진행"
         ]
       },
       {
         "key": "result",
-        "title": "결과 및 배운 점",
+        "title": "결과와 배운 점",
         "sectionPath": [
-          "5. 결과 및 배운 점"
+          "5. 결과와 배운 점"
         ]
       }
     ],
@@ -219,7 +219,7 @@
         "layout": "overview",
         "tab": "개요",
         "title": {
-          "text": "1.1 무엇을 (What)",
+          "text": "1.2 만든 것",
           "verbatim": true
         },
         "lead": {
@@ -228,7 +228,7 @@
         },
         "sectionPath": [
           "1. 개요",
-          "1.1 무엇을 (What)"
+          "1.2 만든 것"
         ],
         "points": [],
         "visuals": [
@@ -245,7 +245,7 @@
         "layout": "overview",
         "tab": "개요",
         "title": {
-          "text": "1.2 왜 (Why)",
+          "text": "1.3 만든 이유",
           "verbatim": true
         },
         "lead": {
@@ -254,7 +254,7 @@
         },
         "sectionPath": [
           "1. 개요",
-          "1.2 왜 (Why)"
+          "1.3 만든 이유"
         ],
         "points": [
           {
@@ -281,7 +281,7 @@
         "layout": "overview",
         "tab": "개요",
         "title": {
-          "text": "1.3 코드를 만든 방식 — 레벨은 제가, 코드는 AI와 함께",
+          "text": "1.4 AI와 나눈 역할",
           "verbatim": true
         },
         "lead": {
@@ -290,7 +290,7 @@
         },
         "sectionPath": [
           "1. 개요",
-          "1.3 코드를 만든 방식 — 레벨은 제가, 코드는 AI와 함께"
+          "1.4 AI와 나눈 역할"
         ],
         "points": [
           { "label": "장애물 종류 기획", "text": "부스터·점프 패드·엘리베이터처럼 어떤 장애물을 만들지, 어떤 순서로 처음 등장시킬지 정했습니다(4.2).", "verbatim": true },
@@ -306,13 +306,13 @@
         "layout": "visual",
         "tab": "흐름",
         "title": {
-          "text": "1.4 핵심 루프와 조작법",
+          "text": "1.5 핵심 루프와 조작법",
           "verbatim": true
         },
         "lead": null,
         "sectionPath": [
           "1. 개요",
-          "1.4 핵심 루프와 조작법"
+          "1.5 핵심 루프와 조작법"
         ],
         "points": [],
         "visuals": [
@@ -329,13 +329,13 @@
         "layout": "visual",
         "tab": "개요",
         "title": {
-          "text": "1.4 핵심 루프와 조작법",
+          "text": "1.5 핵심 루프와 조작법",
           "verbatim": true
         },
         "lead": null,
         "sectionPath": [
           "1. 개요",
-          "1.4 핵심 루프와 조작법"
+          "1.5 핵심 루프와 조작법"
         ],
         "points": [],
         "visuals": [
@@ -362,7 +362,7 @@
         "layout": "visual",
         "tab": "구조",
         "title": {
-          "text": "2.1 아키텍처 흐름",
+          "text": "2.1 전체 흐름",
           "verbatim": true
         },
         "lead": {
@@ -371,7 +371,7 @@
         },
         "sectionPath": [
           "2. 시스템 구조",
-          "2.1 아키텍처 흐름"
+          "2.1 전체 흐름"
         ],
         "points": [
           {
@@ -394,13 +394,13 @@
         "layout": "full",
         "tab": "구조",
         "title": {
-          "text": "2.2 핵심 클래스 역할 분담",
+          "text": "2.2 클래스별 역할",
           "verbatim": true
         },
         "lead": null,
         "sectionPath": [
           "2. 시스템 구조",
-          "2.2 핵심 클래스 역할 분담"
+          "2.2 클래스별 역할"
         ],
         "points": [],
         "visuals": [
@@ -417,7 +417,7 @@
         "layout": "full",
         "tab": "구조",
         "title": {
-          "text": "3.1 핵심 동작: 장애물이 공의 속도를 바꾸는 방식",
+          "text": "3.1 공의 속도를 바꾸는 방식",
           "verbatim": true
         },
         "lead": {
@@ -425,8 +425,8 @@
           "verbatim": true
         },
         "sectionPath": [
-          "3. 기능 1: 장애물 — 공의 속도를 바꾸는 방식",
-          "3.1 핵심 동작: 장애물이 공의 속도를 바꾸는 방식"
+          "3. 장애물",
+          "3.1 공의 속도를 바꾸는 방식"
         ],
         "points": [],
         "visuals": [
@@ -443,13 +443,13 @@
         "layout": "code",
         "tab": "구현",
         "title": {
-          "text": "3.1 핵심 동작: 장애물이 공의 속도를 바꾸는 방식",
+          "text": "3.1 공의 속도를 바꾸는 방식",
           "verbatim": true
         },
         "lead": null,
         "sectionPath": [
-          "3. 기능 1: 장애물 — 공의 속도를 바꾸는 방식",
-          "3.1 핵심 동작: 장애물이 공의 속도를 바꾸는 방식"
+          "3. 장애물",
+          "3.1 공의 속도를 바꾸는 방식"
         ],
         "points": [
           {
@@ -480,7 +480,7 @@
           "verbatim": true
         },
         "sectionPath": [
-          "3. 기능 1: 장애물 — 공의 속도를 바꾸는 방식",
+          "3. 장애물",
           "3.2 움직이는 장애물"
         ],
         "points": [],
@@ -508,7 +508,7 @@
         "layout": "overview",
         "tab": "선택",
         "title": {
-          "text": "3.3 고민과 선택: 더하기 vs 덮어쓰기",
+          "text": "3.3 속도 더하기 vs 덮어쓰기",
           "verbatim": true
         },
         "lead": {
@@ -516,8 +516,8 @@
           "verbatim": true
         },
         "sectionPath": [
-          "3. 기능 1: 장애물 — 공의 속도를 바꾸는 방식",
-          "3.3 고민과 선택: 더하기 vs 덮어쓰기"
+          "3. 장애물",
+          "3.3 속도 더하기 vs 덮어쓰기"
         ],
         "points": [
           {
@@ -544,7 +544,7 @@
         "layout": "full",
         "tab": "선택",
         "title": {
-          "text": "3.4 고민과 선택: 튕기는 장애물 — 물리 재질 vs 스크립트",
+          "text": "3.4 튕기는 벽: 물리 재질 vs 스크립트",
           "verbatim": true
         },
         "lead": {
@@ -552,8 +552,8 @@
           "verbatim": true
         },
         "sectionPath": [
-          "3. 기능 1: 장애물 — 공의 속도를 바꾸는 방식",
-          "3.4 고민과 선택: 튕기는 장애물 — 물리 재질 vs 스크립트"
+          "3. 장애물",
+          "3.4 튕기는 벽: 물리 재질 vs 스크립트"
         ],
         "points": [],
         "visuals": [
@@ -570,13 +570,13 @@
         "layout": "visual",
         "tab": "결과",
         "title": {
-          "text": "3.4 고민과 선택: 튕기는 장애물 — 물리 재질 vs 스크립트",
+          "text": "3.4 튕기는 벽: 물리 재질 vs 스크립트",
           "verbatim": true
         },
         "lead": null,
         "sectionPath": [
-          "3. 기능 1: 장애물 — 공의 속도를 바꾸는 방식",
-          "3.4 고민과 선택: 튕기는 장애물 — 물리 재질 vs 스크립트"
+          "3. 장애물",
+          "3.4 튕기는 벽: 물리 재질 vs 스크립트"
         ],
         "points": [
           {
@@ -604,7 +604,7 @@
         "layout": "visual",
         "tab": "구조",
         "title": {
-          "text": "4.1 구조: 한 씬, 다섯 스테이지",
+          "text": "4.1 한 씬에 다섯 스테이지",
           "verbatim": true
         },
         "lead": {
@@ -612,8 +612,8 @@
           "verbatim": true
         },
         "sectionPath": [
-          "4. 기능 2: 레벨 구성과 스테이지 진행",
-          "4.1 구조: 한 씬, 다섯 스테이지"
+          "4. 레벨 구성과 스테이지 진행",
+          "4.1 한 씬에 다섯 스테이지"
         ],
         "points": [],
         "visuals": [
@@ -635,13 +635,13 @@
         "layout": "full",
         "tab": "구조",
         "title": {
-          "text": "4.2 레벨 구성 — 장애물이 처음 등장하는 순서",
+          "text": "4.2 장애물 등장 순서",
           "verbatim": true
         },
         "lead": null,
         "sectionPath": [
-          "4. 기능 2: 레벨 구성과 스테이지 진행",
-          "4.2 레벨 구성 — 장애물이 처음 등장하는 순서"
+          "4. 레벨 구성과 스테이지 진행",
+          "4.2 장애물 등장 순서"
         ],
         "points": [],
         "visuals": [
@@ -658,7 +658,7 @@
         "layout": "visual",
         "tab": "흐름",
         "title": {
-          "text": "4.3 사용법: 스테이지 진행",
+          "text": "4.3 스테이지 넘기기",
           "verbatim": true
         },
         "lead": {
@@ -666,8 +666,8 @@
           "verbatim": true
         },
         "sectionPath": [
-          "4. 기능 2: 레벨 구성과 스테이지 진행",
-          "4.3 사용법: 스테이지 진행"
+          "4. 레벨 구성과 스테이지 진행",
+          "4.3 스테이지 넘기기"
         ],
         "points": [],
         "visuals": [
@@ -684,13 +684,13 @@
         "layout": "code",
         "tab": "구현",
         "title": {
-          "text": "4.3 사용법: 스테이지 진행",
+          "text": "4.3 스테이지 넘기기",
           "verbatim": true
         },
         "lead": null,
         "sectionPath": [
-          "4. 기능 2: 레벨 구성과 스테이지 진행",
-          "4.3 사용법: 스테이지 진행"
+          "4. 레벨 구성과 스테이지 진행",
+          "4.3 스테이지 넘기기"
         ],
         "points": [
           {
@@ -723,13 +723,13 @@
         "layout": "overview",
         "tab": "선택",
         "title": {
-          "text": "4.4 고민과 선택: 스테이지 관리 — 씬 5개 vs 한 씬 \u002B 시작 지점 배열",
+          "text": "4.4 씬 5개 vs 한 씬",
           "verbatim": true
         },
         "lead": { "text": "스테이지 4·5를 만들 때(10-06 커밋 1df0b73), 반복 테스트가 편하도록 한 씬에 모으기로 제가 정했습니다.", "verbatim": true },
         "sectionPath": [
-          "4. 기능 2: 레벨 구성과 스테이지 진행",
-          "4.4 고민과 선택: 스테이지 관리 — 씬 5개 vs 한 씬 \u002B 시작 지점 배열"
+          "4. 레벨 구성과 스테이지 진행",
+          "4.4 씬 5개 vs 한 씬"
         ],
         "points": [
           {
@@ -756,13 +756,13 @@
         "layout": "overview",
         "tab": "선택",
         "title": {
-          "text": "4.5 고민과 선택: 다음 스테이지 키 — Space vs T",
+          "text": "4.5 다음 스테이지 키: Space vs T",
           "verbatim": true
         },
         "lead": { "text": "\"키 하나에 기능 두 가지를 넣지 않는다\"는 것은 첫 프로젝트 때부터 가지고 있던 원칙이라, 진행 키를 샷 키(Space)와 따로 두었습니다.", "verbatim": true },
         "sectionPath": [
-          "4. 기능 2: 레벨 구성과 스테이지 진행",
-          "4.5 고민과 선택: 다음 스테이지 키 — Space vs T"
+          "4. 레벨 구성과 스테이지 진행",
+          "4.5 다음 스테이지 키: Space vs T"
         ],
         "points": [
           {
@@ -784,13 +784,13 @@
         "layout": "overview",
         "tab": "선택",
         "title": {
-          "text": "4.6 고민과 선택: 홀 → 매니저 알림 — 싱글톤 직접 호출 vs 이벤트",
+          "text": "4.6 클리어 알림: 직접 호출 vs 이벤트",
           "verbatim": true
         },
         "lead": { "text": "학원에서 배운 싱글톤 방식으로 만들었습니다.", "verbatim": true },
         "sectionPath": [
-          "4. 기능 2: 레벨 구성과 스테이지 진행",
-          "4.6 고민과 선택: 홀 → 매니저 알림 — 싱글톤 직접 호출 vs 이벤트"
+          "4. 레벨 구성과 스테이지 진행",
+          "4.6 클리어 알림: 직접 호출 vs 이벤트"
         ],
         "points": [
           {
@@ -817,7 +817,7 @@
         },
         "lead": null,
         "sectionPath": [
-          "5. 결과 및 배운 점",
+          "5. 결과와 배운 점",
           "5.1 결과"
         ],
         "points": [],
@@ -835,13 +835,13 @@
         "layout": "problem",
         "tab": "문제 해결",
         "title": {
-          "text": "5.2 문제 해결 경험 (Troubleshooting)",
+          "text": "5.2 문제 해결",
           "verbatim": true
         },
         "lead": null,
         "sectionPath": [
-          "5. 결과 및 배운 점",
-          "5.2 문제 해결 경험 (Troubleshooting)"
+          "5. 결과와 배운 점",
+          "5.2 문제 해결"
         ],
         "points": [
           {

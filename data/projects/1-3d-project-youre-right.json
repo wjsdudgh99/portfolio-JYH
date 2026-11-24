@@ -28,7 +28,7 @@
       "what": "만드는 동안 바뀐 결정을 기획서의 「기획 변경 이력」에 날짜·원래 기획·이유와 함께 25건 남겼습니다.",
       "how": "스테이지를 10개 → 7개 → 6개로 줄이고, 바닥 클릭은 무반응, 오답 뒤 3초 클릭 제한, WASD·Q/E 카메라 이동으로 바꿨습니다.",
       "why": "남은 기간에 디오라마 9개는 빠듯해 스테이지를 줄이되 월드마다 다른 화면 방식은 모두 보여 주기로 했고, 3초 제한은 무작정 여러 곳을 누르는 플레이를 막기 위해서입니다.",
-      "section": "2.3 기획이 바뀐 이유 — 변경 이력 25건 중에서",
+      "section": "2.3 기획 변경 이력",
       "image": null
     },
     {
@@ -36,7 +36,7 @@
       "what": "입력 하나로 두 화면의 카메라가 같은 각도·같은 거리로 함께 움직입니다.",
       "how": "컨트롤러 하나가 (카메라, Pivot) 쌍 목록을 들고 같은 값을 모두에게 적용하고, 충돌로 당겨질 때도 두 Pivot 중 더 짧은 거리를 함께 씁니다.",
       "why": "\"두 화면은 항상 같은 시점\"이라는 규칙을 기획서에서 정하고, AI에게 Cinemachine 등 다른 방법을 들은 뒤 두 카메라가 같은 값을 쓰는 구조를 골랐습니다. 시점이 어긋나면 게임 규칙이 깨지기 때문입니다.",
-      "section": "3.3 기능 ① 분할 화면 동기화 카메라",
+      "section": "3.3 분할 화면 동기화 카메라",
       "image": { "src": "images/orbit_camera.gif", "w": 800, "h": 450, "caption": "두 카메라가 같은 시점으로 함께 움직이고 Space로 이동 잠금" }
     },
     {
@@ -44,7 +44,7 @@
       "what": "클릭 결과를 정답 / 오답 / 무반응 세 가지로 나눕니다.",
       "how": "커서가 있는 화면의 카메라로 Raycast해, 섬 바깥(PlayArea 밖)과 Background 레이어는 무반응, 부모에 AnswerTarget이 없으면 오답과 3초 클릭 제한, 있으면 쌍 전체를 정답 처리합니다.",
       "why": "바닥을 헛짚을 때마다 X가 뜨는 것이 거슬려 고쳐 달라고 요청했고, AI가 바닥은 맞되 무반응인 Background 레이어로 바꿨습니다. 바닥을 Raycast에서 빼면 밑의 물체가 오답으로 잡히기 때문입니다.",
-      "section": "3.4 기능 ② 클릭 판정 파이프라인",
+      "section": "3.4 클릭 판정",
       "image": { "src": "images/answer_click.gif", "w": 800, "h": 450, "caption": "정답 클릭 — 양쪽 배구공이 함께 반짝이고 진행도 점이 찬다" }
     },
     {
@@ -52,7 +52,7 @@
       "what": "눈으로는 찾을 수 없는 \"정답이 아닌 쌍둥이\"를 찾아 주는 에디터 도구입니다.",
       "how": "열린 씬을 읽기만 해서 쌍둥이 동일성·의도하지 않은 쌍둥이·클릭 가능 여부를 검사하고, 회전만 다른 쌍둥이는 4096개 방향의 광선으로 겉모습이 같은지 판정합니다.",
       "why": "AI가 제안하고 만든 도구입니다. 꼭짓점·UV·격자 점 비교는 폰과 당구공을 동시에 맞히지 못해, 겉모습만 묻는 방향별 광선 방식이 남았습니다.",
-      "section": "3.5 기능 ③ 스테이지 검사 도구 (StageValidator)",
+      "section": "3.5 스테이지 검사 도구",
       "image": { "src": "images/validate_first_run.png", "w": 1134, "h": 382, "caption": "처음 검사 — 2-1 자동차 전시장에서 의도하지 않은 쌍둥이 7개가 오류로 나온다" }
     }
   ],
@@ -64,7 +64,7 @@
       "solution": "2-2의 Collision Radius를 0.4로 올리고, 기준(가로가 넓은 화면은 0.4 이상)을 문서에 남겼습니다.",
       "result": "2-2에서 카메라가 열차에 가까이 가도 속이 보이지 않습니다.",
       "lesson": "\"이상하다\"가 아니라 \"위아래 분할에서만\"처럼 어느 상황에서 생기는지까지 좁혀 알리면 원인을 빨리 찾을 수 있었습니다.",
-      "section": "4.1 위아래 분할에서만 카메라가 열차 속을 비춤"
+      "section": "4.1 위아래 분할에서 열차 속이 보임"
     },
     {
       "title": "기록에 로딩 시간이 섞임",
@@ -108,9 +108,9 @@
   "deck": {
     "chapters": [
       { "key": "overview", "title": "개요", "sectionPath": ["1. 개요"] },
-      { "key": "plan", "title": "기획 — 기획서로 정한 게임", "sectionPath": ["2. 기획 — 기획서로 정한 게임"] },
-      { "key": "ai", "title": "AI 활용 — 기획을 기능으로", "sectionPath": ["3. AI 활용 — 기획을 기능으로"] },
-      { "key": "fix", "title": "문제 해결 — 플레이하며 찾고, 조건을 좁혀 알리기", "sectionPath": ["4. 문제 해결 — 플레이하며 찾고, 조건을 좁혀 알리기"] },
+      { "key": "plan", "title": "기획", "sectionPath": ["2. 기획"] },
+      { "key": "ai", "title": "AI 활용", "sectionPath": ["3. AI 활용"] },
+      { "key": "fix", "title": "문제 해결", "sectionPath": ["4. 문제 해결"] },
       { "key": "appendix", "title": "부록. 코드 구조", "sectionPath": ["부록. 코드 구조"] }
     ],
     "slides": [
@@ -137,7 +137,7 @@
         "tab": "개요",
         "title": { "text": "2.1 플레이 소개와 핵심 루프", "verbatim": true },
         "lead": null,
-        "sectionPath": ["2. 기획 — 기획서로 정한 게임", "2.1 플레이 소개와 핵심 루프"],
+        "sectionPath": ["2. 기획", "2.1 플레이 소개와 핵심 루프"],
         "points": [
           { "label": "레퍼런스", "text": "특정 게임이 아니라 분할 화면 '틀린 그림 찾기' 장르를 참고했습니다.", "verbatim": true },
           { "label": "핵심 루프", "text": "둘러보기(회전·이동·줌) → 의심 가는 물체 비교 → 클릭 → 정답이면 황금빛 반짝임 / 오답이면 3초 클릭 제한 → 모두 찾으면 클리어 창 → 다음 스테이지", "verbatim": true }
@@ -153,7 +153,7 @@
         "tab": "개요",
         "title": { "text": "2.2 3D로 옮기며 생긴 세 가지 문제", "verbatim": true },
         "lead": { "text": "2D 틀린 그림 찾기는 두 그림이 늘 같은 각도로 놓여 있습니다. 3D로 옮기면 이 전제가 깨집니다.", "verbatim": true },
-        "sectionPath": ["2. 기획 — 기획서로 정한 게임", "2.2 3D로 옮기며 생긴 세 가지 문제"],
+        "sectionPath": ["2. 기획", "2.2 3D로 옮기며 생긴 세 가지 문제"],
         "points": [
           { "label": "시점 문제", "text": "두 디오라마를 서로 다른 각도에서 보면 같은 물체도 다르게 보이고, 다른 물체도 같아 보입니다.", "verbatim": true },
           { "label": "판정 문제", "text": "바닥을 헛짚을 때마다 오답이 뜨거나, 클릭이 바닥을 뚫고 뒤쪽 물체에 맞으면 플레이어가 억울해집니다.", "verbatim": true },
@@ -166,9 +166,9 @@
         "chapter": "plan",
         "layout": "full",
         "tab": "선택",
-        "title": { "text": "2.3 기획이 바뀐 이유 — 변경 이력 25건 중에서", "verbatim": true },
+        "title": { "text": "2.3 기획 변경 이력", "verbatim": true },
         "lead": { "text": "만드는 동안 바뀐 결정은 기획서의 「기획 변경 이력」에 날짜·원래 기획·이유와 함께 25건을 남겼습니다.", "verbatim": true },
-        "sectionPath": ["2. 기획 — 기획서로 정한 게임", "2.3 기획이 바뀐 이유 — 변경 이력 25건 중에서"],
+        "sectionPath": ["2. 기획", "2.3 기획 변경 이력"],
         "points": [],
         "visuals": [
           { "kind": "table", "n": 1, "fp": "날짜|바뀐 내용|원래 기획|이유" }
@@ -181,14 +181,14 @@
         "tab": "개요",
         "title": { "text": "2.4 맵과 문제 만들기", "verbatim": true },
         "lead": { "text": "디오라마와 문제(정답·미끼)는 직접 만들었습니다.", "verbatim": true },
-        "sectionPath": ["2. 기획 — 기획서로 정한 게임", "2.4 맵과 문제 만들기"],
+        "sectionPath": ["2. 기획", "2.4 맵과 문제 만들기"],
         "points": [
           { "label": "디오라마 맵 꾸미기", "text": "에셋을 고르고 체스판·사막·설원·기차역 같은 맵을 배치했습니다.", "verbatim": true },
           { "label": "정답·미끼 물체 배치", "text": "어느 물체를 정답 쌍으로, 어느 것을 미끼로 둘지 정하고 놓았습니다.", "verbatim": true },
           { "label": "Stage 5는 이동 잠금", "text": "완벽한 반반으로만 보여 주는 것이 이 스테이지의 백미라고 생각해 WASD·Q/E 이동을 아예 막았습니다.", "verbatim": false }
         ],
         "visuals": [
-          { "kind": "image", "src": "images/half_projection.png", "w": 1559, "h": 872, "caption": { "text": "월드 3 반반 화면 — 물체 하나가 분할선에서 버전 A와 B로 이어진다", "verbatim": true }, "sectionPath": ["3. AI 활용 — 기획을 기능으로", "3.3 기능 ① 분할 화면 동기화 카메라", "핵심 동작: 월드 3 반반 투영"] }
+          { "kind": "image", "src": "images/half_projection.png", "w": 1559, "h": 872, "caption": { "text": "월드 3 반반 화면 — 물체 하나가 분할선에서 버전 A와 B로 이어진다", "verbatim": true }, "sectionPath": ["3. AI 활용", "3.3 분할 화면 동기화 카메라", "월드 3 반반 투영"] }
         ]
       },
       {
@@ -196,9 +196,9 @@
         "chapter": "ai",
         "layout": "full",
         "tab": "",
-        "title": { "text": "3.1 나눈 방식", "verbatim": true },
+        "title": { "text": "3.1 AI와 나눈 역할", "verbatim": true },
         "lead": { "text": "이 프로젝트는 AI가 프로젝트 파일을 직접 만들고 고치는 방식으로 개발했습니다.", "verbatim": true },
-        "sectionPath": ["3. AI 활용 — 기획을 기능으로", "3.1 나눈 방식"],
+        "sectionPath": ["3. AI 활용", "3.1 AI와 나눈 역할"],
         "points": [],
         "visuals": [
           { "kind": "table", "n": 1, "fp": "제가 한 것|AI가 한 것" }
@@ -209,9 +209,9 @@
         "chapter": "ai",
         "layout": "visual",
         "tab": "결과",
-        "title": { "text": "3.3 기능 ① 분할 화면 동기화 카메라", "verbatim": true },
+        "title": { "text": "3.3 분할 화면 동기화 카메라", "verbatim": true },
         "lead": { "text": "입력 하나로 두 화면의 카메라가 같은 각도·같은 거리로 함께 움직입니다. 2.2의 시점 문제를 푸는 기능입니다.", "verbatim": true },
-        "sectionPath": ["3. AI 활용 — 기획을 기능으로", "3.3 기능 ① 분할 화면 동기화 카메라"],
+        "sectionPath": ["3. AI 활용", "3.3 분할 화면 동기화 카메라"],
         "points": [],
         "visuals": [
           { "kind": "image", "src": "images/orbit_camera.gif", "w": 800, "h": 450, "caption": { "text": "두 카메라가 같은 시점으로 함께 움직이고 Space로 이동 잠금", "verbatim": true } }
@@ -224,7 +224,7 @@
         "tab": "선택",
         "title": { "text": "카메라 두 대를 어떻게 맞출 것인가?", "verbatim": false },
         "lead": { "text": "\"두 화면은 항상 같은 시점이어야 한다\"는 규칙은 기획서에서 제가 정했고, AI에게 Cinemachine 등 다른 방법도 들은 뒤 C를 골랐습니다.", "verbatim": true },
-        "sectionPath": ["3. AI 활용 — 기획을 기능으로", "3.3 기능 ① 분할 화면 동기화 카메라", "고민과 선택"],
+        "sectionPath": ["3. AI 활용", "3.3 분할 화면 동기화 카메라", "고민과 선택"],
         "points": [],
         "visuals": [
           { "kind": "table", "n": 1, "fp": "|대안 A: 카메라마다 컨트롤러 + 서로 값 복사|대안 B: Cinemachine 카메라 2대|대안 C: 컨트롤러 하나가 모든 카메라에 같은 값 적용" }
@@ -235,13 +235,13 @@
         "chapter": "ai",
         "layout": "screens",
         "tab": "결과",
-        "title": { "text": "3.4 기능 ② 클릭 판정 파이프라인", "verbatim": true },
+        "title": { "text": "3.4 클릭 판정", "verbatim": true },
         "lead": { "text": "클릭 결과를 정답 / 오답 / 무반응 세 가지로 나눕니다. 2.2의 판정 문제를 푸는 기능입니다.", "verbatim": true },
-        "sectionPath": ["3. AI 활용 — 기획을 기능으로", "3.4 기능 ② 클릭 판정 파이프라인"],
+        "sectionPath": ["3. AI 활용", "3.4 클릭 판정"],
         "points": [],
         "visuals": [
           { "kind": "image", "src": "images/answer_click.gif", "w": 800, "h": 450, "caption": { "text": "정답 클릭 — 양쪽 배구공이 함께 반짝이고 진행도 점이 찬다", "verbatim": true } },
-          { "kind": "image", "src": "images/wrong_click_lock.gif", "w": 800, "h": 450, "caption": { "text": "오답 클릭 — 오답 표시와 3초 클릭 제한", "verbatim": true }, "sectionPath": ["3. AI 활용 — 기획을 기능으로", "3.4 기능 ② 클릭 판정 파이프라인", "핵심 동작"] }
+          { "kind": "image", "src": "images/wrong_click_lock.gif", "w": 800, "h": 450, "caption": { "text": "오답 클릭 — 오답 표시와 3초 클릭 제한", "verbatim": true }, "sectionPath": ["3. AI 활용", "3.4 클릭 판정", "핵심 동작"] }
         ]
       },
       {
@@ -249,9 +249,9 @@
         "chapter": "ai",
         "layout": "visual",
         "tab": "결과",
-        "title": { "text": "3.5 기능 ③ 스테이지 검사 도구 (StageValidator)", "verbatim": true },
+        "title": { "text": "3.5 스테이지 검사 도구", "verbatim": true },
         "lead": { "text": "눈으로는 찾을 수 없는 \"정답이 아닌 쌍둥이\"를 찾아 주는 에디터 도구입니다. 2.2의 공정성 문제를 푸는 기능입니다.", "verbatim": true },
-        "sectionPath": ["3. AI 활용 — 기획을 기능으로", "3.5 기능 ③ 스테이지 검사 도구 (StageValidator)"],
+        "sectionPath": ["3. AI 활용", "3.5 스테이지 검사 도구"],
         "points": [],
         "visuals": [
           { "kind": "image", "src": "images/validate_first_run.png", "w": 1134, "h": 382, "caption": { "text": "처음 검사 — 2-1 자동차 전시장에서 의도하지 않은 쌍둥이 7개가 오류로 나온다", "verbatim": true } }
@@ -262,9 +262,9 @@
         "chapter": "fix",
         "layout": "problem",
         "tab": "문제 해결",
-        "title": { "text": "4.1 위아래 분할에서만 카메라가 열차 속을 비춤", "verbatim": true },
+        "title": { "text": "4.1 위아래 분할에서 열차 속이 보임", "verbatim": true },
         "lead": { "text": "2-2 기차역에서 화면 가장자리에 열차 속이 보였습니다. 좌우 분할 맵에서는 없고 위아래 분할에서만 생긴다는 것을 확인해 알렸습니다.", "verbatim": true },
-        "sectionPath": ["4. 문제 해결 — 플레이하며 찾고, 조건을 좁혀 알리기", "4.1 위아래 분할에서만 카메라가 열차 속을 비춤"],
+        "sectionPath": ["4. 문제 해결", "4.1 위아래 분할에서 열차 속이 보임"],
         "points": [
           { "label": "원인", "text": "카메라는 점이 아니라 Near Clip 면(사각형)을 가집니다.", "verbatim": true },
           { "label": "해결", "text": "2-2의 Collision Radius를 0.4로 올리고, 기준(가로가 넓은 화면은 0.4 이상)을 문서에 남겼습니다.", "verbatim": true },
