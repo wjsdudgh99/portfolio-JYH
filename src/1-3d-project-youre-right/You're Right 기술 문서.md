@@ -32,13 +32,18 @@
 
 ### 1.1 개발 환경
 
-- **Engine**: Unity 6000.3.15f1, URP 17, 새 Input System
-- **Language**: C# (네임스페이스 `YoureRight`) — 코드와 에디터 도구는 대부분 AI로 생성(3장)
-- **기간**: 2026.10.21 ~ 2026.11.05 (기획서 작성부터 Windows 빌드까지, 약 2주 반, 개인 프로젝트)
-- **링크**: GitHub https://github.com/KooHoo-Dev/3rd_3D_1-3D-Project-wjsdudgh99 · 시연 영상 https://youtu.be/ekMrtZYxHfs · 쇼츠 https://youtube.com/shorts/WIkPCM9Zzm0
-- **리소스**: 3D 에셋은 Unity 에셋 스토어 무료 에셋, 효과음은 Pixabay에서 받았습니다.
-  음악은 Sakura Girl의 Lemonade · Jazzy Night · City Walk(https://soundcloud.com/sakuragirl_official, CC BY 3.0, chosic.com),
-  글꼴은 Pretendard(SIL Open Font License 1.1)입니다.
+| 항목 | 내용 |
+|---|---|
+| 엔진 | Unity 6000.3.15f1, URP 17, 새 Input System |
+| 언어 | C# (네임스페이스 `YoureRight`) — 코드와 에디터 도구는 대부분 AI로 생성(3장) |
+| 기간 | 2026.10.21 ~ 2026.11.05 (기획서 작성부터 Windows 빌드까지, 약 2주 반) |
+| 인원 | 개인 프로젝트 |
+| GitHub | https://github.com/KooHoo-Dev/3rd_3D_1-3D-Project-wjsdudgh99 |
+| 시연 영상 | https://youtu.be/ekMrtZYxHfs |
+| 쇼츠 | https://youtube.com/shorts/WIkPCM9Zzm0 |
+| 3D 에셋 · 효과음 | Unity 에셋 스토어 무료 에셋 · Pixabay |
+| 음악 | Sakura Girl의 Lemonade · Jazzy Night · City Walk (https://soundcloud.com/sakuragirl_official, CC BY 3.0, chosic.com) |
+| 글꼴 | Pretendard (SIL Open Font License 1.1) |
 
 ### 1.2 한 줄 소개
 

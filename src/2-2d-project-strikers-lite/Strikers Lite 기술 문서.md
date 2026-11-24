@@ -34,13 +34,17 @@
 
 ### 1.1 개발 환경
 
-- **Engine**: Unity 6000.3.15f1 (Unity 6), URP 2D 17.3, Input System 1.19, TextMeshPro
-- **Language**: C# — 스크립트 17개, 1,338줄 (큰 틀은 직접, 세부 코드는 대부분 AI로 생성 — 3장)
-- **화면**: 세로 607×1080
-- **기간**: 2026.06.24 ~ 2026.07.07 (2주, 커밋 38개, 개인 프로젝트)
-- **링크**: GitHub https://github.com/KooHoo-Dev/3rd-2D-Project-wjsdudgh99 · 시연 영상 https://youtu.be/tmnxGLaPnx8 · 쇼츠 https://youtube.com/shorts/VyfRGFwk3u8
-- **그림**: 비행기·보스·배경은 원작 「스트라이커즈 1945」 시리즈의 스프라이트를 내려받아 사용했습니다
-  (출처: The Spriters Resource — https://www.spriters-resource.com/arcade/strikers1945/ · https://www.spriters-resource.com/arcade/strikers1945ii/)
+| 항목 | 내용 |
+|---|---|
+| 엔진 | Unity 6000.3.15f1 (Unity 6), URP 2D 17.3, Input System 1.19, TextMeshPro |
+| 언어 | C# — 스크립트 17개, 1,338줄 (큰 틀은 직접, 세부 코드는 대부분 AI로 생성 — 3장) |
+| 화면 | 세로 607×1080 |
+| 기간 | 2026.06.24 ~ 2026.07.07 (2주, 커밋 38개) |
+| 인원 | 개인 프로젝트 |
+| GitHub | https://github.com/KooHoo-Dev/3rd-2D-Project-wjsdudgh99 |
+| 시연 영상 | https://youtu.be/tmnxGLaPnx8 |
+| 쇼츠 | https://youtube.com/shorts/VyfRGFwk3u8 |
+| 그림 | 비행기·보스·배경은 원작 「스트라이커즈 1945」 시리즈의 스프라이트를 내려받아 사용했습니다 (출처: The Spriters Resource — https://www.spriters-resource.com/arcade/strikers1945/ · https://www.spriters-resource.com/arcade/strikers1945ii/) |
 
 ### 1.2 한 줄 소개
 
