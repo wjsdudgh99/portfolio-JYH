@@ -52,7 +52,7 @@
       "what": "4명의 입력이 합쳐진 차량 입력에서 액셀·브레이크·기어가 바뀐 순간을 잡아, 누가 조작했든 4명 모두에게 엔진·브레이크·변속음을 냅니다.",
       "how": "초당 50회 들어오는 입력을 VehicleSoundEvents가 직전 값과 비교해 바뀐 순간에만 AccelChanged·BrakeChanged·GearChanged를 발행하고, SoundManager가 기어 N·정지 상태를 한 번 더 검사한 뒤 재생합니다.",
       "why": "차량 소리를 이벤트로 받는 방식은 AI의 제안을 따랐습니다. 돌아보면 차량 입력은 발생원이 여러 곳이고 사운드 외의 반응도 붙을 수 있어 이벤트가 맞는 자리입니다.",
-      "section": "4.2 입력이 바뀐 순간에만 소리 내기",
+      "section": "3.3 입력이 바뀐 순간에만 소리 내기",
       "image": null
     },
     {
@@ -60,7 +60,7 @@
       "what": "물리 판정이 호스트에만 있어 4명 중 3명이 듣지 못하던 충돌음을, 4명 모두 같은 강도로 듣게 합니다.",
       "how": "호스트의 VehicleDamage가 충돌 속도 10 이상이면 강, 아니면 약으로 판정해 로컬 이벤트를 내고 vehicle_crash { isHard } 패킷을 보내면, 비호스트 SoundManager가 받아 같은 강도의 충돌음을 재생합니다.",
       "why": "다른 플레이어에게 충돌음이 안 들리는 것을 제가 발견했고, 호스트가 패킷으로 알리는 방법은 AI의 제안을 따랐습니다. 4명이 같은 사건에 같은 소리를 들어야 협동 중 소통이 깨지지 않습니다.",
-      "section": "4.3 충돌음을 4명 모두에게",
+      "section": "3.4 충돌음을 4명 모두에게",
       "image": {
         "src": "images/crash_durability.gif",
         "w": 960,
@@ -73,7 +73,7 @@
       "what": "주유 노즐·액셀·브레이크처럼 누르는 동안만 나야 하는 소리를 떼는 순간 바로 끕니다.",
       "how": "미니게임 뷰는 누른 순간 StartFuelLoopSound(), 뗀 순간 StopFuelLoopSound()를 한 줄씩 부르고, SoundManager는 액셀·브레이크·미니게임 루프를 전용 AudioSource로 나눠 Stop()으로 끕니다.",
       "why": "\"누르는 동안만\" 나야 한다는 요구는 제가 정했고, AI가 루프 종류별 전용 AudioSource로 나눴습니다. PlayOneShot은 개별 정지가 안 돼 액셀을 떼도 소리가 끝까지 남기 때문입니다.",
-      "section": "4.1 사용법",
+      "section": "3.5 사용법",
       "image": {
         "src": "images/minigame_fuel.gif",
         "w": 960,
@@ -90,7 +90,7 @@
       "solution": "발행원을 VehicleController.FixedUpdate 하나로 통일하고, 비호스트도 같은 경로로 발행하게 바꾼 뒤 SoundManager에 같은 기어 무시와 0.2초 디바운스를 더했습니다.",
       "result": "라운드 종료 시 호스트 기어 변속음: 매 프레임 반복 재생 → 1회",
       "lesson": "",
-      "section": "① 라운드가 끝나면 기어 소리가 반복됨"
+      "section": "5.1 라운드가 끝나면 기어 소리가 반복됨"
     },
     {
       "title": "비호스트에게 충돌음이 들리지 않음",
@@ -99,7 +99,7 @@
       "solution": "호스트가 충돌 판정 직후 vehicle_crash { isHard } 패킷을 보내고, 비호스트가 받아 재생합니다.",
       "result": "충돌음을 듣는 플레이어: 1 / 4명(호스트만) → 4 / 4명",
       "lesson": "",
-      "section": "② 비호스트에게 충돌음이 들리지 않음"
+      "section": "5.2 비호스트에게 충돌음이 들리지 않음"
     },
     {
       "title": "주유 미니게임에서 한 번 실패하면 이후 주유 소리가 나지 않음",
@@ -108,7 +108,7 @@
       "solution": "실패 루틴 시작 시 눌림 상태를 강제로 해제하고 루프음을 정지하며, 루프 재시작 시 time = 0으로 처음부터 재생합니다.",
       "result": "실패한 뒤에도 다시 누르면 주유 소리가 납니다.",
       "lesson": "",
-      "section": "③ 주유에 실패하면 주유 소리가 안 남"
+      "section": "5.3 주유에 실패하면 주유 소리가 안 남"
     }
   ],
   "screenshots": [
@@ -168,59 +168,16 @@
       "제안: SoundManager처럼 타입이 있는 메시지 클래스로 역직렬화",
       "제안: ScriptableObject 기반 SoundLibrary \u002B PlaySfx(SoundId)로 전환, AudioMixer 그룹으로 BGM/SFX 볼륨 분리"
     ],
-    "section": "7. 결과와 배운 점"
+    "section": "6. 결과와 배운 점"
   },
   "deck": {
     "chapters": [
-      {
-        "key": "overview",
-        "title": "개요",
-        "sectionPath": [
-          "1. 개요"
-        ]
-      },
-      {
-        "key": "part",
-        "title": "내 담당: 네트워크 사운드",
-        "sectionPath": [
-          "2. 내 담당: 네트워크 사운드"
-        ]
-      },
-      {
-        "key": "arch",
-        "title": "시스템 구조",
-        "sectionPath": [
-          "3. 시스템 구조"
-        ]
-      },
-      {
-        "key": "core",
-        "title": "핵심 기능",
-        "sectionPath": [
-          "4. 핵심 기능"
-        ]
-      },
-      {
-        "key": "tradeoff",
-        "title": "고민과 선택",
-        "sectionPath": [
-          "5. 고민과 선택"
-        ]
-      },
-      {
-        "key": "collab",
-        "title": "협업",
-        "sectionPath": [
-          "6. 협업"
-        ]
-      },
-      {
-        "key": "result",
-        "title": "결과와 배운 점",
-        "sectionPath": [
-          "7. 결과와 배운 점"
-        ]
-      }
+      { "key": "overview", "title": "개요", "sectionPath": ["1. 개요"] },
+      { "key": "plan", "title": "기획", "sectionPath": ["2. 기획"] },
+      { "key": "ai", "title": "AI 활용", "sectionPath": ["3. AI 활용"] },
+      { "key": "collab", "title": "협업", "sectionPath": ["4. 협업"] },
+      { "key": "fix", "title": "문제 해결", "sectionPath": ["5. 문제 해결"] },
+      { "key": "result", "title": "결과와 배운 점", "sectionPath": ["6. 결과와 배운 점"] }
     ],
     "slides": [
       {
@@ -228,36 +185,14 @@
         "chapter": "overview",
         "layout": "overview",
         "tab": "개요",
-        "title": {
-          "text": "1.2 프로젝트 소개",
-          "verbatim": true
-        },
-        "lead": {
-          "text": "4명이 차 한 대를 나눠 운전하는 온라인 협동 2D 게임입니다.",
-          "verbatim": true
-        },
-        "sectionPath": [
-          "1. 개요",
-          "1.2 프로젝트 소개"
-        ],
+        "title": { "text": "1.2 프로젝트 소개", "verbatim": true },
+        "lead": { "text": "4명이 차 한 대를 나눠 운전하는 온라인 협동 2D 게임입니다.", "verbatim": true },
+        "sectionPath": ["1. 개요", "1.2 프로젝트 소개"],
         "points": [
-          {
-            "label": "",
-            "text": "플레이어는 각자 핸들(조향) · 액셀 · 브레이크 · 기어(D/N/R \u002B 내비게이션) 중 하나만 맡고, 제한 시간 안에 경유지 3곳의 미니게임을 클리어한 뒤 목적지에 도착해야 합니다.",
-            "verbatim": true
-          }
+          { "label": "", "text": "플레이어는 각자 핸들(조향) · 액셀 · 브레이크 · 기어(D/N/R + 내비게이션) 중 하나만 맡고, 제한 시간 안에 경유지 3곳의 미니게임을 클리어한 뒤 목적지에 도착해야 합니다.", "verbatim": true }
         ],
         "visuals": [
-          {
-            "kind": "image",
-            "src": "images/four_screens.png",
-            "w": 1440,
-            "h": 810,
-            "caption": {
-              "text": "같은 순간 네 플레이어의 화면",
-              "verbatim": true
-            }
-          }
+          { "kind": "image", "src": "images/four_screens.png", "w": 1440, "h": 810, "caption": { "text": "같은 순간 네 플레이어의 화면", "verbatim": true } }
         ]
       },
       {
@@ -265,439 +200,191 @@
         "chapter": "overview",
         "layout": "visual",
         "tab": "흐름",
-        "title": {
-          "text": "1.2 프로젝트 소개",
-          "verbatim": true
-        },
+        "title": { "text": "1.2 프로젝트 소개", "verbatim": true },
         "lead": null,
-        "sectionPath": [
-          "1. 개요",
-          "1.2 프로젝트 소개"
-        ],
+        "sectionPath": ["1. 개요", "1.2 프로젝트 소개"],
         "points": [],
-        "visuals": [
-          {
-            "kind": "mermaid",
-            "n": 1,
-            "fp": "flowchart LR"
-          }
-        ]
+        "visuals": [ { "kind": "mermaid", "n": 1, "fp": "flowchart LR" } ]
       },
       {
         "key": "team",
         "chapter": "overview",
         "layout": "overview",
         "tab": "개요",
-        "title": {
-          "text": "1.3 팀 구성과 내 역할",
-          "verbatim": true
-        },
+        "title": { "text": "1.3 팀 구성과 내 역할", "verbatim": true },
         "lead": null,
-        "sectionPath": [
-          "1. 개요",
-          "1.3 팀 구성과 내 역할"
-        ],
+        "sectionPath": ["1. 개요", "1.3 팀 구성과 내 역할"],
         "points": [],
         "visuals": [
-          {
-            "kind": "table",
-            "n": 1,
-            "fp": "항목|내용"
-          },
-          {
-            "kind": "image",
-            "src": "images/map.png",
-            "w": 1920,
-            "h": 1080,
-            "caption": {
-              "text": "내비게이션 지도로 본 본 맵 구조",
-              "verbatim": true
-            }
-          }
+          { "kind": "table", "n": 1, "fp": "항목|내용" },
+          { "kind": "image", "src": "images/map.png", "w": 1920, "h": 1080, "caption": { "text": "내비게이션 지도로 본 본 맵 구조", "verbatim": true } }
         ]
       },
       {
-        "key": "how-made",
-        "chapter": "overview",
-        "layout": "overview",
-        "tab": "개요",
-        "title": { "text": "1.4 AI와 나눈 역할", "verbatim": true },
-        "lead": { "text": "제가 맡은 사운드 코드는 채팅 AI에 필요한 기능을 설명해 코드를 받고, 직접 스크립트에 넣는 방식으로 만들었습니다.", "verbatim": true },
-        "sectionPath": ["1. 개요", "1.4 AI와 나눈 역할"],
-        "points": [
-          { "label": "레벨 디자인", "text": "LDtk로 본 맵과 튜토리얼 맵을 만들고 나무·차량·장애물을 배치했습니다.", "verbatim": true },
-          { "label": "소리 고르기", "text": "BGM 9종 · SFX 22종을 고르고, 어느 순간에 어떤 소리가 나야 하는지 정했습니다.", "verbatim": true },
-          { "label": "소리를 꽂을 위치", "text": "팀원이 만든 미니게임·차량 코드에서 소리를 넣을 자리를 찾았습니다(6.1).", "verbatim": true },
-          { "label": "플레이 테스트", "text": "7.2의 세 문제는 모두 제가 발견했습니다.", "verbatim": true }
-        ],
-        "visuals": []
-      },
-      {
         "key": "what",
-        "chapter": "part",
+        "chapter": "plan",
         "layout": "overview",
         "tab": "개요",
-        "title": {
-          "text": "2.1 만든 것",
-          "verbatim": true
-        },
-        "lead": {
-          "text": "이 문서는 호스트만 물리를 계산하는 네트워크 구조 위에서, 4명 모두가 같은 소리를 듣도록 만든 사운드 시스템을 설명합니다.",
-          "verbatim": true
-        },
-        "sectionPath": [
-          "2. 내 담당: 네트워크 사운드",
-          "2.1 만든 것"
-        ],
+        "title": { "text": "2.1 만든 것", "verbatim": true },
+        "lead": { "text": "이 문서는 호스트만 물리를 계산하는 네트워크 구조 위에서, 4명 모두가 같은 소리를 듣도록 만든 사운드 시스템을 설명합니다.", "verbatim": true },
+        "sectionPath": ["2. 기획", "2.1 만든 것"],
         "points": [
-          {
-            "label": "",
-            "text": "조작 입력 → 엔진·브레이크·기어 변속음 (조작자가 아닌 플레이어에게도 재생)",
-            "verbatim": true
-          },
-          {
-            "label": "",
-            "text": "차량 충돌 → 강도별 충돌음 (약 4종 / 강 4종 중 랜덤)",
-            "verbatim": true
-          },
-          {
-            "label": "",
-            "text": "씬·라운드 흐름 → 타이틀/로비/튜토리얼/인게임(4곡 셔플)/클리어/게임오버 BGM",
-            "verbatim": true
-          },
-          {
-            "label": "",
-            "text": "미니게임 3종 · 모든 UI 버튼 → 전용 효과음",
-            "verbatim": true
-          }
+          { "label": "", "text": "조작 입력 → 엔진·브레이크·기어 변속음 (조작자가 아닌 플레이어에게도 재생)", "verbatim": true },
+          { "label": "", "text": "차량 충돌 → 강도별 충돌음 (약 4종 / 강 4종 중 랜덤)", "verbatim": true },
+          { "label": "", "text": "씬·라운드 흐름 → 타이틀/로비/튜토리얼/인게임(4곡 셔플)/클리어/게임오버 BGM", "verbatim": true },
+          { "label": "", "text": "미니게임 3종 · 모든 UI 버튼 → 전용 효과음", "verbatim": true }
         ],
         "visuals": []
       },
       {
         "key": "why",
-        "chapter": "part",
+        "chapter": "plan",
         "layout": "overview",
         "tab": "개요",
-        "title": {
-          "text": "2.2 풀어야 했던 문제",
-          "verbatim": true
-        },
-        "lead": {
-          "text": "이 게임의 사운드는 \u0022소리를 낼 근거가 호스트에게만 있다\u0022 는 문제를 안고 있었습니다.",
-          "verbatim": true
-        },
-        "sectionPath": [
-          "2. 내 담당: 네트워크 사운드",
-          "2.2 풀어야 했던 문제"
-        ],
+        "title": { "text": "2.2 풀어야 했던 문제", "verbatim": true },
+        "lead": { "text": "이 게임의 사운드는 \"소리를 낼 근거가 호스트에게만 있다\" 는 문제를 안고 있었습니다.", "verbatim": true },
+        "sectionPath": ["2. 기획", "2.2 풀어야 했던 문제"],
         "points": [
-          {
-            "label": "문제",
-            "text": "충돌 판정이 호스트에서만 일어난다.",
-            "verbatim": true
-          },
-          {
-            "label": "문제",
-            "text": "조작이 4명에게 분산되어 있다.",
-            "verbatim": true
-          },
-          {
-            "label": "문제",
-            "text": "라운드 결과도 호스트만 판정한다.",
-            "verbatim": true
-          },
-          {
-            "label": "목표",
-            "text": "호스트·비호스트 구분 없이 4명이 같은 사운드 경험을 하도록 만든다.",
-            "verbatim": true
-          }
+          { "label": "문제", "text": "충돌 판정이 호스트에서만 일어난다.", "verbatim": true },
+          { "label": "문제", "text": "조작이 4명에게 분산되어 있다.", "verbatim": true },
+          { "label": "문제", "text": "라운드 결과도 호스트만 판정한다.", "verbatim": true },
+          { "label": "목표", "text": "호스트·비호스트 구분 없이 4명이 같은 사운드 경험을 하도록 만든다.", "verbatim": true }
+        ],
+        "visuals": []
+      },
+      {
+        "key": "bgm",
+        "chapter": "plan",
+        "layout": "visual",
+        "tab": "흐름",
+        "title": { "text": "2.3 BGM 흐름", "verbatim": true },
+        "lead": null,
+        "sectionPath": ["2. 기획", "2.3 BGM 흐름"],
+        "points": [],
+        "visuals": [ { "kind": "mermaid", "n": 1, "fp": "stateDiagram-v2" } ]
+      },
+      {
+        "key": "how-made",
+        "chapter": "ai",
+        "layout": "overview",
+        "tab": "개요",
+        "title": { "text": "3.1 AI와 나눈 역할", "verbatim": true },
+        "lead": { "text": "제가 맡은 사운드 코드는 채팅 AI에 필요한 기능을 설명해 코드를 받고, 직접 스크립트에 넣는 방식으로 만들었습니다.", "verbatim": true },
+        "sectionPath": ["3. AI 활용", "3.1 AI와 나눈 역할"],
+        "points": [
+          { "label": "레벨 디자인", "text": "LDtk로 본 맵과 튜토리얼 맵을 만들고 나무·차량·장애물을 배치했습니다.", "verbatim": true },
+          { "label": "소리 고르기", "text": "BGM 9종 · SFX 22종을 고르고, 어느 순간에 어떤 소리가 나야 하는지 정했습니다.", "verbatim": true },
+          { "label": "소리를 꽂을 위치", "text": "팀원이 만든 미니게임·차량 코드에서 소리를 넣을 자리를 찾았습니다(4.1).", "verbatim": true },
+          { "label": "플레이 테스트", "text": "5장의 세 문제는 모두 제가 발견했습니다.", "verbatim": true }
         ],
         "visuals": []
       },
       {
         "key": "arch",
-        "chapter": "arch",
+        "chapter": "ai",
         "layout": "full",
         "tab": "구조",
-        "title": {
-          "text": "3.1 소리가 나는 세 갈래",
-          "verbatim": true
-        },
-        "lead": {
-          "text": "사운드 요청은 성격에 따라 세 갈래로 SoundManager에 도착합니다.",
-          "verbatim": true
-        },
-        "sectionPath": [
-          "3. 시스템 구조",
-          "3.1 소리가 나는 세 갈래"
-        ],
+        "title": { "text": "3.2 소리가 나는 세 갈래", "verbatim": true },
+        "lead": { "text": "사운드 요청은 성격에 따라 세 갈래로 SoundManager에 도착합니다.", "verbatim": true },
+        "sectionPath": ["3. AI 활용", "3.2 소리가 나는 세 갈래"],
         "points": [],
-        "visuals": [
-          {
-            "kind": "mermaid",
-            "n": 1,
-            "fp": "flowchart TD"
-          }
-        ]
-      },
-      {
-        "key": "api",
-        "chapter": "core",
-        "layout": "code",
-        "tab": "구현",
-        "title": {
-          "text": "4.1 사용법",
-          "verbatim": true
-        },
-        "lead": {
-          "text": "외부에서는 SoundManager.Instance?.메서드() 한 줄만 호출하면 됩니다.",
-          "verbatim": true
-        },
-        "sectionPath": [
-          "4. 핵심 기능",
-          "4.1 사용법"
-        ],
-        "points": [
-          {
-            "label": "이유",
-            "text": "사운드 담당이 다른 사람의 작업을 막지 않게 하는 규칙입니다.",
-            "verbatim": true
-          }
-        ],
-        "visuals": [
-          {
-            "kind": "code",
-            "n": 1,
-            "fp": "// GasStationMinigameView.cs (발췌) — 노즐을 누르는 동안 루프음, 떼면 정지"
-          },
-          {
-            "kind": "image",
-            "src": "images/minigame_fuel.gif",
-            "w": 960,
-            "h": 540,
-            "caption": {
-              "text": "주유소 미니게임 — 정량 주유",
-              "verbatim": true
-            }
-          }
-        ]
+        "visuals": [ { "kind": "mermaid", "n": 1, "fp": "flowchart TD" } ]
       },
       {
         "key": "edge",
-        "chapter": "core",
+        "chapter": "ai",
         "layout": "code",
         "tab": "구현",
-        "title": {
-          "text": "4.2 입력이 바뀐 순간에만 소리 내기",
-          "verbatim": true
-        },
-        "lead": {
-          "text": "VehicleController.FixedUpdate는 초당 50회 입력을 읽습니다.",
-          "verbatim": true
-        },
-        "sectionPath": [
-          "4. 핵심 기능",
-          "4.2 입력이 바뀐 순간에만 소리 내기"
-        ],
+        "title": { "text": "3.3 입력이 바뀐 순간에만 소리 내기", "verbatim": true },
+        "lead": { "text": "VehicleController.FixedUpdate는 초당 50회 입력을 읽습니다.", "verbatim": true },
+        "sectionPath": ["3. AI 활용", "3.3 입력이 바뀐 순간에만 소리 내기"],
         "points": [
-          {
-            "label": "구현",
-            "text": "VehicleSoundEvents는 직전 값을 기억해 바뀐 순간에만 이벤트를 발행합니다.",
-            "verbatim": true
-          },
-          {
-            "label": "구현",
-            "text": "SoundManager는 이 이벤트를 받아 차량 상태에 맞는지 한 번 더 검사한 뒤 재생합니다.",
-            "verbatim": true
-          }
+          { "label": "구현", "text": "VehicleSoundEvents는 직전 값을 기억해 바뀐 순간에만 이벤트를 발행합니다.", "verbatim": true },
+          { "label": "구현", "text": "SoundManager는 이 이벤트를 받아 차량 상태에 맞는지 한 번 더 검사한 뒤 재생합니다.", "verbatim": true }
         ],
-        "visuals": [
-          {
-            "kind": "code",
-            "n": 1,
-            "fp": "// VehicleSoundEvents.cs (발췌) — 호스트·비호스트 모두 이 한 곳으로 입력이 들어온다"
-          }
-        ]
-      },
-      {
-        "key": "crash-seq",
-        "chapter": "core",
-        "layout": "visual",
-        "tab": "흐름",
-        "title": {
-          "text": "4.3 충돌음을 4명 모두에게",
-          "verbatim": true
-        },
-        "lead": null,
-        "sectionPath": [
-          "4. 핵심 기능",
-          "4.3 충돌음을 4명 모두에게"
-        ],
-        "points": [],
-        "visuals": [
-          {
-            "kind": "mermaid",
-            "n": 1,
-            "fp": "sequenceDiagram"
-          }
-        ]
-      },
-      {
-        "key": "crash-code",
-        "chapter": "core",
-        "layout": "code",
-        "tab": "구현",
-        "title": {
-          "text": "4.3 충돌음을 4명 모두에게",
-          "verbatim": true
-        },
-        "lead": null,
-        "sectionPath": [
-          "4. 핵심 기능",
-          "4.3 충돌음을 4명 모두에게"
-        ],
-        "points": [],
-        "visuals": [
-          {
-            "kind": "code",
-            "n": 1,
-            "fp": "// VehicleDamage.cs (발췌) — 판정은 호스트, 재생은 모두"
-          }
-        ]
-      },
-      {
-        "key": "bgm",
-        "chapter": "core",
-        "layout": "visual",
-        "tab": "흐름",
-        "title": {
-          "text": "4.4 BGM 흐름",
-          "verbatim": true
-        },
-        "lead": null,
-        "sectionPath": [
-          "4. 핵심 기능",
-          "4.4 BGM 흐름"
-        ],
-        "points": [],
-        "visuals": [
-          {
-            "kind": "mermaid",
-            "n": 1,
-            "fp": "stateDiagram-v2"
-          }
-        ]
+        "visuals": [ { "kind": "code", "n": 1, "fp": "// VehicleSoundEvents.cs (발췌) — 호스트·비호스트 모두 이 한 곳으로 입력이 들어온다" } ]
       },
       {
         "key": "trigger",
-        "chapter": "tradeoff",
+        "chapter": "ai",
         "layout": "overview",
         "tab": "선택",
-        "title": {
-          "text": "5.1 소리를 내는 방식: 이벤트 vs 직접 호출",
-          "verbatim": true
-        },
-        "lead": {
-          "text": "차량 소리를 이벤트로 받는 방식은 AI의 제안을 따랐습니다(1.3).",
-          "verbatim": true
-        },
-        "sectionPath": [
-          "5. 고민과 선택",
-          "5.1 소리를 내는 방식: 이벤트 vs 직접 호출"
-        ],
+        "title": { "text": "소리를 내는 방식: 이벤트 vs 직접 호출", "verbatim": true },
+        "lead": { "text": "차량 소리를 이벤트로 받는 방식은 AI의 제안을 따랐습니다(3.1).", "verbatim": true },
+        "sectionPath": ["3. AI 활용", "3.3 입력이 바뀐 순간에만 소리 내기", "소리를 내는 방식: 이벤트 vs 직접 호출"],
         "points": [
-          {
-            "label": "대안 A",
-            "text": "모든 곳에서 SoundManager를 직접 호출",
-            "verbatim": true
-          },
-          {
-            "label": "대안 B",
-            "text": "모든 사운드를 이벤트 구독으로 처리 (관찰자 패턴)",
-            "verbatim": true
-          },
-          {
-            "label": "결정",
-            "text": "차량 입력·충돌 → 이벤트(B)",
-            "verbatim": true
-          },
-          {
-            "label": "결정",
-            "text": "미니게임·UI·씬 진입 → 직접 호출(A)",
-            "verbatim": true
-          }
+          { "label": "대안 A", "text": "모든 곳에서 SoundManager를 직접 호출", "verbatim": true },
+          { "label": "대안 B", "text": "모든 사운드를 이벤트 구독으로 처리 (관찰자 패턴)", "verbatim": true },
+          { "label": "결과", "text": "차량 입력·충돌 → 이벤트(B)", "verbatim": true },
+          { "label": "결과", "text": "미니게임·UI·씬 진입 → 직접 호출(A)", "verbatim": true }
         ],
         "visuals": []
+      },
+      {
+        "key": "crash-seq",
+        "chapter": "ai",
+        "layout": "visual",
+        "tab": "흐름",
+        "title": { "text": "3.4 충돌음을 4명 모두에게", "verbatim": true },
+        "lead": null,
+        "sectionPath": ["3. AI 활용", "3.4 충돌음을 4명 모두에게"],
+        "points": [],
+        "visuals": [ { "kind": "mermaid", "n": 1, "fp": "sequenceDiagram" } ]
+      },
+      {
+        "key": "crash-code",
+        "chapter": "ai",
+        "layout": "code",
+        "tab": "구현",
+        "title": { "text": "3.4 충돌음을 4명 모두에게", "verbatim": true },
+        "lead": null,
+        "sectionPath": ["3. AI 활용", "3.4 충돌음을 4명 모두에게"],
+        "points": [],
+        "visuals": [ { "kind": "code", "n": 1, "fp": "// VehicleDamage.cs (발췌) — 판정은 호스트, 재생은 모두" } ]
       },
       {
         "key": "crash-net",
-        "chapter": "tradeoff",
+        "chapter": "ai",
         "layout": "overview",
         "tab": "선택",
-        "title": {
-          "text": "5.2 비호스트에게 충돌 알리기",
-          "verbatim": true
-        },
-        "lead": {
-          "text": "다른 플레이어 화면에서 충돌음이 들리지 않는 것을 제가 발견했고(7.2 ②), 호스트가 패킷으로 알려 주는 방법은 AI의 제안을 따랐습니다(09-05 커밋 2fb1236b).",
-          "verbatim": true
-        },
-        "sectionPath": [
-          "5. 고민과 선택",
-          "5.2 비호스트에게 충돌 알리기"
-        ],
+        "title": { "text": "비호스트에게 충돌 알리기", "verbatim": true },
+        "lead": { "text": "다른 플레이어 화면에서 충돌음이 들리지 않는 것을 제가 발견했고(5.2), 호스트가 패킷으로 알려 주는 방법은 AI의 제안을 따랐습니다(09-05 커밋 2fb1236b).", "verbatim": true },
+        "sectionPath": ["3. AI 활용", "3.4 충돌음을 4명 모두에게", "비호스트에게 충돌 알리기"],
         "points": [
-          {
-            "label": "대안 A",
-            "text": "비호스트도 물리를 켜서 직접 충돌 판정",
-            "verbatim": true
-          },
-          {
-            "label": "대안 B",
-            "text": "호스트가 vehicle_crash 이벤트 패킷을 송신",
-            "verbatim": true
-          },
-          {
-            "label": "대안 C",
-            "text": "이미 주기적으로 오는 round_state의 내구도 감소로 추론",
-            "verbatim": true
-          }
+          { "label": "대안 A", "text": "비호스트도 물리를 켜서 직접 충돌 판정", "verbatim": true },
+          { "label": "대안 B", "text": "호스트가 vehicle_crash 이벤트 패킷을 송신", "verbatim": true },
+          { "label": "대안 C", "text": "이미 주기적으로 오는 round_state의 내구도 감소로 추론", "verbatim": true }
         ],
         "visuals": []
       },
       {
+        "key": "api",
+        "chapter": "ai",
+        "layout": "code",
+        "tab": "구현",
+        "title": { "text": "3.5 사용법", "verbatim": true },
+        "lead": { "text": "외부에서는 SoundManager.Instance?.메서드() 한 줄만 호출하면 됩니다.", "verbatim": true },
+        "sectionPath": ["3. AI 활용", "3.5 사용법"],
+        "points": [
+          { "label": "이유", "text": "사운드 담당이 다른 사람의 작업을 막지 않게 하는 규칙입니다.", "verbatim": true }
+        ],
+        "visuals": [
+          { "kind": "code", "n": 1, "fp": "// GasStationMinigameView.cs (발췌) — 노즐을 누르는 동안 루프음, 떼면 정지" },
+          { "kind": "image", "src": "images/minigame_fuel.gif", "w": 960, "h": 540, "caption": { "text": "주유소 미니게임 — 정량 주유", "verbatim": true } }
+        ]
+      },
+      {
         "key": "loop-src",
-        "chapter": "tradeoff",
+        "chapter": "ai",
         "layout": "overview",
         "tab": "선택",
-        "title": {
-          "text": "5.3 루프음 켜고 끄기",
-          "verbatim": true
-        },
-        "lead": {
-          "text": "액셀·브레이크·주유 소리는 \"누르는 동안만\" 나야 한다는 것은 제가 정했고, 루프 종류마다 AudioSource를 따로 두는 방법은 AI가 정했습니다.",
-          "verbatim": true
-        },
-        "sectionPath": [
-          "5. 고민과 선택",
-          "5.3 루프음 켜고 끄기"
-        ],
+        "title": { "text": "루프음 켜고 끄기", "verbatim": true },
+        "lead": { "text": "액셀·브레이크·주유 소리는 \"누르는 동안만\" 나야 한다는 것은 제가 정했고, 루프 종류마다 AudioSource를 따로 두는 방법은 AI가 정했습니다.", "verbatim": true },
+        "sectionPath": ["3. AI 활용", "3.5 사용법", "루프음 켜고 끄기"],
         "points": [
-          {
-            "label": "대안 A",
-            "text": "하나의 sfxSource에서 PlayOneShot",
-            "verbatim": true
-          },
-          {
-            "label": "대안 B",
-            "text": "루프 종류별 전용 AudioSource",
-            "verbatim": true
-          },
-          {
-            "label": "결정",
-            "text": "액셀·브레이크·미니게임(주유) 루프는 \u0022누르는 동안만\u0022 나야 하므로 즉시 정지가 필수입니다.",
-            "verbatim": true
-          }
+          { "label": "대안 A", "text": "하나의 sfxSource에서 PlayOneShot", "verbatim": true },
+          { "label": "대안 B", "text": "루프 종류별 전용 AudioSource", "verbatim": true },
+          { "label": "결정", "text": "액셀·브레이크·미니게임(주유) 루프는 \"누르는 동안만\" 나야 하므로 즉시 정지가 필수입니다.", "verbatim": true }
         ],
         "visuals": []
       },
@@ -706,34 +393,61 @@
         "chapter": "collab",
         "layout": "overview",
         "tab": "선택",
-        "title": {
-          "text": "6.1 팀원 코드에 소리 넣기",
-          "verbatim": true
-        },
-        "lead": {
-          "text": "사운드는 혼자 완결되는 기능이 아니라 팀원 전원의 코드에 걸쳐 있는 횡단 관심사였습니다.",
-          "verbatim": true
-        },
-        "sectionPath": [
-          "6. 협업",
-          "6.1 팀원 코드에 소리 넣기"
-        ],
+        "title": { "text": "4.1 팀원 코드에 소리 넣기", "verbatim": true },
+        "lead": { "text": "사운드는 혼자 완결되는 기능이 아니라 팀원 전원의 코드에 걸쳐 있는 횡단 관심사였습니다.", "verbatim": true },
+        "sectionPath": ["4. 협업", "4.1 팀원 코드에 소리 넣기"],
         "points": [
-          {
-            "label": "규칙 1",
-            "text": "팀원 코드에는 SoundManager.Instance?.PlayXxx() 한 줄만 추가하고, 판단 로직은 SoundManager 안에 둡니다.",
-            "verbatim": true
-          },
-          {
-            "label": "규칙 2",
-            "text": "?.로 SoundManager가 없는 테스트 씬에서도 팀원 작업이 멈추지 않게 합니다.",
-            "verbatim": true
-          },
-          {
-            "label": "교훈",
-            "text": "수정하면서 사운드 이벤트 발행 지점을 VehicleController.FixedUpdate 한 곳으로 정리했습니다.",
-            "verbatim": true
-          }
+          { "label": "규칙 1", "text": "팀원 코드에는 SoundManager.Instance?.PlayXxx() 한 줄만 추가하고, 판단 로직은 SoundManager 안에 둡니다.", "verbatim": true },
+          { "label": "규칙 2", "text": "?.로 SoundManager가 없는 테스트 씬에서도 팀원 작업이 멈추지 않게 합니다.", "verbatim": true },
+          { "label": "교훈", "text": "수정하면서 사운드 이벤트 발행 지점을 VehicleController.FixedUpdate 한 곳으로 정리했습니다.", "verbatim": true }
+        ],
+        "visuals": []
+      },
+      {
+        "key": "ts-gear",
+        "chapter": "fix",
+        "layout": "problem",
+        "tab": "문제 해결",
+        "title": { "text": "5.1 라운드가 끝나면 기어 소리가 반복됨", "verbatim": true },
+        "lead": null,
+        "sectionPath": ["5. 문제 해결", "5.1 라운드가 끝나면 기어 소리가 반복됨"],
+        "points": [
+          { "label": "문제", "text": "성공·실패 어떤 방식으로든 라운드가 끝나는 순간, 호스트 화면에서만 변속음이 멈추지 않고 반복됨.", "verbatim": true },
+          { "label": "원인", "text": "두 곳이 같은 정적 변수 lastGear 를 공유하므로 D → N → D → N … 이 번갈아 들어가 매번 \"기어가 바뀌었다\"고 판정됐습니다.", "verbatim": true },
+          { "label": "해결", "text": "NetworkInputSource.Update의 발행 코드를 제거하고 발행원을 VehicleController.FixedUpdate 하나로 통일", "verbatim": true },
+          { "label": "결과", "text": "라운드가 끝나도 변속음이 한 번만 납니다.", "verbatim": true }
+        ],
+        "visuals": [ { "kind": "table", "n": 1, "fp": "호출 위치|주기|라운드 종료 후 넘기는 기어" } ]
+      },
+      {
+        "key": "ts-crash",
+        "chapter": "fix",
+        "layout": "problem",
+        "tab": "문제 해결",
+        "title": { "text": "5.2 비호스트에게 충돌음이 들리지 않음", "verbatim": true },
+        "lead": null,
+        "sectionPath": ["5. 문제 해결", "5.2 비호스트에게 충돌음이 들리지 않음"],
+        "points": [
+          { "label": "문제", "text": "호스트가 아닌 플레이어 화면에서만 충돌음이 들리지 않는 것을 확인해 알렸습니다.", "verbatim": true },
+          { "label": "원인", "text": "비호스트 차량은 Rigidbody2D.simulated = false → OnCollisionEnter2D가 호출되지 않음.", "verbatim": true },
+          { "label": "해결", "text": "호스트가 충돌 판정 직후 vehicle_crash { isHard } 패킷 송신, 비호스트가 수신해 재생 (→ 3.4)", "verbatim": true },
+          { "label": "결과", "text": "4명 모두 같은 강도의 충돌음을 듣습니다.", "verbatim": true }
+        ],
+        "visuals": []
+      },
+      {
+        "key": "ts-fuel",
+        "chapter": "fix",
+        "layout": "problem",
+        "tab": "문제 해결",
+        "title": { "text": "5.3 주유에 실패하면 주유 소리가 안 남", "verbatim": true },
+        "lead": null,
+        "sectionPath": ["5. 문제 해결", "5.3 주유에 실패하면 주유 소리가 안 남"],
+        "points": [
+          { "label": "문제", "text": "첫 주유에 실패하면 두 번째 주유부터 소리가 나지 않는 것을 확인해 알렸습니다.", "verbatim": true },
+          { "label": "원인", "text": "실패 연출 중에도 \"노즐을 누르고 있음\" 플래그(isCurrentlyPressed)가 true로 남아, 다음에 누를 때 새로 누른 것으로 인식되지 않아 StartFuelLoopSound()가 호출되지 않음.", "verbatim": true },
+          { "label": "해결", "text": "실패 루틴 시작 시 눌림 상태를 강제로 해제하고 루프음을 정지.", "verbatim": true },
+          { "label": "결과", "text": "실패한 뒤에도 다시 누르면 주유 소리가 납니다.", "verbatim": true }
         ],
         "visuals": []
       },
@@ -742,146 +456,11 @@
         "chapter": "result",
         "layout": "full",
         "tab": "결과",
-        "title": {
-          "text": "7.1 결과",
-          "verbatim": true
-        },
+        "title": { "text": "6.1 결과", "verbatim": true },
         "lead": null,
-        "sectionPath": [
-          "7. 결과와 배운 점",
-          "7.1 결과"
-        ],
+        "sectionPath": ["6. 결과와 배운 점", "6.1 결과"],
         "points": [],
-        "visuals": [
-          {
-            "kind": "table",
-            "n": 1,
-            "fp": "항목|Before|After"
-          }
-        ]
-      },
-      {
-        "key": "ts-gear",
-        "chapter": "result",
-        "layout": "problem",
-        "tab": "문제 해결",
-        "title": {
-          "text": "① 라운드가 끝나면 기어 소리가 반복됨",
-          "verbatim": true
-        },
-        "lead": null,
-        "sectionPath": [
-          "7. 결과와 배운 점",
-          "7.2 문제 해결",
-          "① 라운드가 끝나면 기어 소리가 반복됨"
-        ],
-        "points": [
-          {
-            "label": "문제",
-            "text": "성공·실패 어떤 방식으로든 라운드가 끝나는 순간, 호스트 화면에서만 변속음이 멈추지 않고 반복됨.",
-            "verbatim": true
-          },
-          {
-            "label": "원인",
-            "text": "두 곳이 같은 정적 변수 lastGear 를 공유하므로 D → N → D → N … 이 번갈아 들어가 매번 \u0022기어가 바뀌었다\u0022고 판정됐습니다.",
-            "verbatim": true
-          },
-          {
-            "label": "해결",
-            "text": "NetworkInputSource.Update의 발행 코드를 제거하고 발행원을 VehicleController.FixedUpdate 하나로 통일",
-            "verbatim": true
-          },
-          {
-            "label": "결과",
-            "text": "라운드가 끝나도 변속음이 한 번만 납니다.",
-            "verbatim": true
-          }
-        ],
-        "visuals": [
-          {
-            "kind": "table",
-            "n": 1,
-            "fp": "호출 위치|주기|라운드 종료 후 넘기는 기어"
-          }
-        ]
-      },
-      {
-        "key": "ts-crash",
-        "chapter": "result",
-        "layout": "problem",
-        "tab": "문제 해결",
-        "title": {
-          "text": "② 비호스트에게 충돌음이 들리지 않음",
-          "verbatim": true
-        },
-        "lead": null,
-        "sectionPath": [
-          "7. 결과와 배운 점",
-          "7.2 문제 해결",
-          "② 비호스트에게 충돌음이 들리지 않음"
-        ],
-        "points": [
-          {
-            "label": "문제",
-            "text": "호스트가 아닌 플레이어 화면에서만 충돌음이 들리지 않는 것을 확인해 알렸습니다.",
-            "verbatim": true
-          },
-          {
-            "label": "원인",
-            "text": "비호스트 차량은 Rigidbody2D.simulated = false → OnCollisionEnter2D가 호출되지 않음.",
-            "verbatim": true
-          },
-          {
-            "label": "해결",
-            "text": "호스트가 충돌 판정 직후 vehicle_crash { isHard } 패킷 송신, 비호스트가 수신해 재생 (→ 4.3, 5.2)",
-            "verbatim": true
-          },
-          {
-            "label": "결과",
-            "text": "4명 모두 같은 강도의 충돌음을 듣습니다.",
-            "verbatim": true
-          }
-        ],
-        "visuals": []
-      },
-      {
-        "key": "ts-fuel",
-        "chapter": "result",
-        "layout": "problem",
-        "tab": "문제 해결",
-        "title": {
-          "text": "③ 주유에 실패하면 주유 소리가 안 남",
-          "verbatim": true
-        },
-        "lead": null,
-        "sectionPath": [
-          "7. 결과와 배운 점",
-          "7.2 문제 해결",
-          "③ 주유에 실패하면 주유 소리가 안 남"
-        ],
-        "points": [
-          {
-            "label": "문제",
-            "text": "첫 주유에 실패하면 두 번째 주유부터 소리가 나지 않는 것을 확인해 알렸습니다.",
-            "verbatim": true
-          },
-          {
-            "label": "원인",
-            "text": "실패 연출 중에도 \u0022노즐을 누르고 있음\u0022 플래그(isCurrentlyPressed)가 true로 남아, 다음에 누를 때 새로 누른 것으로 인식되지 않아 StartFuelLoopSound()가 호출되지 않음.",
-            "verbatim": true
-          },
-          {
-            "label": "해결",
-            "text": "실패 루틴 시작 시 눌림 상태를 강제로 해제하고 루프음을 정지.",
-            "verbatim": true
-          },
-          {
-            "label": "결과",
-            "text": "실패한 뒤에도 다시 누르면 주유 소리가 납니다.",
-            "verbatim": true
-          }
-        ],
-        "visuals": []
+        "visuals": [ { "kind": "table", "n": 1, "fp": "항목|Before|After" } ]
       }
     ]
   }
