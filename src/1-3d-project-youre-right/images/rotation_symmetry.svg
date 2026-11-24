@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 460" width="1000" height="460" font-family="Pretendard, 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#6B7280"/>
+    </marker>
+    <marker id="arrowLight" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#FFD8A8"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1000" height="460" rx="16" fill="#F4F5FA"/>
+  <line x1="333" y1="30" x2="333" y2="410" stroke="#D9DDE7" stroke-width="1.5"/>
+  <line x1="666" y1="30" x2="666" y2="410" stroke="#D9DDE7" stroke-width="1.5"/>
+
+  <!-- ① 방법 -->
+  <text x="166" y="52" text-anchor="middle" font-size="19" font-weight="700" fill="#1F2430">① 4096개 방향으로 광선</text>
+  <text x="166" y="76" text-anchor="middle" font-size="14" fill="#6B7280">기준점에서 사방으로 쏘고, 방향마다 기록</text>
+  <ellipse cx="166" cy="240" rx="90" ry="70" fill="#E3E7F0" stroke="#9AA3B5" stroke-width="2"/>
+  <g stroke="#B8C0CF" stroke-width="1.4">
+    <line x1="166" y1="240" x2="256" y2="240"/>
+    <line x1="166" y1="240" x2="244" y2="280"/>
+    <line x1="166" y1="240" x2="214" y2="301"/>
+    <line x1="166" y1="240" x2="166" y2="310"/>
+    <line x1="166" y1="240" x2="118" y2="301"/>
+    <line x1="166" y1="240" x2="88" y2="280"/>
+    <line x1="166" y1="240" x2="76" y2="240"/>
+    <line x1="166" y1="240" x2="88" y2="200"/>
+    <line x1="166" y1="240" x2="118" y2="179"/>
+    <line x1="166" y1="240" x2="166" y2="170"/>
+    <line x1="166" y1="240" x2="196" y2="173"/>
+  </g>
+  <line x1="166" y1="240" x2="232.8" y2="193.2" stroke="#2F6FEB" stroke-width="3"/>
+  <circle cx="232.8" cy="193.2" r="6" fill="#2F6FEB"/>
+  <text x="244" y="184" font-size="16" font-weight="700" fill="#2F6FEB">방향 d</text>
+  <circle cx="166" cy="240" r="4.5" fill="#1F2430"/>
+  <text x="166" y="262" text-anchor="middle" font-size="13" fill="#1F2430">기준점</text>
+  <text x="166" y="358" text-anchor="middle" font-size="15" fill="#1F2430">방향마다 ① 가장 바깥 면까지의 <tspan font-weight="700">거리</tspan></text>
+  <text x="166" y="382" text-anchor="middle" font-size="15" fill="#1F2430">② 그 자리의 <tspan font-weight="700">색</tspan>을 기록</text>
+
+  <!-- ② 폰 -->
+  <text x="500" y="52" text-anchor="middle" font-size="19" font-weight="700" fill="#1F2430">② 폰 — 돌려도 똑같다</text>
+  <text x="500" y="76" text-anchor="middle" font-size="14" fill="#6B7280">위에서 본 폰 · 회전 차이 Δ = 120°</text>
+  <circle cx="500" cy="240" r="80" fill="#EDEFF5" stroke="#9AA3B5" stroke-width="2"/>
+  <circle cx="500" cy="240" r="50" fill="#F7F8FB" stroke="#9AA3B5" stroke-width="1.5"/>
+  <circle cx="500" cy="240" r="28" fill="#FFFFFF" stroke="#9AA3B5" stroke-width="1.5"/>
+  <path d="M534.6 220 A40 40 0 0 1 500 280" fill="none" stroke="#6B7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <text x="546" y="266" font-size="15" font-weight="700" fill="#6B7280">Δ</text>
+  <line x1="500" y1="240" x2="569.3" y2="200" stroke="#2F6FEB" stroke-width="3"/>
+  <circle cx="569.3" cy="200" r="6" fill="#2F6FEB"/>
+  <text x="580" y="194" font-size="16" font-weight="700" fill="#2F6FEB">d</text>
+  <line x1="500" y1="240" x2="500" y2="320" stroke="#E8590C" stroke-width="3"/>
+  <circle cx="500" cy="320" r="6" fill="#E8590C"/>
+  <text x="512" y="338" font-size="16" font-weight="700" fill="#E8590C">Δ·d</text>
+  <circle cx="500" cy="240" r="4.5" fill="#1F2430"/>
+  <text x="500" y="372" text-anchor="middle" font-size="15" font-weight="700" fill="#2B8A3E">거리 같음 · 색 같음</text>
+  <text x="500" y="396" text-anchor="middle" font-size="15" fill="#1F2430">모든 방향에서 같으면 → <tspan font-weight="700" fill="#2B8A3E">통과 ✔</tspan></text>
+
+  <!-- ③ 8번 당구공 -->
+  <text x="833" y="52" text-anchor="middle" font-size="19" font-weight="700" fill="#1F2430">③ 8번 당구공 — 180° 돌리면 다르다</text>
+  <text x="833" y="76" text-anchor="middle" font-size="14" fill="#6B7280">위에서 본 공 · 회전 차이 Δ = 180°</text>
+  <circle cx="833" cy="240" r="80" fill="#2B2F36"/>
+  <path d="M880.6 183.3 A74 74 0 0 1 897.1 277" fill="none" stroke="#FFFFFF" stroke-width="12"/>
+  <path d="M760.1 252.8 A74 74 0 0 1 763.5 214.7" fill="none" stroke="#FFFFFF" stroke-width="12"/>
+  <text x="884" y="266" text-anchor="middle" font-size="30" font-weight="800" fill="#FFFFFF">8</text>
+  <text x="783" y="229" text-anchor="middle" font-size="14" font-weight="800" fill="#FFFFFF">8</text>
+  <path d="M855.6 231.8 A24 24 0 1 1 810.4 248.2" fill="none" stroke="#FFD8A8" stroke-width="1.6" marker-end="url(#arrowLight)"/>
+  <text x="828" y="288" font-size="15" font-weight="700" fill="#FFD8A8">Δ</text>
+  <line x1="833" y1="240" x2="908.2" y2="212.6" stroke="#2F6FEB" stroke-width="3"/>
+  <circle cx="908.2" cy="212.6" r="6" fill="#FFFFFF" stroke="#2F6FEB" stroke-width="3"/>
+  <text x="918" y="200" font-size="15" font-weight="700" fill="#2F6FEB">d: 흰색</text>
+  <line x1="833" y1="240" x2="757.8" y2="267.4" stroke="#E8590C" stroke-width="3"/>
+  <circle cx="757.8" cy="267.4" r="6" fill="#2B2F36" stroke="#E8590C" stroke-width="3"/>
+  <text x="742" y="296" text-anchor="end" font-size="15" font-weight="700" fill="#E8590C">Δ·d:</text>
+  <text x="742" y="314" text-anchor="end" font-size="15" font-weight="700" fill="#E8590C">검은색</text>
+  <circle cx="833" cy="240" r="4.5" fill="#FFFFFF"/>
+  <text x="833" y="346" text-anchor="middle" font-size="12.5" fill="#6B7280">흰 띠 = 숫자가 적힌 흰 원 (한쪽은 크고, 반대쪽은 작음)</text>
+  <text x="833" y="372" text-anchor="middle" font-size="15" font-weight="700" fill="#C92A2A">거리 같음 · 색 다름</text>
+  <text x="833" y="396" text-anchor="middle" font-size="15" fill="#1F2430">한 방향이라도 다르면 → <tspan font-weight="700" fill="#C92A2A">오류 ✘</tspan></text>
+
+  <text x="500" y="440" text-anchor="middle" font-size="14.5" fill="#4B5263">Δ = 두 물체의 회전 차이 · 모든 방향 d에서 결과(d)와 결과(Δ·d)가 같을 때만 "똑같아 보인다"고 판단</text>
+</svg>
