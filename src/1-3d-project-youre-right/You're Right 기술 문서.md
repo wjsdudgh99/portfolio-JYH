@@ -10,7 +10,7 @@
 
 1. 전체를 읽고 확인 — 특히 Claude가 새로 쓴 이어 주는 문장(1.2 둘째 단락, 2.2 · 3.1 · 4장 첫 단락, 기능마다 그림 아래 첫 단락)
 2. 📷 사진 자리 5곳 — 본문에 <!- - 📷 사진 자리 - -> 주석으로 표시해 두었습니다. 사진을 images/에 넣고 주석을 풀면 됩니다.
-   ✅ ① 3.2 Hierarchy 창(Stage 2-2) 넣음 ✅ ② 3.3 OrbitCameraController 인스펙터(Stage 2-2, Collision Radius 0.4) 넣음 ③ 3.3 기차역 카메라 충돌 GIF ✅ ④ 3.3 월드 3 반반 화면(Stage 5) 넣음 ✅ ⑤ 3.5 Validate Stage 결과 넣음 — 처음 검사(10-30의 2-1 씬을 커밋 518d131에서 임시로 꺼내 다시 검사, 2026-11-24) · 로그 눌러 물체 선택 · 고친 뒤(Stage 5 = 씬 3-1)
+   ✅ ① 3.2 Hierarchy 창(Stage 2-2) 넣음 ✅ ② 3.3 OrbitCameraController 인스펙터(Stage 2-2, Collision Radius 0.4) 넣음 ✅ ③ 3.3 기차역 카메라 충돌 GIF 넣음(설명 문장은 Claude 추천 중 본인이 고름, 2026-11-24) ✅ ④ 3.3 월드 3 반반 화면(Stage 5) 넣음 ✅ ⑤ 3.5 Validate Stage 결과 넣음 — 처음 검사(10-30의 2-1 씬을 커밋 518d131에서 임시로 꺼내 다시 검사, 2026-11-24) · 로그 눌러 물체 선택 · 고친 뒤(Stage 5 = 씬 3-1)
 3. 🖼 3.5 회전 대칭 설명 그림(images/rotation_symmetry.svg) — Claude가 그렸고 본인 확인 뒤 넣음(2026-11-24). 그 아래 설명 문장은 Claude가 씀
    3.2 씬 사진 3장(Template · Stage 1 · Stage 5)과 Hierarchy를 넣었고, 사진 아래 설명 문장은 Claude가 씀. 글상자는 Stage 2-2 Hierarchy에 맞춰 Lights · EventSystem · Stage Left/Right(섬 바닥, 본인 확인) · Right Answer를 더함
 4. 3.5 "실제로 처음 검사를 돌렸을 때" — 검사 도구를 직접 돌려서 찾았다면 4장으로 옮길 수 있습니다
@@ -213,11 +213,9 @@ flowchart LR
 **한쪽 화면만 당겨지면 두 시점이 달라져** 비교가 불공정해집니다. 그래서 두 Pivot에서 각각 검사하고
 **더 짧은 거리를 두 카메라가 같이 씁니다.**
 
-<!-- 📷 사진 자리 ③: 기차역(2-2)에서 열차에 가까이 가면 두 카메라가 함께 당겨지는 GIF → images/train_collision.gif
 ![기차역 — 열차에 가까이 가면 두 카메라가 같이 당겨진다](images/train_collision.gif)
 
-*(설명 문장)*
--->
+*Stage 2-2(기차역) — 열차에 가까이 가도 두 카메라가 더 짧은 거리를 함께 써서, 한쪽만 당겨지거나 열차 속이 보이지 않습니다.*
 
 ```csharp
 private void ApplyTransform()
