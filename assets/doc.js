@@ -174,6 +174,9 @@
       div.textContent = code.textContent;
       const acc = /^\s*accTitle\s*:\s*(.+)$/m.exec(code.textContent)?.[1]?.trim();
       fig.dataset.label = acc || PF.t('doc.diagram-n', { n });
+      // 원문에 "%% pf-fig-width: 290" 주석이 있으면 상세 문서에서 이 그림(테두리 포함)의 폭을 그만큼으로 줄임(슬라이드는 영향 없음)
+      const fw = /^\s*%%\s*pf-fig-width\s*:\s*(\d+)/m.exec(code.textContent)?.[1];
+      if (fw) fig.style.maxWidth = `min(100%, ${fw}px)`;
       fig.appendChild(div);
       fig.insertAdjacentHTML('beforeend', `<div class="mmd-bar"><details class="mmd-src"><summary>${T('doc.diagram-src')}</summary><pre><code>${esc(code.textContent)}</code></pre></details>` +
         `<button type="button" class="mmd-zoom">${T('doc.zoom')}</button></div>`);

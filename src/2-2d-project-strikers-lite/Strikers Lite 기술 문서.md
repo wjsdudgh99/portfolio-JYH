@@ -190,6 +190,7 @@ flowchart LR
 
 ```mermaid
 %%{init: {"elk": {"cycleBreakingStrategy": "MODEL_ORDER"}}}%%
+%% pf-fig-width: 290
 flowchart TD
     Start([Start]) -->|InGame 씬 로드| Countdown[Countdown]
     Countdown -->|3·2·1·START<br/>스포너 켬| Survive[Survive]
@@ -270,6 +271,7 @@ flowchart TD
 #### 충돌 판정 흐름
 
 ```mermaid
+%% pf-fig-width: 290
 flowchart TD
     T["OnTriggerStay2D<br/>(닿아 있는 동안 매 프레임)"] --> I{"아이템인가?<br/>Item · HpItem"}
     I -->|"예"| G["무기 +1 / 체력 +1<br/>아이템 파괴"]
