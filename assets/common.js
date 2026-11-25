@@ -172,12 +172,67 @@ const PF = (() => {
   }
   // theme/theme.css의 테마 손잡이(없으면 빈 글자)
   const themeVar = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  let themed = false, lastHex;
   function applyTheme(hex) {
+    themed = true; lastHex = hex;
     const accent = themeVar('--t-accent');
     const t = themeTokens(isHex(accent) ? accent : hex, { bg: themeVar('--t-bg'), a2: themeVar('--t-accent-2'), a3: themeVar('--t-accent-3') });
     if (t) Object.entries(t).forEach(([k, v]) => document.documentElement.style.setProperty(k, v));
     return t;
   }
+
+  // ── (2026-11-25 수강생 요청) 다크 · 라이트 전환 스위치 — 세 페이지 공통 ──
+  // 처음은 다크, 누르면 라이트. 고른 모드는 이 브라우저에 기억(localStorage, 못 쓰면 매번 다크).
+  // 라이트 색은 theme/theme.css의 :root[data-mode="light"] 블록. 인쇄(제출 PDF)는 원래대로 흰 종이 규칙을 따름
+  const MODE_KEY = 'pf-mode';
+  const getMode = () => (document.documentElement.dataset.mode === 'light' ? 'light' : 'dark');
+  try { if (localStorage.getItem(MODE_KEY) === 'light') document.documentElement.dataset.mode = 'light'; } catch (_) { /* 저장소를 못 쓰면 다크 */ }
+  const SVG = (d) => `<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+  const SUN = SVG('<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>');
+  const MOON = SVG('<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>');
+  const modeTitle = (m) => (m === 'dark' ? '라이트 모드로 바꾸기' : '다크 모드로 바꾸기');
+  function modeSwitch() {
+    const m = getMode();
+    return `<button type="button" class="pf-mode" data-pf-mode role="switch" aria-checked="${m === 'dark'}" aria-label="다크 모드" title="${modeTitle(m)}">`
+      + `<span class="pf-mode-t pf-mode-sun">${SUN}</span><span class="pf-mode-t pf-mode-moon">${MOON}</span>`
+      + `<span class="pf-mode-k"><span class="pf-mode-sun">${SUN}</span><span class="pf-mode-moon">${MOON}</span></span></button>`;
+  }
+  function setMode(m) {
+    if (m === 'light') document.documentElement.dataset.mode = 'light'; else delete document.documentElement.dataset.mode;
+    try { localStorage.setItem(MODE_KEY, m); } catch (_) { /* 기억은 못 해도 지금 페이지는 바뀜 */ }
+    if (themed) applyTheme(lastHex);                                     // 글자용 강조색은 바탕에 맞춰 다시 계산
+    document.querySelectorAll('[data-pf-mode]').forEach((b) => { b.setAttribute('aria-checked', String(m === 'dark')); b.title = modeTitle(m); });
+  }
+  document.addEventListener('click', (e) => { if (e.target.closest?.('[data-pf-mode]')) setMode(getMode() === 'dark' ? 'light' : 'dark'); });
+  // 슬라이드는 아래 띠(.pf-hud, deck-kit.js)가 만들어진 뒤 [PDF로 저장] 앞에 붙임 — deck-kit.js는 고치지 않음
+  if (document.querySelector('script[src*="deck-kit.js"]')) {
+    const addHud = () => {
+      const h = document.querySelector('.pf-hud');
+      if (!h) return false;
+      if (!h.querySelector('[data-pf-mode]')) {
+        const p = h.querySelector('[data-a="print"]');
+        if (p) p.insertAdjacentHTML('beforebegin', modeSwitch()); else h.insertAdjacentHTML('beforeend', modeSwitch());
+      }
+      return true;
+    };
+    if (!addHud()) { const mo = new MutationObserver(() => { if (addHud()) mo.disconnect(); }); mo.observe(document.body, { childList: true, subtree: true }); }
+  }
+  (function modeCss() {
+    const s = document.createElement('style'); s.id = 'pf-mode-css';
+    // 선택자를 button.pf-mode.pf-mode로 두 번 써서, 슬라이드 아래 띠의 .pf-hud button(all: unset) 규칙보다 앞서게 함
+    s.textContent = `button.pf-mode.pf-mode{all:unset;box-sizing:border-box;position:relative;display:inline-block;flex:none;width:54px;height:28px;padding:0;border-radius:999px;cursor:pointer;
+  border:1px solid var(--t-line-2,#3D3D48);background:var(--t-surface,#131318);color:var(--t-muted,#9A9AA6);transition:background .15s,border-color .15s}
+button.pf-mode.pf-mode:hover{border-color:var(--accent-ink,#7AA7F5);background:var(--t-surface,#131318)}
+button.pf-mode.pf-mode:focus-visible{outline:2px solid var(--accent-ink,#7AA7F5);outline-offset:2px}
+.pf-mode .pf-mode-t{position:absolute;top:50%;transform:translateY(-50%);display:flex;opacity:.55}.pf-mode .pf-mode-t.pf-mode-sun{left:7px}.pf-mode .pf-mode-t.pf-mode-moon{right:7px}
+.pf-mode .pf-mode-k{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:var(--accent-fill,#2F6FEB);color:#fff;transform:translateX(26px);transition:transform .2s}
+.pf-mode .pf-mode-k svg{width:12px;height:12px}.pf-mode .pf-mode-k .pf-mode-sun{display:none}.pf-mode .pf-mode-k .pf-mode-moon{display:flex}
+:root[data-mode="light"] .pf-mode .pf-mode-k{transform:none}:root[data-mode="light"] .pf-mode .pf-mode-k .pf-mode-sun{display:flex}:root[data-mode="light"] .pf-mode .pf-mode-k .pf-mode-moon{display:none}
+@media (prefers-reduced-motion:reduce){button.pf-mode.pf-mode,.pf-mode .pf-mode-k{transition:none}}
+@media print{button.pf-mode.pf-mode{display:none!important}}`;
+    document.head.appendChild(s);
+  })();
 
   // ── 안내 문구(옛 렌더러와 같은 글) ──
   const FILE_HELP = `<p>이 페이지는 <code>data/</code>와 프로젝트 문서를 불러와 그리기 때문에, 파일을 더블클릭해서는 열리지 않습니다.</p>
@@ -206,6 +261,6 @@ const PF = (() => {
   const { t, tab, label, load: loadStrings, report: stringsReport } = PFStr;
 
   return { esc, inline, isUrl, shortUrl, loadJSON, loadText, encodePath, srcPath, projectUrl, docUrl, siteBase, visibleUrl, metaValue, teamLabel,
-           slugger, normTitle, resolveHeading, keyOk, deckSceneFor, mdHtml, headingsOf, ICON, NEWTAB, link, markNewTab, themeTokens, applyTheme, contrast, hexRgb,
+           slugger, normTitle, resolveHeading, keyOk, deckSceneFor, mdHtml, headingsOf, ICON, NEWTAB, link, markNewTab, themeTokens, applyTheme, contrast, hexRgb, modeSwitch, setMode, getMode,
            FILE_HELP, noDataHtml, isFile, notice, guardFileProtocol, noData, t, tab, label, loadStrings, stringsReport };
 })();
