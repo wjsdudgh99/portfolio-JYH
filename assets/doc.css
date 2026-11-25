@@ -69,7 +69,7 @@ code { font-family: var(--mono); font-size: .88em; background: var(--accent-soft
 .actions { display: flex; flex-wrap: wrap; gap: 8px; }
 
 /* ── 머리 막대 ───────────────────────────── */
-.doc-head { border-bottom: 1px solid var(--line); background: var(--paper); }
+.doc-head { border-bottom: 1px solid var(--line); background: var(--paper); position: sticky; top: 0; z-index: 35; }   /* 스크롤해도 고정(2026-11-25 수강생 요청, 높이는 doc.js가 --doc-head-h로) */
 .doc-head-in { max-width: var(--page-max); margin: 0 auto; padding: 10px var(--pad); min-height: 58px;
                display: flex; flex-wrap: wrap; align-items: center; gap: 8px 18px; }
 .crumb { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: var(--muted); min-width: 0; }
@@ -87,7 +87,7 @@ code { font-family: var(--mono); font-size: .88em; background: var(--accent-soft
 .toc { grid-area: toc; }
 .doc-main { grid-area: main; min-width: 0; padding: 36px 0 96px; outline: none; }
 .rail { grid-area: rail; }
-.toc, .rail { position: sticky; top: 24px; max-height: calc(100vh - 48px); overflow-y: auto; margin-top: 36px; overscroll-behavior: contain; }
+.toc, .rail { position: sticky; top: calc(var(--doc-head-h, 59px) + 24px); max-height: calc(100vh - var(--doc-head-h, 59px) - 48px); overflow-y: auto; margin-top: 36px; overscroll-behavior: contain; }
 
 /* 목차 */
 .toc { font-size: 13.5px; padding: 0 6px 24px 0; scrollbar-width: thin; }
@@ -139,7 +139,7 @@ code { font-family: var(--mono); font-size: .88em; background: var(--accent-soft
 .md > h2:first-of-type { margin-top: 12px; }
 .md h3 { font-size: 19px; font-weight: 800; margin: 36px 0 10px; }
 .md h4 { font-size: 16px; font-weight: 800; margin: 24px 0 8px; }
-.md :is(h1, h2, h3, h4, h5, h6) { scroll-margin-top: 24px; }
+.md :is(h1, h2, h3, h4, h5, h6) { scroll-margin-top: calc(var(--doc-head-h, 59px) + 24px); }
 .md p, .md li { font-size: 16px; color: var(--body); }
 .md p { margin: 12px 0; }
 .md ul, .md ol { margin: 12px 0; padding-left: 24px; }

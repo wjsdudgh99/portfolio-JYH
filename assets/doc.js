@@ -110,6 +110,12 @@
     <dialog class="toc-dialog" aria-label="문서 목차"><div class="toc-dialog-head"><p class="toc-title">${T('name.toc')}</p><button type="button" class="btn dlg-close">${T('ui.close')}</button></div><div class="toc-links"></div></dialog>
     <footer class="doc-foot"><span>© ${esc(name)}</span>${link({ href: 'index.html', label: T('ui.back'), kind: 'page' })}</footer>`;
 
+  // 머리 막대는 스크롤해도 위에 고정(2026-11-25 수강생 요청) — 높이를 --doc-head-h로 넘겨 목차 · 레일 · 제목 도착 위치가 그 아래로 오게
+  const head = root.querySelector('.doc-head');
+  const headH = () => document.documentElement.style.setProperty('--doc-head-h', `${head.offsetHeight}px`);
+  headH();
+  if ('ResizeObserver' in window) new ResizeObserver(headH).observe(head); else addEventListener('resize', headH);
+
   // 좁은 화면(< 720px)에서는 "한눈에" 상자를 접어 둠
   document.getElementById('glance').open = !matchMedia('(max-width: 719.98px)').matches;
 
