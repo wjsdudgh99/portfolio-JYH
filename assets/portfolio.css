@@ -339,13 +339,13 @@ code { font-family: var(--mono); font-size: .88em; background: var(--accent-soft
 .pp-l .btn { padding: 6px 12px; font-size: 13px; }
 .pp-r { scroll-margin-top: calc(var(--top-h) + 16px); }
 .pp-r > .eyebrow { margin-bottom: 10px; }
-.flist.pp-f li { grid-template-columns: 96px minmax(0, 1fr); align-items: center; gap: 10px 16px; padding: 11px 16px; }
+.flist.pp-f li { grid-template-columns: 96px minmax(0, 1fr); align-items: center; gap: 10px 16px; padding: 8px 16px; }
 .pp-f .ff-m { display: flex; align-items: center; justify-content: center; aspect-ratio: 16 / 10; border-radius: 8px; overflow: hidden; background: var(--paper); border: 1px solid var(--line); }
 .pp-f .ff-m img { width: 100%; height: 100%; object-fit: contain; }
 .pp-f .ff-m .n { font-family: var(--display); font-size: 22px; font-weight: 800; color: var(--muted); }
 .pp-f h3 { margin-top: 2px; font-size: 16px; }
 .flist.pp-f .fr-t p:not(.fk) { margin-top: 3px; font-size: 13.5px; line-height: 1.55; }
-.flist.pp-f .fr-t p.cap { font-size: 12.5px; color: var(--muted); }
+.flist.pp-f .fr-t p.cap { font-size: 12.5px; color: var(--muted); display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 1; overflow: hidden; }   /* 그림 설명은 한 줄(전체는 마우스를 올리면 title) */
 .pp-f .fr-a { grid-column: 2; }
 .pp-f .pill { padding: 6px 12px; font-size: 12.5px; }
 @media (min-width: 760px) {
