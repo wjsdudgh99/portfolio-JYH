@@ -384,7 +384,15 @@
         }
         c.style.maxWidth = 'none'; st.appendChild(c);
       }
-      else { const im = new Image(); im.src = src; im.alt = caption || ''; st.appendChild(im); }
+      else {
+        // 크게 보기: 원본보다 작으면 화면(가로 94vw · 세로 84vh)에 맞을 때까지 키움(원본의 3배까지). 세로로 긴 그림도 원본보다 크게
+        const im = new Image(); im.alt = caption || '';
+        im.onload = () => {
+          const w = im.naturalWidth, h = im.naturalHeight;
+          if (w && h) im.style.width = `min(94vw, calc(84vh * ${w / h}), ${w * 3}px)`;
+        };
+        im.src = src; st.appendChild(im);
+      }
       dlg.querySelector('.lb-cap').textContent = caption || '';
       dlg.showModal();
     };

@@ -201,7 +201,7 @@ dialog.toc-dialog::backdrop { background: rgba(0, 0, 0, .7); }
 /* 라이트박스 (같은 페이지 dialog) */
 dialog.lightbox { border: 0; padding: 0; background: transparent; max-width: 96vw; max-height: 96vh; margin: auto; overflow: visible; }
 dialog.lightbox::backdrop { background: rgba(10, 11, 14, .82); }
-.lb-stage img { display: block; max-width: 94vw; max-height: 84vh; border-radius: calc(var(--r) * .5); margin: 0 auto; }
+.lb-stage img { display: block; height: auto; max-width: 94vw; max-height: 84vh; border-radius: calc(var(--r) * .5); margin: 0 auto; }
 .lb-stage.lb-svg { max-width: 94vw; max-height: 84vh; overflow: auto; background: var(--diagram-bg); border-radius: calc(var(--r) * .5); padding: 16px; touch-action: pan-x pan-y pinch-zoom; }
 .lb-stage.lb-svg svg { display: block; height: auto; }
 .lb-cap { color: #fff; text-align: center; font-size: 14px; margin-top: 10px; }
