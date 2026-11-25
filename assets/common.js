@@ -228,6 +228,8 @@ button.pf-mode.pf-mode:focus-visible{outline:2px solid var(--accent-ink,#7AA7F5)
 .pf-mode .pf-mode-k{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;
   background:var(--accent-fill,#2F6FEB);color:#fff;transform:translateX(26px);transition:transform .2s}
 .pf-mode .pf-mode-k svg{width:12px;height:12px}.pf-mode .pf-mode-k .pf-mode-sun{display:none}.pf-mode .pf-mode-k .pf-mode-moon{display:flex}
+.pf-mode .pf-mode-k .pf-mode-moon{color:#FFD43B}.pf-mode .pf-mode-k .pf-mode-moon svg{fill:currentColor}
+.pf-mode .pf-mode-k .pf-mode-sun{color:#FF8A1F}.pf-mode .pf-mode-k .pf-mode-sun circle{fill:currentColor}
 :root[data-mode="light"] .pf-mode .pf-mode-k{transform:none}:root[data-mode="light"] .pf-mode .pf-mode-k .pf-mode-sun{display:flex}:root[data-mode="light"] .pf-mode .pf-mode-k .pf-mode-moon{display:none}
 @media (prefers-reduced-motion:reduce){button.pf-mode.pf-mode,.pf-mode .pf-mode-k{transition:none}}
 @media print{button.pf-mode.pf-mode{display:none!important}}`;
