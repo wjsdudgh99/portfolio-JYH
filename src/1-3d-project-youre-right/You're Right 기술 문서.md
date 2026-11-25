@@ -55,9 +55,9 @@
 바닥을 헛짚은 것도 오답인지, 정답이 아닌데 똑같은 물체가 숨어 있지는 않은지.
 이 문서는 그 문제를 **기획서로 정하고, AI와 함께 만들고, 직접 플레이하며 찾아낸** 과정입니다.
 
-![좌우 분할 화면 — 사막과 설원 디오라마를 같은 시점으로 비교](images/split_screen.png)
+![좌우 분할 화면 : 사막과 설원 디오라마를 같은 시점으로 비교](images/split_screen.png)
 
-*좌우 분할(월드 1) — 왼쪽은 사막, 오른쪽은 설원 디오라마입니다. 이 둘에서 완전히 똑같은 물체를 찾습니다.*
+*좌우 분할(월드 1) : 왼쪽은 사막, 오른쪽은 설원 디오라마입니다. 이 둘에서 완전히 똑같은 물체를 찾습니다.*
 
 ### 1.3 목표한 경험
 
@@ -93,9 +93,9 @@
 | 좌클릭 | 커서가 있는 쪽 화면에서 물체 판정 |
 | Esc | 일시정지 |
 
-![튜토리얼 시작 안내 — 조작 방법](images/controls.png)
+![튜토리얼 시작 안내 : 조작 방법](images/controls.png)
 
-*튜토리얼 시작 안내 패널 — 규칙에 이어 조작 방법을 보여 준 뒤 시작합니다.*
+*튜토리얼 시작 안내 패널 : 규칙에 이어 조작 방법을 보여 준 뒤 시작합니다.*
 
 ### 2.2 3D로 옮기며 생긴 세 가지 문제
 
@@ -158,13 +158,13 @@
 
 | Stage Template | Stage 1 (체스판) | Stage 5 (공중 SF 섬 도시) |
 |---|---|---|
-| ![Stage Template 씬 — 빈 두 섬과 PlayArea](images/scene_template.png) | ![Stage 1 씬 — 체스판 두 섬](images/scene_stage1.png) | ![Stage 5 씬 — 공중 SF 섬 도시 두 섬](images/scene_stage5.png) |
+| ![Stage Template 씬 : 빈 두 섬과 PlayArea](images/scene_template.png) | ![Stage 1 씬 : 체스판 두 섬](images/scene_stage1.png) | ![Stage 5 씬 : 공중 SF 섬 도시 두 섬](images/scene_stage5.png) |
 
 *왼쪽은 Stage Template, 가운데·오른쪽은 같은 뼈대로 만든 실제 스테이지입니다. 두 섬은 멀리 떨어져 있고, 빨간 상자가 섬마다 둔 PlayArea입니다.*
 
-![Stage 2-2의 Hierarchy — 모든 스테이지가 같은 뼈대](images/hierarchy.png)
+![Stage 2-2의 Hierarchy : 모든 스테이지가 같은 뼈대](images/hierarchy.png)
 
-*Stage 2-2(기차역)의 Hierarchy — 아래 글상자의 묶음이 그대로 있고, Right Answer 아래에 정답 쌍 AnswerPair_01 ~ 05가 있습니다.*
+*Stage 2-2(기차역)의 Hierarchy : 아래 글상자의 묶음이 그대로 있고, Right Answer 아래에 정답 쌍 AnswerPair_01 ~ 05가 있습니다.*
 
 ```
 Cameras   Main Camera(왼쪽 섬), Right Camera(오른쪽 섬)
@@ -208,9 +208,9 @@ flowchart LR
 `Awake`에서 각도와 거리를 거꾸로 계산하므로, 스테이지마다 시작 화면은 카메라를 끌어다 놓는 것만으로 정합니다.
 스테이지마다 다른 설정(이동 끄기, Pitch 범위, 카메라를 막는 레이어)은 Inspector 값으로 바꿉니다.
 
-![OrbitCameraController 인스펙터 — Views에 카메라와 Pivot 쌍을 연결](images/orbit_inspector.png)
+![OrbitCameraController 인스펙터 : Views에 카메라와 Pivot 쌍을 연결](images/orbit_inspector.png)
 
-*Stage 2-2(기차역)의 OrbitCameraController — Views에 카메라·Pivot 쌍 2개를 연결했고, 이 스테이지는 Block Layers(Background · CameraBlock)와 Collision Radius 0.4로 카메라가 열차 안으로 들어가지 않게 했습니다(4.1).*
+*Stage 2-2(기차역)의 OrbitCameraController : Views에 카메라·Pivot 쌍 2개를 연결했고, 이 스테이지는 Block Layers(Background · CameraBlock)와 Collision Radius 0.4로 카메라가 열차 안으로 들어가지 않게 했습니다(4.1).*
 
 #### 카메라 충돌 처리
 
@@ -218,9 +218,9 @@ flowchart LR
 **한쪽 화면만 당겨지면 두 시점이 달라져** 비교가 불공정해집니다. 그래서 두 Pivot에서 각각 검사하고
 **더 짧은 거리를 두 카메라가 같이 씁니다.**
 
-![기차역 — 열차에 가까이 가면 두 카메라가 같이 당겨진다](images/train_collision.gif)
+![기차역 : 열차에 가까이 가면 두 카메라가 같이 당겨진다](images/train_collision.gif)
 
-*Stage 2-2(기차역) — 열차에 가까이 가도 두 카메라가 더 짧은 거리를 함께 써서, 한쪽만 당겨지거나 열차 속이 보이지 않습니다.*
+*Stage 2-2(기차역) : 열차에 가까이 가도 두 카메라가 더 짧은 거리를 함께 써서, 한쪽만 당겨지거나 열차 속이 보이지 않습니다.*
 
 ```csharp
 private void ApplyTransform()
@@ -265,9 +265,9 @@ private float GetUnblockedDistance(Vector3 back, float wanted)
 Viewport만 반으로 나누면 물체가 각 반쪽의 가운데에 그려져 월드 1과 똑같아집니다.
 그래서 **화면 전체 크기의 시야를 계산한 뒤 자기 반쪽만 잘라 쓰는** off-center 투영을 직접 만듭니다.
 
-![월드 3 반반 화면 — 물체 하나가 분할선에서 버전 A와 B로 이어진다](images/half_projection.png)
+![월드 3 반반 화면 : 물체 하나가 분할선에서 버전 A와 B로 이어진다](images/half_projection.png)
 
-*Stage 5(월드 3) — 섬 하나가 화면 정중앙 분할선에서 이어져 보이지만, 왼쪽 반(초록 바닥)과 오른쪽 반(파란 바닥)은 서로 다른 두 섬을 각 카메라가 자기 반쪽만 그린 것입니다. Stage 5는 WASD·Q/E 이동을 아예 막아 둔 스테이지라 MOVE DISABLED가 표시됩니다(2.4).*
+*Stage 5(월드 3) : 섬 하나가 화면 정중앙 분할선에서 이어져 보이지만, 왼쪽 반(초록 바닥)과 오른쪽 반(파란 바닥)은 서로 다른 두 섬을 각 카메라가 자기 반쪽만 그린 것입니다. Stage 5는 WASD·Q/E 이동을 아예 막아 둔 스테이지라 MOVE DISABLED가 표시됩니다(2.4).*
 
 ```csharp
 private void LateUpdate()
@@ -315,9 +315,9 @@ Cinemachine 패키지는 프로젝트에 있었지만, 두 카메라가 같은 �
 
 ### 3.4 클릭 판정
 
-![정답 클릭 — 양쪽 배구공이 함께 반짝이고 진행도 점이 찬다](images/answer_click.gif)
+![정답 클릭 : 양쪽 배구공이 함께 반짝이고 진행도 점이 찬다](images/answer_click.gif)
 
-*정답 클릭 — 한쪽만 눌러도 양쪽 배구공이 함께 황금빛으로 반짝이고, 오른쪽 위 진행도 점이 하나 찹니다. (튜토리얼)*
+*정답 클릭 : 한쪽만 눌러도 양쪽 배구공이 함께 황금빛으로 반짝이고, 오른쪽 위 진행도 점이 하나 찹니다. (튜토리얼)*
 
 클릭 결과를 **정답 / 오답 / 무반응** 세 가지로 나눕니다. 2.2의 판정 문제를 푸는 기능입니다.
 
@@ -374,9 +374,9 @@ private void HandleHit(RaycastHit hit, Vector2 screenPos)
 - **3초 제한은 `Time.deltaTime`으로 줄입니다.** `unscaledDeltaTime`을 쓰면 일시정지해 둔 채로 제한 시간을 흘려보내는 꼼수가 생깁니다.
 - `GetComponentInParent`를 쓰기 때문에 자판기 버튼 하나처럼 **부품 하나**를 정답으로 둘 수도 있고, 차 한 대처럼 **물체 전체**를 정답으로 둘 수도 있습니다.
 
-![오답 클릭 — 오답 표시와 3초 클릭 제한](images/wrong_click_lock.gif)
+![오답 클릭 : 오답 표시와 3초 클릭 제한](images/wrong_click_lock.gif)
 
-*오답 클릭 — 오답 표시가 뜨고 3초 동안 클릭이 제한됩니다. (튜토리얼)*
+*오답 클릭 : 오답 표시가 뜨고 3초 동안 클릭이 제한됩니다. (튜토리얼)*
 
 #### 고민과 선택
 
@@ -403,9 +403,9 @@ A로 하면 위에서 바닥을 눌렀는데 **바닥 밑의 물체가 오답으
 
 ### 3.5 스테이지 검사 도구
 
-![처음 검사 — 2-1 자동차 전시장에서 의도하지 않은 쌍둥이 7개가 오류로 나온다](images/validate_first_run.png)
+![처음 검사 : 2-1 자동차 전시장에서 의도하지 않은 쌍둥이 7개가 오류로 나온다](images/validate_first_run.png)
 
-*제작 중이던 10-30의 2-1 자동차 전시장 씬을 다시 꺼내 검사한 결과 — 정답이 아닌데 양쪽이 똑같은 물체 7개가 빨간 오류로, 정답 쌍이 2개뿐이라는 것이 노란 경고로 나옵니다.*
+*제작 중이던 10-30의 2-1 자동차 전시장 씬을 다시 꺼내 검사한 결과 : 정답이 아닌데 양쪽이 똑같은 물체 7개가 빨간 오류로, 정답 쌍이 2개뿐이라는 것이 노란 경고로 나옵니다.*
 
 눈으로는 찾을 수 없는 "정답이 아닌 쌍둥이"를 찾아 주는 에디터 도구입니다. 2.2의 공정성 문제를 푸는 기능입니다.
 
@@ -426,9 +426,9 @@ A로 하면 위에서 바닥을 눌렀는데 **바닥 밑의 물체가 오답으
 
 고친 뒤에는 오류와 경고가 모두 0이 됩니다. 아래는 마지막 스테이지를 검사한 결과입니다.
 
-![고친 뒤 — 오류 0 · 경고 0](images/validate_console.png)
+![고친 뒤 : 오류 0 · 경고 0](images/validate_console.png)
 
-*Stage 5(씬 이름 3-1)를 검사한 Console — 오류 0 · 경고 0입니다. 참고 2개는 거의 같은 물체(우주선 위치 0.4 차이, 나무 180° 회전)를 함정으로 의도한 것인지 확인하라는 안내입니다.*
+*Stage 5(씬 이름 3-1)를 검사한 Console : 오류 0 · 경고 0입니다. 참고 2개는 거의 같은 물체(우주선 위치 0.4 차이, 나무 180° 회전)를 함정으로 의도한 것인지 확인하라는 안내입니다.*
 
 #### 검사 항목
 
@@ -455,9 +455,9 @@ A로 하면 위에서 바닥을 눌렀는데 **바닥 밑의 물체가 오답으
 각 방향의 **가장 바깥 면까지의 거리**와 **그 자리의 텍스처 색**을 구합니다. 두 물체의 회전 차이를 Δ라 하면,
 모든 방향 d에서 `결과(d)`와 `결과(Δ·d)`가 같을 때만 "똑같아 보인다"고 판단합니다.
 
-![회전 대칭 판정 — 같은 방향에서 같은 거리·같은 색이 보이는가](images/rotation_symmetry.svg)
+![회전 대칭 판정 : 같은 방향에서 같은 거리·같은 색이 보이는가](images/rotation_symmetry.svg)
 
-*회전 대칭 판정 — 폰은 어느 방향에서 봐도 거리·색이 같아 통과하고, 8번 당구공은 180° 돌린 방향에서 색이 달라 오류가 됩니다. (원리를 보여 주려고 단순하게 그린 그림)*
+*회전 대칭 판정 : 폰은 어느 방향에서 봐도 거리·색이 같아 통과하고, 8번 당구공은 180° 돌린 방향에서 색이 달라 오류가 됩니다. (원리를 보여 주려고 단순하게 그린 그림)*
 
 ```csharp
 private static bool IsRotationallySymmetric(Transform a, Transform b, out string note)
@@ -587,9 +587,9 @@ AI가 작업 중에 스스로 찾아 막은 문제도 있습니다(제가 발견
 - **확장성**: 부록의 이벤트 구조 덕분에 오답 빨간 깜빡임, 진행도 점 UI, 효과음을 판정 코드 수정 없이 붙였습니다.
 - **발표 뒤 평가**: "분할 화면을 회전과 줌으로 서로 다른 시점을 확인하게 만든 점이 기획과 기술을 잘 결합했다"는 평을 받았습니다(3.3).
 
-![결과 화면 — 스테이지별 기록과 전체 완주 시간](images/result.png)
+![결과 화면 : 스테이지별 기록과 전체 완주 시간](images/result.png)
 
-*결과 화면 — Stage 1~5의 기록과 전체 완주 시간(TOTAL TIME)이 나옵니다.*
+*결과 화면 : Stage 1~5의 기록과 전체 완주 시간(TOTAL TIME)이 나옵니다.*
 
 ### 5.2 아쉬운 점과 다음 계획
 

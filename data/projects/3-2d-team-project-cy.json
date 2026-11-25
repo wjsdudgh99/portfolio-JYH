@@ -78,7 +78,7 @@
         "src": "images/minigame_fuel.gif",
         "w": 960,
         "h": 540,
-        "caption": "주유소 미니게임 — 정량 주유"
+        "caption": "주유소 미니게임 : 정량 주유"
       }
     }
   ],
@@ -128,19 +128,19 @@
       "src": "images/minigame_fuel.gif",
       "w": 960,
       "h": 540,
-      "caption": "주유소 미니게임 — 정량 주유"
+      "caption": "주유소 미니게임 : 정량 주유"
     },
     {
       "src": "images/minigame_plate.gif",
       "w": 960,
       "h": 540,
-      "caption": "정비소 미니게임 — 번호판 교체"
+      "caption": "정비소 미니게임 : 번호판 교체"
     },
     {
       "src": "images/minigame_circuit.gif",
       "w": 960,
       "h": 540,
-      "caption": "바리케이드 미니게임 — 회로 연결"
+      "caption": "바리케이드 미니게임 : 회로 연결"
     },
     {
       "src": "images/map.png",
@@ -370,7 +370,7 @@
         ],
         "visuals": [
           { "kind": "code", "n": 1, "fp": "// GasStationMinigameView.cs (발췌) — 노즐을 누르는 동안 루프음, 떼면 정지" },
-          { "kind": "image", "src": "images/minigame_fuel.gif", "w": 960, "h": 540, "caption": { "text": "주유소 미니게임 — 정량 주유", "verbatim": true } }
+          { "kind": "image", "src": "images/minigame_fuel.gif", "w": 960, "h": 540, "caption": { "text": "주유소 미니게임 : 정량 주유", "verbatim": true } }
         ]
       },
       {
