@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "pin": [
+    {
+      "key": "scene-rules",
+      "chapter": "ai",
+      "layout": "visual",
+      "tab": "구조",
+      "title": {"text": "3.2 장면 구성 규칙", "verbatim": true},
+      "lead": {"text": "모든 스테이지 씬은 같은 뼈대를 씁니다.", "verbatim": true},
+      "sectionPath": ["3. AI 활용", "3.2 장면 구성 규칙"],
+      "points": [
+        {"label": "", "text": "이 규칙 덕분에 검사 도구가 \"Pivot = 섬 중심\", \"Props = 비교 대상\", \"Stage = 바닥\"이라고 가정하고 모든 스테이지를 같은 코드로 검사할 수 있습니다.", "verbatim": true}
+      ],
+      "visuals": [
+        {"kind": "table", "n": 1, "fp": "Stage Template|Stage 1 (체스판)|Stage 5 (공중 SF 섬 도시)"},
+        {"kind": "code", "n": 1, "fp": "Cameras   Main Camera(왼쪽 섬), Right Camera(오른쪽 섬)"}
+      ],
+      "from": {
+        "key": "scene-rules",
+        "sectionPath": ["3. AI 활용", "3.2 장면 구성 규칙"],
+        "sig": ["3.2 장면 구성 규칙|table|1|Stage Template|Stage 1 (체스판)|Stage 5 (공중 SF 섬 도시)"]
+      },
+      "group": "merge-scene-rules"
+    }
+  ],
+  "hide": [
+    {
+      "key": "hierarchy",
+      "from": {
+        "key": "hierarchy",
+        "sectionPath": ["3. AI 활용", "3.2 장면 구성 규칙"],
+        "sig": ["3.2 장면 구성 규칙|code|1|Cameras Main Camera(왼쪽 섬), Right Camera(오른쪽 섬)"]
+      },
+      "group": "merge-scene-rules"
+    }
+  ]
+}
