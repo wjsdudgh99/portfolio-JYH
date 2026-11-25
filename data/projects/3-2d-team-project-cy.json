@@ -53,7 +53,7 @@
       "how": "초당 50회 들어오는 입력을 VehicleSoundEvents가 직전 값과 비교해 바뀐 순간에만 AccelChanged·BrakeChanged·GearChanged를 발행하고, SoundManager가 기어 N·정지 상태를 한 번 더 검사한 뒤 재생합니다.",
       "why": "차량 소리를 이벤트로 받는 방식은 AI의 제안을 따랐습니다. 돌아보면 차량 입력은 발생원이 여러 곳이고 사운드 외의 반응도 붙을 수 있어 이벤트가 맞는 자리입니다.",
       "section": "3.3 입력이 바뀐 순간에만 소리 내기",
-      "image": null
+      "image": { "src": "images/gear_change.gif", "w": 700, "h": 220, "caption": "기어가 N → R → D로 바뀌는 장면" }
     },
     {
       "title": "호스트만 아는 충돌을 모두에게 들려주기",

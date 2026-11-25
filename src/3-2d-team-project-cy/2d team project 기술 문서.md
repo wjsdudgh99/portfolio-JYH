@@ -208,6 +208,8 @@ flowchart TD
 `VehicleController.FixedUpdate`는 **초당 50회** 입력을 읽습니다. 이를 그대로 소리로 바꾸면
 초당 50번 `Play()`가 호출됩니다. `VehicleSoundEvents`는 직전 값을 기억해 **바뀐 순간에만** 이벤트를 발행합니다.
 
+![기어가 N → R → D로 바뀌는 장면](images/gear_change.gif)
+
 ```csharp
 // VehicleSoundEvents.cs (발췌) — 호스트·비호스트 모두 이 한 곳으로 입력이 들어온다
 public static void Raise(VehicleInput input)
