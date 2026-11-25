@@ -102,6 +102,7 @@ code { font-family: var(--mono); font-size: .88em; background: var(--accent-soft
              background: linear-gradient(180deg, var(--mark) 30%, transparent 98%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
 .hero-top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
 .upd { font-size: 13px; font-weight: 600; color: var(--muted); }
+.ct-upd { margin-top: 32px; text-align: center; }
 .hero h1 { margin-top: 18px; font-size: clamp(44px, 7.5vw, 76px); font-weight: 800; line-height: 1.08; letter-spacing: -.035em; }
 .hero h1 .en { display: block; width: fit-content; margin-top: 12px; font-family: var(--display); font-size: clamp(17px, 2.1vw, 22px); font-weight: 800; letter-spacing: .02em; color: var(--accent-ink); }
 .headline { margin-top: 26px; max-width: 46rem; font-size: clamp(20px, 2.6vw, 27px); font-weight: 700; line-height: 1.45; letter-spacing: -.015em; }

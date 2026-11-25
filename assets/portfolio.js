@@ -114,11 +114,11 @@
       isUrl(prof.github) && btn(prof.github, 'GitHub', 'external'), ...profLinks.map((l) => btn(l.url, esc(l.label), 'external'))].filter(Boolean).join('')}</div>`;
     // 기술 스택 — data의 문장 그대로, 근거 프로젝트 칩은 제목의 " — " 앞까지만
     const shortTitle = (p) => String(p.title || '').split(' — ')[0];
-    const skillsHtml = !(pf.skills || []).length ? '' : `<div class="about-r"><div id="stack"><div class="stack-head"><div><p class="eyebrow">${T('en.skills')}</p><h2>${t('page.stack')}</h2></div><p class="sec-r">${t('page.stack-note')}</p></div>
+    const skillsHtml = !(pf.skills || []).length ? '' : `<div class="about-r"><div id="stack"><div class="stack-head"><div><p class="eyebrow">${T('en.skills')}</p><h2>${t('page.stack')}</h2></div></div>
         <ul class="skills2">${pf.skills.map((s) => `<li class="skill2"><h3>${esc(s.name)}</h3><ul>${(s.evidence || []).map((e) => `<li>${byId[e.project]
           ? link({ href: `#p-${e.project}`, label: esc(shortTitle(byId[e.project])), kind: 'anchor', cls: 'chip' }) : '<i></i>'}<span>${inline(e.text)}</span></li>`).join('')}</ul></li>`).join('')}</ul></div></div>`;
     out.push(`<section id="cover" class="hero"><p class="hero-mark no-print" aria-hidden="true">${esc(prof.nameEn || nameT)}</p><div class="wrap">
-      <div class="hero-top"><p class="eyebrow">${T('en.portfolio')}</p>${pf.generatedAt ? `<p class="upd">${T('page.updated', { date: pf.generatedAt })}</p>` : ''}</div>
+      <div class="hero-top"><p class="eyebrow">${T('en.portfolio')}</p></div>
       <div class="hero-grid${heroShots.length ? '' : ' noshot'}"><div class="hero-l">
       <h1>${esc(nameT)}${prof.nameEn ? `<span class="en" lang="en">${esc(prof.nameEn)}</span>` : ''}</h1>
       ${prof.headline ? `<p class="headline">${inline(prof.headline)}</p>` : ''}
@@ -176,7 +176,7 @@
           <p class="print-only"><span class="url">${esc(PF.visibleUrl(''))}</span></p></div>
         <div class="ct-lk">${projects.map((p) => `<div><b>${esc(p.title)}</b><span class="row">${projLinks(p)}</span>${(p.links?.extra || []).filter((l) => isUrl(l.url))
           .map((l) => `<span class="ex">${esc(l.label)} ${link({ href: l.url, label: `<span class="url">${esc(shortUrl(l.url))}</span>` })}</span>`).join('')}</div>`).join('')}</div>
-      </div></div></footer>`);
+      </div>${pf.generatedAt ? `<p class="upd ct-upd">${T('page.updated', { date: pf.generatedAt })}</p>` : ''}</div></footer>`);   // 업데이트 날짜는 연락처 맨 밑(2026-11-25 수강생 요청)
 
     const nav = [['cover', t('page.nav-intro'), prof.intro],['stack', t('page.nav-stack'), (pf.skills || []).length],
       [projects[0] ? `p-${projects[0].id}` : '', t('page.nav-projects'), projects.length], ['glance', t('page.nav-glance'), projects.length],
