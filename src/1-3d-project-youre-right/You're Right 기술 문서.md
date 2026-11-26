@@ -37,7 +37,7 @@
 | 엔진 | Unity 6000.3.15f1, URP 17, 새 Input System |
 | 언어 | C# (네임스페이스 `YoureRight`) — 코드와 에디터 도구는 대부분 AI로 생성(3장) |
 | 기간 | 2026.10.21 ~ 2026.11.05 (기획서 작성부터 Windows 빌드까지, 약 2주 반) |
-| 인원 | 개인 프로젝트 |
+| 인원 | 1인 |
 | GitHub | https://github.com/KooHoo-Dev/3rd_3D_1-3D-Project-wjsdudgh99 |
 | 시연 영상 | https://youtu.be/ekMrtZYxHfs |
 | 쇼츠 | https://youtube.com/shorts/WIkPCM9Zzm0 |

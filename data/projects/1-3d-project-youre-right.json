@@ -9,7 +9,7 @@
   "meta": [
     { "label": "장르", "value": "관찰형 퍼즐 게임" },
     { "label": "기간", "value": "2026.10.21 ~ 2026.11.05 (약 2주 반)" },
-    { "label": "인원", "value": "개인 프로젝트" },
+    { "label": "인원", "value": "1인" },
     { "label": "환경", "value": "Unity 6000.3.15f1, URP 17, 새 Input System, C#" }
   ],
   "tags": ["Unity 6", "URP", "C#", "분할 화면", "Raycast", "에디터 도구"],

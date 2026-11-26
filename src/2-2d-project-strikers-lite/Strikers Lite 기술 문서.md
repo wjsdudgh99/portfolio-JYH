@@ -40,7 +40,7 @@
 | 언어 | C# — 스크립트 17개, 1,338줄 (큰 틀은 직접, 세부 코드는 대부분 AI로 생성 — 3장) |
 | 화면 | 세로 607×1080 |
 | 기간 | 2026.06.24 ~ 2026.07.07 (2주, 커밋 38개) |
-| 인원 | 개인 프로젝트 |
+| 인원 | 1인 |
 | GitHub | https://github.com/KooHoo-Dev/3rd-2D-Project-wjsdudgh99 |
 | 시연 영상 | https://youtu.be/tmnxGLaPnx8 |
 | 쇼츠 | https://youtube.com/shorts/VyfRGFwk3u8 |

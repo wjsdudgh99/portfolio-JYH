@@ -151,8 +151,13 @@ code { font-family: var(--mono); font-size: .88em; background: var(--accent-soft
 .tool-g > li { padding: 12px 16px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
 .tool-g h3 { margin-bottom: 6px; font-size: 13px; font-weight: 800; letter-spacing: .02em; color: var(--muted); }
 .tool-g ul { display: flex; flex-wrap: wrap; gap: 6px; }
-.tool-g ul li { padding: 3px 11px; border-radius: var(--pill); border: 1px solid var(--line-2); font-size: 13px; font-weight: 700; color: var(--ink); cursor: default; }
-.tool-g span { display: none; }                                       /* 쓴 프로젝트는 마우스를 올리면(title) */
+/* (2026-11-26 수강생 요청 A안) 도구 칩은 버튼 — 누르면 강조색으로 진해지고 같은 칸 아래 .tool-exp가 펼쳐짐 */
+.tool-b { font: inherit; padding: 3px 11px; border-radius: var(--pill); border: 1px solid var(--line-2); background: none; font-size: 13px; font-weight: 700; color: var(--ink); cursor: pointer; }
+.tool-b:hover { border-color: var(--accent-ink); }
+.tool-b[aria-expanded="true"] { background: var(--accent-fill); border-color: var(--accent-fill); color: #fff; }
+.tool-exp { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--line-2); }
+.tool-exp[hidden] { display: none; }
+.tool-exp-n { font-size: 12.5px; color: var(--muted); }
 @media (min-width: 960px) { .about-grid.has-tools { grid-template-columns: minmax(0, 7fr) minmax(0, 3fr); gap: 28px; } }
 .tools .tool-note { margin-top: 8px; font-size: 12px; color: var(--muted); }
 .stack-head .sec-r { padding: 0; font-size: 13px; }
@@ -188,6 +193,7 @@ code { font-family: var(--mono); font-size: .88em; background: var(--accent-soft
 .meta { display: grid; grid-template-columns: 1fr; gap: 14px 28px; }
 .meta dt, .intent .k, .purls dt { font-size: 12px; font-weight: 700; letter-spacing: .06em; color: var(--muted); }
 .meta dd { margin-top: 2px; font-size: 15px; font-weight: 600; }
+.meta .nw { white-space: nowrap; }                                     /* 기간 날짜 범위는 한 줄(portfolio.js keepDates) */
 .intent { margin-top: 28px; padding-left: 16px; border-left: 3px solid var(--accent); border-image: linear-gradient(180deg, var(--accent), var(--accent-2)) 1; }
 .intent .k { color: var(--accent-ink); }
 .intent p + p { margin-top: 6px; font-size: 15px; line-height: 1.75; color: var(--body); }

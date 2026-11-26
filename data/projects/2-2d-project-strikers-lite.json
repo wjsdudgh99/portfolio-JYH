@@ -9,7 +9,7 @@
   "meta": [
     { "label": "장르", "value": "세로 화면 2D 비행 슈팅 게임" },
     { "label": "기간", "value": "2026.06.24 ~ 2026.07.07 (2주)" },
-    { "label": "인원", "value": "개인 프로젝트" },
+    { "label": "인원", "value": "1인" },
     { "label": "환경", "value": "Unity 6000.3.15f1, URP 2D 17.3, Input System 1.19, TextMeshPro, C#" }
   ],
   "tags": ["Unity 6", "URP 2D", "C#", "코루틴", "싱글톤", "OnTriggerStay2D"],

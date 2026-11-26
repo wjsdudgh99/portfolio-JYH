@@ -33,7 +33,8 @@ const PF = (() => {
   const visibleUrl = (rel) => { let u = siteBase() + String(rel).replace(/#.*$/, ''); try { u = decodeURI(u); } catch { /* 그대로 */ } return u; };
 
   const metaValue = (p, label) => (p.meta || []).find((m) => m.label === label)?.value || '';
-  const teamLabel = (team) => (team?.type === 'team' ? `${PFStr.t('name.team')}${team.size ? ' · ' + team.size : ''}` : PFStr.t('name.solo'));
+  // team.label이 있으면 그 글자(2026-11-26 수강생 요청: 미니골프는 "개인 과제"), 없으면 팀/개인 프로젝트 문구
+  const teamLabel = (team) => team?.label ? String(team.label) : (team?.type === 'team' ? `${PFStr.t('name.team')}${team.size ? ' · ' + team.size : ''}` : PFStr.t('name.solo'));
 
   // GitHub와 같은 제목 앵커 규칙(github-slugger). slug는 이 함수만 만듭니다(빌드·Claude가 손으로 계산하지 않음)
   function slugger() {

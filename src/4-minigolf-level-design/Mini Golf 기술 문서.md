@@ -32,8 +32,8 @@ AI와 나눈 역할(3.1)·스테이지 역할(2.3)·고민과 선택(3.3 장애�
 | 항목 | 내용 |
 |---|---|
 | 엔진 | Unity 6 (6000.3.15f1), URP 17.3, Input System 1.19, ProBuilder 6.0, TextMeshPro |
-| 기간 | 2026.10.01 ~ 2026.10.08 (8일, 커밋 12회) |
-| 인원 | 개인 과제 |
+| 기간 | 2026.10.01 ~ 2026.10.08 (8일) |
+| 인원 | 1인 (개인 과제) |
 | 사용 에셋 | GolfAssets(십자 범퍼 프리팹, 회전 스크립트) |
 | 배경음 | *Need U 2 B Complete* (Caine1989, CC BY-NC-SA 3.0) |
 | GitHub | <https://github.com/KooHoo-Dev/3rd-minigolf_level_design-wjsdudgh99> |

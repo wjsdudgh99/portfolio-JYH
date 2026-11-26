@@ -317,6 +317,16 @@
       const ckey = PF.keyOk(c.key) ? c.key : `c${ci + 1}`;
       let chId = `ch-${ckey}`; if (used.has(chId)) chId = `ch-c${ci + 1}`; used.add(chId);
       const slides = [];
+      // (2026-11-26 수강생 요청) 제목 앞 절 번호를 슬라이드에 나온 절 순서대로 다시 매김 — 슬라이드에 넣지 않은 절(예: 1.1 개발 환경)이 있어도
+      // 장 표지·장면 모두 N.1, N.2…로 이어지게(N = 장 순서, 장 표지의 CHAPTER 번호와 같음). 같은 절의 장면은 같은 번호, 번호 없는 제목(#### 소제목·부록)은 그대로
+      const secNo = new Map();
+      c.slides.forEach((sl) => {
+        const t = txt(sl.title);
+        if (!/^\d+\.\d+\s/.test(t)) return;
+        const k = (sl.sectionPath || [])[1] || t;
+        if (!secNo.has(k)) secNo.set(k, secNo.size + 1);
+        sl.title = { ...(typeof sl.title === 'object' ? sl.title : {}), text: t.replace(/^\d+\.\d+/, `${ci + 1}.${secNo.get(k)}`) };
+      });
       c.slides.forEach((sl, si) => {
         let sid = PF.keyOk(sl.key) ? `d-${sl.key}` : `d${ci + 1}-${si + 1}`, err = '';
         if (!PF.keyOk(sl.key)) err = `key-invalid: "${sl.key || ''}"`;

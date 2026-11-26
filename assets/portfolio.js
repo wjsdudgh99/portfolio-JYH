@@ -133,10 +133,16 @@
     // ①-2 두 번째 화면: 왼쪽 기술 스택(근거 프로젝트 칩 + 문장), 오른쪽 다룬 도구(2026-11-25 수강생 요청 4)
     if (skillsHtml || TOOLS.length) out.push(`<section id="intro" class="sec about-sec"><div class="wrap"><div class="about-grid${TOOLS.length ? ' has-tools' : ''}">
       ${skillsHtml}${TOOLS.length ? `<div class="tools" id="tools"><div class="stack-head"><div><p class="eyebrow">TOOLS</p><h2>다룬 도구</h2></div></div>
-        <ul class="tool-g">${TOOLS.map((g) => `<li><h3>${esc(g.group)}</h3><ul>${g.items.map((it) => {
-          const used = it.projects.map((id) => byId[id]).filter(Boolean).map(shortTitle);
-          return `<li title="${esc(used.join(' · '))}"><b>${esc(it.name)}</b><span>${esc(used.length === projects.length ? `프로젝트 ${used.length}개 모두` : used.join(' · '))}</span></li>`;
-        }).join('')}</ul></li>`).join('')}</ul><p class="tool-note no-print">도구에 마우스를 올리면 쓴 프로젝트가 보입니다.</p></div>` : ''}
+        <ul class="tool-g">${TOOLS.map((g, gi) => `<li><h3>${esc(g.group)}</h3><ul>${g.items.map((it, ii) =>
+          `<li><button type="button" class="tool-b" data-tool="t${gi}-${ii}" aria-expanded="false" aria-controls="tool-t${gi}-${ii}">${esc(it.name)}</button></li>`).join('')}</ul>${
+          // (2026-11-26 수강생 요청 A안) 도구를 누르면 같은 칸 아래 줄에 쓴 프로젝트 칩이 펼쳐짐(한 번에 하나, 다시 누르면 닫힘). 칩은 왼쪽 기술 스택과 같은 모양 — 누르면 그 프로젝트로
+          g.items.map((it, ii) => {
+            const used = it.projects.filter((id) => byId[id]);
+            const chips = used.length === projects.length && used.length > 1
+              ? `<span class="chip all">프로젝트 ${used.length}개 모두</span>`
+              : used.map((id) => link({ href: `#p-${id}`, label: esc(shortTitle(byId[id])), kind: 'anchor', cls: 'chip' })).join('');
+            return `<div class="tool-exp" id="tool-t${gi}-${ii}" hidden><span class="tool-exp-n">${esc(it.name)} →</span>${chips}</div>`;
+          }).join('')}</li>`).join('')}</ul><p class="tool-note no-print">도구를 클릭하면 쓴 프로젝트가 보입니다.</p></div>` : ''}
     </div></div></section>`);
 
     // ② 프로젝트 한눈에: 가로로 긴 카드 4줄(왼쪽 게임 화면 · 오른쪽 개인/팀 · 기간 · 한 줄 소개 · 문서의 장 · 링크). 카드 화면을 누르면 위 프로젝트 소개로
@@ -155,7 +161,7 @@
           ${p.team?.role ? `<p class="g-role"><b>${T('name.role-short')}</b> ${inline(p.team.role)}</p>` : ''}
           <div class="gc-f">${chs.length ? `<ul class="gc-ch">${chs.map((c) => `<li>${esc(c)}</li>`).join('')}</ul>` : ''}
           <div class="g-l">${projLinks(p)}</div></div></div></li>`;
-    }).join('')}</ul>`, 'tint');
+    }).join('')}</ul>`);   // 바탕은 다른 장과 같게(2026-11-26 수강생 요청 — 예전엔 'tint'로 한 단 밝았음)
 
     // ③ 프로젝트마다 소개 + 기능 소개
     projects.forEach((p, j) => {
@@ -176,7 +182,7 @@
           <p class="print-only"><span class="url">${esc(PF.visibleUrl(''))}</span></p></div>
         <div class="ct-lk">${projects.map((p) => `<div><b>${esc(p.title)}</b><span class="row">${projLinks(p)}</span>${(p.links?.extra || []).filter((l) => isUrl(l.url))
           .map((l) => `<span class="ex">${esc(l.label)} ${link({ href: l.url, label: `<span class="url">${esc(shortUrl(l.url))}</span>` })}</span>`).join('')}</div>`).join('')}</div>
-      </div>${pf.generatedAt ? `<p class="upd ct-upd">${T('page.updated', { date: pf.generatedAt })}</p>` : ''}</div></footer>`);   // 업데이트 날짜는 연락처 맨 밑(2026-11-25 수강생 요청)
+      </div></div></footer>`);   // 업데이트 날짜는 보이지 않게 지움(2026-11-26 수강생 요청 — 11-25에는 연락처 맨 밑에 두었음)
 
     const nav = [['cover', t('page.nav-intro'), prof.intro],['stack', t('page.nav-stack'), (pf.skills || []).length],
       [projects[0] ? `p-${projects[0].id}` : '', t('page.nav-projects'), projects.length], ['glance', t('page.nav-glance'), projects.length],
@@ -193,7 +199,9 @@
 
   // 프로젝트 소개: 대표 이미지 · 메타(장르·기간·인원·환경) · 내 역할 · 개발 의도 · 태그 · 링크
   function projectIntro(p, no, sec, btn, printUrls) {
-    const meta = (p.meta || []).map((m) => `<div${String(m.value || '').length > 36 ? ' class="wide"' : ''}><dt>${esc(m.label)}</dt><dd>${inline(m.value)}</dd></div>`);
+    // 기간의 "YYYY.MM.DD ~ YYYY.MM.DD"는 한 줄로(2026-11-26 수강생 요청: Strikers만 "~" 뒤에서 줄이 바뀜)
+    const keepDates = (h) => h.replace(/\d{4}\.\d{1,2}\.\d{1,2}\s*~\s*\d{4}\.\d{1,2}\.\d{1,2}/g, (d) => `<span class="nw">${d}</span>`);
+    const meta = (p.meta || []).map((m) => `<div${String(m.value || '').length > 36 ? ' class="wide"' : ''}><dt>${esc(m.label)}</dt><dd>${keepDates(inline(m.value))}</dd></div>`);
     if (p.team?.role) meta.push(`<div class="wide"><dt>${T('name.role')}</dt><dd>${inline(p.team.role)}</dd></div>`);
     const extra = (p.links?.extra || []).filter((l) => isUrl(l.url));
     const btns = [btn(PF.projectUrl(p.id), T('name.deck'), 'page', 'btn primary'), btn(PF.docUrl(p.id), T('name.doc'), 'page'),
@@ -248,6 +256,17 @@
     root.addEventListener('mouseout', (e) => pair(e.target, false));
     root.addEventListener('focusin', (e) => pair(e.target, true));
     root.addEventListener('focusout', (e) => pair(e.target, false));
+    // 다룬 도구: 누르면 그 칸 아래에 쓴 프로젝트를 펼침(한 번에 하나)
+    root.addEventListener('click', (e) => {
+      const b = e.target.closest('.tool-b');
+      if (!b) return;
+      const open = b.getAttribute('aria-expanded') !== 'true';
+      root.querySelectorAll('.tool-b[aria-expanded="true"]').forEach((x) => {
+        x.setAttribute('aria-expanded', 'false');
+        const d = document.getElementById(x.getAttribute('aria-controls')); if (d) d.hidden = true;
+      });
+      if (open) { b.setAttribute('aria-expanded', 'true'); const d = document.getElementById(b.getAttribute('aria-controls')); if (d) d.hidden = false; }
+    });
     root.querySelector('[data-pdf]')?.addEventListener('click', async (e) => {
       const b = e.currentTarget, label = b.textContent;
       b.disabled = true; b.textContent = t('ui.preparing');
@@ -269,8 +288,9 @@
     try { Object.assign(cfg, JSON.parse(localStorage.getItem(KEY) || '{}')); } catch { /* 저장소 막힘 */ }
     const sync = () => html.classList.toggle('pf-paged', ok.matches);
     sync(); ok.addEventListener('change', sync);
-    // 장 = 절 하나, 단 JOIN의 절은 앞 장에 붙여 한 장으로(2026-11-25 수강생 요청: 첫 화면 + 기술 스택·도구는 한 장 안에서 스크롤)
-    const JOIN = new Set(['intro']);
+    // 장 = 절 하나, 단 JOIN의 절은 앞 장에 붙여 한 장으로. 2026-11-25에 첫 화면 + 기술 스택·도구를 한 장으로 묶었다가('intro')
+    // 2026-11-26 수강생 요청으로 되돌림 — 첫 화면과 기술 스택·도구도 한 장씩 넘김. 다시 묶으려면 new Set(['intro'])
+    const JOIN = new Set();
     const pages = () => {
       const gs = [];
       for (const el of document.querySelectorAll('#cover, main > section[id], main > footer[id]')) {
